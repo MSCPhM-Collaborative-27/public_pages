@@ -1,0 +1,248 @@
+<title>What to Contribute — Contributor Guide</title>
+<style>
+  :root {
+    --paper: #FDFDFB;
+    --paper-raised: #F3F4F1;
+    --paper-sunken: #EAEBE8;
+    --ink: #1B2027;
+    --ink-muted: #565F6E;
+    --accent: #2B3D63;
+    --accent-2: #3E6E64;
+    --accent-tint: #E8EAF1;
+    --accent-2-tint: #E6EDEB;
+    --warn: #9C4A3C;
+    --warn-tint: #F5E9E6;
+    --line: #DEE2E6;
+
+    --font: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    --font-mono: "Cascadia Code", "SF Mono", "JetBrains Mono", Consolas, "Courier New", monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (max-width: 480px) { body { font-size: 16px; } }
+
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:hover { color: var(--accent-2); }
+  a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  code { font-family: var(--font-mono); font-size: 0.88em; background: var(--paper-raised); padding: 0.1em 0.35em; border-radius: 3px; }
+  pre code { background: none; padding: 0; }
+
+  .masthead { padding: 3rem 2rem 2rem; max-width: 1200px; margin: 0 auto; border-bottom: 1px solid var(--line); }
+  .eyebrow { font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin: 0 0 0.9rem; }
+  .masthead h1 { font-size: clamp(2rem, 4vw, 2.7rem); margin: 0; text-wrap: balance; font-weight: 700; letter-spacing: -0.01em; }
+
+  .layout { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 3rem; padding: 2.5rem 2rem 6rem; align-items: start; }
+  @media (max-width: 860px) { .layout { grid-template-columns: 1fr; padding: 1.75rem 1.25rem 4rem; gap: 1.75rem; } }
+
+  .toc-rail { position: sticky; top: 1.5rem; max-height: calc(100vh - 3rem); overflow-y: auto; }
+  @media (max-width: 860px) { .toc-rail { position: static; max-height: none; } }
+  details.toc summary { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); font-weight: 700; cursor: pointer; padding-bottom: 0.75rem; border-bottom: 1px solid var(--line); margin-bottom: 0.9rem; }
+  .nav-label { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); font-weight: 700; margin: 1.2rem 0 0.5rem; }
+  .nav-label:first-of-type { margin-top: 0; }
+  .page-list, details.toc ol.sub { list-style: none; margin: 0; padding: 0; }
+  .page-list li, details.toc ol.sub li { margin-bottom: 0.22rem; }
+  .page-list a, details.toc ol.sub a { display: block; text-decoration: none; padding: 0.3rem 0 0.3rem 0.65rem; border-left: 2px solid transparent; line-height: 1.4; border-radius: 0 4px 4px 0; }
+  .page-list a { font-size: 0.92rem; color: var(--ink); font-weight: 600; }
+  .page-list a:hover, .page-list a:focus-visible { color: var(--accent); background: var(--accent-tint); }
+  .page-list a.current { color: var(--accent); border-left-color: var(--accent); background: var(--accent-tint); }
+  details.toc ol.sub a { font-size: 0.87rem; color: var(--ink-muted); }
+  details.toc ol.sub a:hover, details.toc ol.sub a:focus-visible { color: var(--accent); }
+  details.toc ol.sub a.active { color: var(--accent); border-left-color: var(--accent); font-weight: 600; }
+
+  main { min-width: 0; }
+  main > section { margin-bottom: 3.4rem; padding-top: 0.4rem; }
+  main h2 { font-size: 1.6rem; border-bottom: 1px solid var(--line); padding-bottom: 0.55rem; margin: 0 0 1.5rem; text-wrap: balance; scroll-margin-top: 1.2rem; font-weight: 700; }
+  main h3 { font-size: 1.18rem; margin: 2.3rem 0 0.85rem; scroll-margin-top: 1.2rem; font-weight: 600; }
+  main h3:first-of-type { margin-top: 0.4rem; }
+  .num { color: var(--accent); font-weight: 700; margin-right: 0.55rem; }
+  main p { margin: 0 0 1rem; max-width: 42em; }
+  main ul, main ol { max-width: 42em; padding-left: 1.3rem; margin: 0 0 1.1rem; }
+  main li { margin-bottom: 0.5rem; }
+  main li:last-child { margin-bottom: 0; }
+  main strong { font-weight: 700; }
+
+  .code-block { position: relative; margin: 1.1rem 0 1.5rem; max-width: 42em; }
+  .code-block pre { background: var(--paper-raised); border: 1px solid var(--line); border-radius: 6px; padding: 1rem 3.2rem 1rem 1.1rem; overflow-x: auto; font-family: var(--font-mono); font-size: 0.86rem; line-height: 1.6; margin: 0; }
+  .copy-btn { position: absolute; top: 0.5rem; right: 0.5rem; font-family: var(--font); font-size: 0.68rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-muted); background: var(--paper); border: 1px solid var(--line); border-radius: 4px; padding: 0.3rem 0.55rem; cursor: pointer; }
+  .copy-btn:hover, .copy-btn:focus-visible { color: var(--accent); border-color: var(--accent); }
+  .alt-box { max-width: 42em; margin: 1rem 0 1.5rem; border: 1px dashed var(--line); border-radius: 8px; padding: 0.9rem 1.1rem 0.2rem; }
+  .alt-box > .alt-label { font-size: 0.78rem; color: var(--ink-muted); margin: 0 0 0.4rem; font-style: italic; }
+
+  .callout { border-left: 3px solid var(--accent); background: var(--accent-tint); padding: 0.95rem 1.15rem; border-radius: 0 6px 6px 0; margin: 1.3rem 0; max-width: 42em; }
+  .callout p { margin-bottom: 0.5rem; }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 0.4rem; display: block; }
+  .callout.warn { border-left-color: var(--warn); background: var(--warn-tint); }
+  .callout.warn .callout-label { color: var(--warn); }
+
+  figure.diagram, figure.screenshot { margin: 1.7rem 0 2.1rem; background: var(--paper-raised); border: 1px solid var(--line); border-radius: 8px; max-width: 48em; }
+  figure.diagram { padding: 1.5rem 1.5rem 1.3rem; }
+  figure.diagram .svg-wrap { overflow-x: auto; }
+  figure.diagram svg { width: 100%; height: auto; display: block; min-width: 420px; }
+  figure.diagram figcaption, figure.screenshot figcaption { font-size: 0.85rem; color: var(--ink-muted); line-height: 1.55; max-width: 42em; }
+  figure.diagram figcaption { margin-top: 1rem; }
+  figure.screenshot { overflow: hidden; }
+  figure.screenshot img { width: 100%; height: auto; display: block; border-bottom: 1px solid var(--line); }
+  figure.screenshot figcaption { padding: 0.85rem 1.1rem; }
+
+  .tree { font-family: var(--font-mono); font-size: 0.92rem; max-width: 30em; margin: 1.3rem 0; border-top: 1px solid var(--line); }
+  .tree-row { display: flex; justify-content: space-between; align-items: center; padding: 0.55rem 0.1rem; border-bottom: 1px solid var(--line); gap: 1rem; }
+  .badge { font-family: var(--font); font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.22rem 0.55rem; border-radius: 999px; white-space: nowrap; font-weight: 600; }
+  .badge-tracked { background: var(--accent-tint); color: var(--accent); }
+  .badge-private { background: var(--warn-tint); color: var(--warn); }
+
+  .scenario { margin: 1.6rem 0; padding: 1.15rem 1.35rem; border: 1px solid var(--line); border-radius: 8px; max-width: 42em; }
+  .scenario .situation { font-weight: 700; margin: 0 0 0.7rem; font-size: 0.98rem; }
+  .scenario .situation-label { color: var(--ink-muted); font-weight: 400; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 0.3rem; }
+  .scenario ol, .scenario ul { margin-bottom: 0; }
+  .scenario .code-block { margin: 0.7rem 0; }
+
+  .ref-table-wrap { overflow-x: auto; margin: 1.2rem 0; }
+  .ref-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; min-width: 480px; }
+  .ref-table th, .ref-table td { text-align: left; padding: 0.6rem 0.9rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .ref-table th { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); }
+  .ref-table td:first-child { font-family: var(--font-mono); font-size: 0.85rem; white-space: nowrap; }
+
+  .page-flow { display: flex; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--line); max-width: 42em; gap: 1rem; font-weight: 600; }
+  .page-flow a { text-decoration: none; }
+  .page-flow a:hover { text-decoration: underline; }
+  .flow-next { margin-left: auto; text-align: right; }
+
+  footer.page-foot { max-width: 1200px; margin: 0 auto; padding: 2rem 2rem 3rem; font-size: 0.82rem; color: var(--ink-muted); border-top: 1px solid var(--line); }
+</style>
+
+<div class="masthead">
+  <p class="eyebrow">MSc Precision Medicine · Courses &amp; Notesharing</p>
+  <h1>Contributor Guide</h1>
+</div>
+
+<div class="layout">
+  <aside class="toc-rail">
+    <details class="toc" open>
+      <summary>Contents</summary>
+      <p class="nav-label">Guide</p>
+      <nav aria-label="Guide pages">
+        <ol class="page-list">
+          <li><a href="index.html">1. Introduction</a></li>
+          <li><a href="setup.html">2. Setup</a></li>
+          <li><a href="contributing.html">3. Contributing</a></li>
+          <li><a href="what-to-contribute.html" class="current">4. What to contribute</a></li>
+          <li><a href="quick-reference.html">5. Quick reference</a></li>
+        </ol>
+      </nav>
+      <p class="nav-label">On this page</p>
+      <nav aria-label="On this page">
+        <ol class="sub">
+          <li><a href="#format">4.1 Format &amp; quality bar</a></li>
+          <li><a href="#what-gets-rejected">4.2 What gets rejected</a></li>
+          <li><a href="#discussions">4.3 Discussions, Issues &amp; gaps</a></li>
+        </ol>
+      </nav>
+    </details>
+  </aside>
+
+  <main>
+    <section id="what-to-contribute">
+      <h2><span class="num">4</span>What to contribute, and how</h2>
+
+      <h3 id="format"><span class="num">4.1</span>Format &amp; quality bar</h3>
+      <ul>
+        <li>Write in Markdown (<code>.md</code>) wherever the content is text — it's the one format this repo can actually diff and merge. Reserve PDFs/PPTX for material you genuinely can't reproduce as text, like original slide decks.</li>
+        <li>Match a file to a lecture or topic, not the whole module. Smaller files merge cleaner and are easier for someone else to extend.</li>
+        <li>Say where something came from — which lecture, which slide, which reading.</li>
+        <li>Flag what you're unsure about instead of smoothing it into confident prose. "Need to check this against the recording" is a completely acceptable thing to commit.</li>
+      </ul>
+
+      <h3 id="what-gets-rejected"><span class="num">4.2</span>What gets rejected — and how to fix it</h3>
+      <p>The main thing reviewers push back on is content nobody actually checked — most often, a block of text pasted straight from an LLM with no editing and no verification against the lecture. It's usually recognisable: generic textbook phrasing, unnaturally even coverage of every subtopic, confident claims that don't quite match what was taught.</p>
+      <p>Using AI as a <em>tool</em> — to tidy your own phrasing, generate a first pass you then check and rewrite, or quiz yourself on material — is fine. What gets sent back is unverified output presented as notes. The bar: you understood it well enough to stand behind it.</p>
+      <p>If a reviewer flags something:</p>
+      <ul>
+        <li>If it just needs editing, revise it on the same branch and push again — no need for a new PR.</li>
+        <li>If it's not something you're ready to stand behind yet, move it to that module's <a href="contributing.html#personal-folder"><code>personal/</code></a> folder instead of deleting it outright, and contribute a version you've actually verified when you can.</li>
+      </ul>
+
+      <h3 id="discussions"><span class="num">4.3</span>Discussions, Issues &amp; filling gaps</h3>
+      <p>Two different tools for two different needs:</p>
+      <ul>
+        <li><strong><a href="https://github.com/MSCPhM-Collaborative-27/courses_and_notesharing/discussions" target="_blank" rel="noopener">Discussions</a></strong> — open-ended. Ask a question, compare understanding of a concept, argue about a professor's slide. Nothing here needs to resolve into an action.</li>
+        <li><strong><a href="https://github.com/MSCPhM-Collaborative-27/courses_and_notesharing/issues" target="_blank" rel="noopener">Issues</a></strong> — specific and actionable. "PHM5004 lecture 6 has no notes yet," "the diagram in <code>PHM5001/notes/mitosis.md</code> looks wrong." Something a PR can close.</li>
+      </ul>
+      <figure class="screenshot">
+        <img src="https://docs.github.com/assets/images/help/discussions/hero.png" alt="The Discussions tab on GitHub showing threads" loading="lazy">
+        <figcaption>The Discussions tab. (Source: GitHub docs.)</figcaption>
+      </figure>
+      <figure class="screenshot">
+        <img src="https://docs.github.com/assets/images/help/issues/issue-title-body.png" alt="The new issue form on GitHub, with title and description fields" loading="lazy">
+        <figcaption>Issues tab → New issue → title and description. (Source: GitHub docs.)</figcaption>
+      </figure>
+      <p>If you see an open issue you can fix: comment that you're picking it up, so two people don't duplicate the work, then do it on a branch and reference it in your PR description with <code>Closes #&lt;number&gt;</code> — GitHub closes the issue automatically when the PR merges.</p>
+
+      <div class="page-flow">
+        <a href="contributing.html">← Contributing</a>
+        <a href="quick-reference.html" class="flow-next">Next: Quick reference →</a>
+      </div>
+    </section>
+  </main>
+</div>
+
+<footer class="page-foot">
+  <a href="https://github.com/MSCPhM-Collaborative-27/courses_and_notesharing" target="_blank" rel="noopener">MSCPhM-Collaborative-27/courses_and_notesharing</a> — private repository, PHM cohort only.
+</footer>
+
+<script>
+(function () {
+  document.querySelectorAll('.code-block').forEach(function (block) {
+    var pre = block.querySelector('pre');
+    if (!pre) return;
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'copy-btn';
+    btn.textContent = 'Copy';
+    btn.addEventListener('click', function () {
+      var text = pre.textContent;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () {
+          btn.textContent = 'Copied';
+          setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+        }).catch(function () {
+          btn.textContent = 'Select & copy';
+        });
+      }
+    });
+    block.appendChild(btn);
+  });
+
+  var links = Array.prototype.slice.call(document.querySelectorAll('.toc ol.sub a[href^="#"]'));
+  var map = {};
+  links.forEach(function (a) {
+    var id = a.getAttribute('href').slice(1);
+    if (document.getElementById(id)) map[id] = a;
+  });
+  var targets = Object.keys(map).map(function (id) { return document.getElementById(id); });
+  if ('IntersectionObserver' in window && targets.length) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var link = map[entry.target.id];
+        if (!link || !entry.isIntersecting) return;
+        links.forEach(function (l) { l.classList.remove('active'); });
+        link.classList.add('active');
+      });
+    }, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
+    targets.forEach(function (t) { observer.observe(t); });
+  }
+})();
+</script>

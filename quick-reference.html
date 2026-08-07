@@ -1,0 +1,174 @@
+<title>Quick Reference — Contributor Guide</title>
+<style>
+  :root {
+    --paper: #FDFDFB;
+    --paper-raised: #F3F4F1;
+    --paper-sunken: #EAEBE8;
+    --ink: #1B2027;
+    --ink-muted: #565F6E;
+    --accent: #2B3D63;
+    --accent-2: #3E6E64;
+    --accent-tint: #E8EAF1;
+    --accent-2-tint: #E6EDEB;
+    --warn: #9C4A3C;
+    --warn-tint: #F5E9E6;
+    --line: #DEE2E6;
+
+    --font: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    --font-mono: "Cascadia Code", "SF Mono", "JetBrains Mono", Consolas, "Courier New", monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (max-width: 480px) { body { font-size: 16px; } }
+
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:hover { color: var(--accent-2); }
+  a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  code { font-family: var(--font-mono); font-size: 0.88em; background: var(--paper-raised); padding: 0.1em 0.35em; border-radius: 3px; }
+  pre code { background: none; padding: 0; }
+
+  .masthead { padding: 3rem 2rem 2rem; max-width: 1200px; margin: 0 auto; border-bottom: 1px solid var(--line); }
+  .eyebrow { font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin: 0 0 0.9rem; }
+  .masthead h1 { font-size: clamp(2rem, 4vw, 2.7rem); margin: 0; text-wrap: balance; font-weight: 700; letter-spacing: -0.01em; }
+
+  .layout { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 3rem; padding: 2.5rem 2rem 6rem; align-items: start; }
+  @media (max-width: 860px) { .layout { grid-template-columns: 1fr; padding: 1.75rem 1.25rem 4rem; gap: 1.75rem; } }
+
+  .toc-rail { position: sticky; top: 1.5rem; max-height: calc(100vh - 3rem); overflow-y: auto; }
+  @media (max-width: 860px) { .toc-rail { position: static; max-height: none; } }
+  details.toc summary { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); font-weight: 700; cursor: pointer; padding-bottom: 0.75rem; border-bottom: 1px solid var(--line); margin-bottom: 0.9rem; }
+  .nav-label { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); font-weight: 700; margin: 1.2rem 0 0.5rem; }
+  .nav-label:first-of-type { margin-top: 0; }
+  .page-list, details.toc ol.sub { list-style: none; margin: 0; padding: 0; }
+  .page-list li, details.toc ol.sub li { margin-bottom: 0.22rem; }
+  .page-list a, details.toc ol.sub a { display: block; text-decoration: none; padding: 0.3rem 0 0.3rem 0.65rem; border-left: 2px solid transparent; line-height: 1.4; border-radius: 0 4px 4px 0; }
+  .page-list a { font-size: 0.92rem; color: var(--ink); font-weight: 600; }
+  .page-list a:hover, .page-list a:focus-visible { color: var(--accent); background: var(--accent-tint); }
+  .page-list a.current { color: var(--accent); border-left-color: var(--accent); background: var(--accent-tint); }
+  details.toc ol.sub a { font-size: 0.87rem; color: var(--ink-muted); }
+  details.toc ol.sub a:hover, details.toc ol.sub a:focus-visible { color: var(--accent); }
+  details.toc ol.sub a.active { color: var(--accent); border-left-color: var(--accent); font-weight: 600; }
+
+  main { min-width: 0; }
+  main > section { margin-bottom: 3.4rem; padding-top: 0.4rem; }
+  main h2 { font-size: 1.6rem; border-bottom: 1px solid var(--line); padding-bottom: 0.55rem; margin: 0 0 1.5rem; text-wrap: balance; scroll-margin-top: 1.2rem; font-weight: 700; }
+  main h3 { font-size: 1.18rem; margin: 2.3rem 0 0.85rem; scroll-margin-top: 1.2rem; font-weight: 600; }
+  main h3:first-of-type { margin-top: 0.4rem; }
+  .num { color: var(--accent); font-weight: 700; margin-right: 0.55rem; }
+  main p { margin: 0 0 1rem; max-width: 42em; }
+  main ul, main ol { max-width: 42em; padding-left: 1.3rem; margin: 0 0 1.1rem; }
+  main li { margin-bottom: 0.5rem; }
+  main li:last-child { margin-bottom: 0; }
+  main strong { font-weight: 700; }
+
+  .code-block { position: relative; margin: 1.1rem 0 1.5rem; max-width: 42em; }
+  .code-block pre { background: var(--paper-raised); border: 1px solid var(--line); border-radius: 6px; padding: 1rem 3.2rem 1rem 1.1rem; overflow-x: auto; font-family: var(--font-mono); font-size: 0.86rem; line-height: 1.6; margin: 0; }
+  .copy-btn { position: absolute; top: 0.5rem; right: 0.5rem; font-family: var(--font); font-size: 0.68rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-muted); background: var(--paper); border: 1px solid var(--line); border-radius: 4px; padding: 0.3rem 0.55rem; cursor: pointer; }
+  .copy-btn:hover, .copy-btn:focus-visible { color: var(--accent); border-color: var(--accent); }
+
+  .ref-table-wrap { overflow-x: auto; margin: 1.2rem 0; }
+  .ref-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; min-width: 480px; }
+  .ref-table th, .ref-table td { text-align: left; padding: 0.6rem 0.9rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .ref-table th { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); }
+  .ref-table td:first-child { font-family: var(--font-mono); font-size: 0.85rem; white-space: nowrap; }
+
+  .page-flow { display: flex; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--line); max-width: 42em; gap: 1rem; font-weight: 600; }
+  .page-flow a { text-decoration: none; }
+  .page-flow a:hover { text-decoration: underline; }
+
+  footer.page-foot { max-width: 1200px; margin: 0 auto; padding: 2rem 2rem 3rem; font-size: 0.82rem; color: var(--ink-muted); border-top: 1px solid var(--line); }
+</style>
+
+<div class="masthead">
+  <p class="eyebrow">MSc Precision Medicine · Courses &amp; Notesharing</p>
+  <h1>Contributor Guide</h1>
+</div>
+
+<div class="layout">
+  <aside class="toc-rail">
+    <details class="toc" open>
+      <summary>Contents</summary>
+      <p class="nav-label">Guide</p>
+      <nav aria-label="Guide pages">
+        <ol class="page-list">
+          <li><a href="index.html">1. Introduction</a></li>
+          <li><a href="setup.html">2. Setup</a></li>
+          <li><a href="contributing.html">3. Contributing</a></li>
+          <li><a href="what-to-contribute.html">4. What to contribute</a></li>
+          <li><a href="quick-reference.html" class="current">5. Quick reference</a></li>
+        </ol>
+      </nav>
+    </details>
+  </aside>
+
+  <main>
+    <section id="quick-reference">
+      <h2><span class="num">5</span>Quick reference</h2>
+      <p>Most of this has a VS Code button equivalent — see <a href="contributing.html">§3</a>. This table is for the terminal: useful once you're comfortable with it, or when troubleshooting.</p>
+      <div class="ref-table-wrap">
+        <table class="ref-table">
+          <thead>
+            <tr><th>Command</th><th>What it does</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>git checkout -b yourname/topic</td><td>Start a new branch off <code>main</code></td></tr>
+            <tr><td>git push -u origin yourname/topic</td><td>Push it and link it to GitHub</td></tr>
+            <tr><td>git pull origin main</td><td>Pull <code>main</code>'s latest changes into your current branch</td></tr>
+            <tr><td>git status</td><td>See what's changed, and which branch you're on</td></tr>
+            <tr><td>git add &lt;file&gt;</td><td>Stage a change</td></tr>
+            <tr><td>git commit</td><td>Save the staged changes</td></tr>
+            <tr><td>git stash / git stash pop</td><td>Set aside uncommitted changes / bring them back</td></tr>
+            <tr><td>git switch -c yourname/topic</td><td>Move uncommitted work off <code>main</code> onto a new branch</td></tr>
+            <tr><td>git reset --soft HEAD~1</td><td>Undo the last (unpushed) commit, keep the changes staged</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="page-flow">
+        <a href="what-to-contribute.html">← What to contribute</a>
+      </div>
+    </section>
+  </main>
+</div>
+
+<footer class="page-foot">
+  <a href="https://github.com/MSCPhM-Collaborative-27/courses_and_notesharing" target="_blank" rel="noopener">MSCPhM-Collaborative-27/courses_and_notesharing</a> — private repository, PHM cohort only.
+</footer>
+
+<script>
+(function () {
+  document.querySelectorAll('.code-block').forEach(function (block) {
+    var pre = block.querySelector('pre');
+    if (!pre) return;
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'copy-btn';
+    btn.textContent = 'Copy';
+    btn.addEventListener('click', function () {
+      var text = pre.textContent;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () {
+          btn.textContent = 'Copied';
+          setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+        }).catch(function () {
+          btn.textContent = 'Select & copy';
+        });
+      }
+    });
+    block.appendChild(btn);
+  });
+})();
+</script>

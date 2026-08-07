@@ -1,0 +1,244 @@
+<title>Introduction — Contributor Guide</title>
+<style>
+  :root {
+    --paper: #FDFDFB;
+    --paper-raised: #F3F4F1;
+    --paper-sunken: #EAEBE8;
+    --ink: #1B2027;
+    --ink-muted: #565F6E;
+    --accent: #2B3D63;
+    --accent-2: #3E6E64;
+    --accent-tint: #E8EAF1;
+    --accent-2-tint: #E6EDEB;
+    --warn: #9C4A3C;
+    --warn-tint: #F5E9E6;
+    --line: #DEE2E6;
+
+    --font: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    --font-mono: "Cascadia Code", "SF Mono", "JetBrains Mono", Consolas, "Courier New", monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (max-width: 480px) { body { font-size: 16px; } }
+
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:hover { color: var(--accent-2); }
+  a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  code { font-family: var(--font-mono); font-size: 0.88em; background: var(--paper-raised); padding: 0.1em 0.35em; border-radius: 3px; }
+  pre code { background: none; padding: 0; }
+
+  .masthead { padding: 3rem 2rem 2rem; max-width: 1200px; margin: 0 auto; border-bottom: 1px solid var(--line); }
+  .eyebrow { font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin: 0 0 0.9rem; }
+  .masthead h1 { font-size: clamp(2rem, 4vw, 2.7rem); margin: 0; text-wrap: balance; font-weight: 700; letter-spacing: -0.01em; }
+
+  .layout { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 3rem; padding: 2.5rem 2rem 6rem; align-items: start; }
+  @media (max-width: 860px) { .layout { grid-template-columns: 1fr; padding: 1.75rem 1.25rem 4rem; gap: 1.75rem; } }
+
+  .toc-rail { position: sticky; top: 1.5rem; max-height: calc(100vh - 3rem); overflow-y: auto; }
+  @media (max-width: 860px) { .toc-rail { position: static; max-height: none; } }
+  details.toc summary { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); font-weight: 700; cursor: pointer; padding-bottom: 0.75rem; border-bottom: 1px solid var(--line); margin-bottom: 0.9rem; }
+  .nav-label { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); font-weight: 700; margin: 1.2rem 0 0.5rem; }
+  .nav-label:first-of-type { margin-top: 0; }
+  .page-list, details.toc ol.sub { list-style: none; margin: 0; padding: 0; }
+  .page-list li, details.toc ol.sub li { margin-bottom: 0.22rem; }
+  .page-list a, details.toc ol.sub a { display: block; text-decoration: none; padding: 0.3rem 0 0.3rem 0.65rem; border-left: 2px solid transparent; line-height: 1.4; border-radius: 0 4px 4px 0; }
+  .page-list a { font-size: 0.92rem; color: var(--ink); font-weight: 600; }
+  .page-list a:hover, .page-list a:focus-visible { color: var(--accent); background: var(--accent-tint); }
+  .page-list a.current { color: var(--accent); border-left-color: var(--accent); background: var(--accent-tint); }
+  details.toc ol.sub a { font-size: 0.87rem; color: var(--ink-muted); }
+  details.toc ol.sub a:hover, details.toc ol.sub a:focus-visible { color: var(--accent); }
+  details.toc ol.sub a.active { color: var(--accent); border-left-color: var(--accent); font-weight: 600; }
+
+  main { min-width: 0; }
+  main > section { margin-bottom: 3.4rem; padding-top: 0.4rem; }
+  main h2 { font-size: 1.6rem; border-bottom: 1px solid var(--line); padding-bottom: 0.55rem; margin: 0 0 1.5rem; text-wrap: balance; scroll-margin-top: 1.2rem; font-weight: 700; }
+  main h3 { font-size: 1.18rem; margin: 2.3rem 0 0.85rem; scroll-margin-top: 1.2rem; font-weight: 600; }
+  main h3:first-of-type { margin-top: 0.4rem; }
+  .num { color: var(--accent); font-weight: 700; margin-right: 0.55rem; }
+  main p { margin: 0 0 1rem; max-width: 42em; }
+  main ul, main ol { max-width: 42em; padding-left: 1.3rem; margin: 0 0 1.1rem; }
+  main li { margin-bottom: 0.5rem; }
+  main li:last-child { margin-bottom: 0; }
+  main strong { font-weight: 700; }
+
+  .code-block { position: relative; margin: 1.1rem 0 1.5rem; max-width: 42em; }
+  .code-block pre { background: var(--paper-raised); border: 1px solid var(--line); border-radius: 6px; padding: 1rem 3.2rem 1rem 1.1rem; overflow-x: auto; font-family: var(--font-mono); font-size: 0.86rem; line-height: 1.6; margin: 0; }
+  .copy-btn { position: absolute; top: 0.5rem; right: 0.5rem; font-family: var(--font); font-size: 0.68rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-muted); background: var(--paper); border: 1px solid var(--line); border-radius: 4px; padding: 0.3rem 0.55rem; cursor: pointer; }
+  .copy-btn:hover, .copy-btn:focus-visible { color: var(--accent); border-color: var(--accent); }
+  .alt-box { max-width: 42em; margin: 1rem 0 1.5rem; border: 1px dashed var(--line); border-radius: 8px; padding: 0.9rem 1.1rem 0.2rem; }
+  .alt-box > .alt-label { font-size: 0.78rem; color: var(--ink-muted); margin: 0 0 0.4rem; font-style: italic; }
+
+  .callout { border-left: 3px solid var(--accent); background: var(--accent-tint); padding: 0.95rem 1.15rem; border-radius: 0 6px 6px 0; margin: 1.3rem 0; max-width: 42em; }
+  .callout p { margin-bottom: 0.5rem; }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 0.4rem; display: block; }
+  .callout.warn { border-left-color: var(--warn); background: var(--warn-tint); }
+  .callout.warn .callout-label { color: var(--warn); }
+
+  figure.diagram, figure.screenshot { margin: 1.7rem 0 2.1rem; background: var(--paper-raised); border: 1px solid var(--line); border-radius: 8px; max-width: 48em; }
+  figure.diagram { padding: 1.5rem 1.5rem 1.3rem; }
+  figure.diagram .svg-wrap { overflow-x: auto; }
+  figure.diagram svg { width: 100%; height: auto; display: block; min-width: 420px; }
+  figure.diagram figcaption, figure.screenshot figcaption { font-size: 0.85rem; color: var(--ink-muted); line-height: 1.55; max-width: 42em; }
+  figure.diagram figcaption { margin-top: 1rem; }
+  figure.screenshot { overflow: hidden; }
+  figure.screenshot img { width: 100%; height: auto; display: block; border-bottom: 1px solid var(--line); }
+  figure.screenshot figcaption { padding: 0.85rem 1.1rem; }
+
+  .tree { font-family: var(--font-mono); font-size: 0.92rem; max-width: 30em; margin: 1.3rem 0; border-top: 1px solid var(--line); }
+  .tree-row { display: flex; justify-content: space-between; align-items: center; padding: 0.55rem 0.1rem; border-bottom: 1px solid var(--line); gap: 1rem; }
+  .badge { font-family: var(--font); font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.22rem 0.55rem; border-radius: 999px; white-space: nowrap; font-weight: 600; }
+  .badge-tracked { background: var(--accent-tint); color: var(--accent); }
+  .badge-private { background: var(--warn-tint); color: var(--warn); }
+
+  .scenario { margin: 1.6rem 0; padding: 1.15rem 1.35rem; border: 1px solid var(--line); border-radius: 8px; max-width: 42em; }
+  .scenario .situation { font-weight: 700; margin: 0 0 0.7rem; font-size: 0.98rem; }
+  .scenario .situation-label { color: var(--ink-muted); font-weight: 400; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 0.3rem; }
+  .scenario ol, .scenario ul { margin-bottom: 0; }
+  .scenario .code-block { margin: 0.7rem 0; }
+
+  .ref-table-wrap { overflow-x: auto; margin: 1.2rem 0; }
+  .ref-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; min-width: 480px; }
+  .ref-table th, .ref-table td { text-align: left; padding: 0.6rem 0.9rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .ref-table th { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); }
+  .ref-table td:first-child { font-family: var(--font-mono); font-size: 0.85rem; white-space: nowrap; }
+
+  .page-flow { display: flex; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--line); max-width: 42em; gap: 1rem; font-weight: 600; }
+  .page-flow a { text-decoration: none; }
+  .page-flow a:hover { text-decoration: underline; }
+  .flow-next { margin-left: auto; text-align: right; }
+
+  footer.page-foot { max-width: 1200px; margin: 0 auto; padding: 2rem 2rem 3rem; font-size: 0.82rem; color: var(--ink-muted); border-top: 1px solid var(--line); }
+</style>
+
+<div class="masthead">
+  <p class="eyebrow">MSc Precision Medicine · Courses &amp; Notesharing</p>
+  <h1>Contributor Guide</h1>
+</div>
+
+<div class="layout">
+  <aside class="toc-rail">
+    <details class="toc" open>
+      <summary>Contents</summary>
+      <p class="nav-label">Guide</p>
+      <nav aria-label="Guide pages">
+        <ol class="page-list">
+          <li><a href="index.html" class="current">1. Introduction</a></li>
+          <li><a href="setup.html">2. Setup</a></li>
+          <li><a href="contributing.html">3. Contributing</a></li>
+          <li><a href="what-to-contribute.html">4. What to contribute</a></li>
+          <li><a href="quick-reference.html">5. Quick reference</a></li>
+        </ol>
+      </nav>
+      <p class="nav-label">On this page</p>
+      <nav aria-label="On this page">
+        <ol class="sub">
+          <li><a href="#goal">1.1 The goal</a></li>
+          <li><a href="#conduct">1.2 Code of conduct</a></li>
+          <li><a href="#access">1.3 Access &amp; expectations</a></li>
+        </ol>
+      </nav>
+    </details>
+  </aside>
+
+  <main>
+    <section id="intro">
+      <h2><span class="num">1</span>Introduction</h2>
+
+      <h3 id="goal"><span class="num">1.1</span>The goal</h3>
+      <p>This repository is a shared space for the cohort to collaborate on lecture notes, slides, and questions across the PHM modules, instead of everyone taking notes alone and losing them at the end of the semester.</p>
+      <p>What that means in practice:</p>
+      <ul>
+        <li>Notes get annotated collaboratively. If someone's note on a topic is unclear or incomplete, improve it directly — don't start a separate version elsewhere.</li>
+        <li>If you miss a class, the notes should cover most of what you missed.</li>
+        <li>Contributing is optional. You can read and use everything on <code>main</code> without ever sharing your own notes back — see <a href="#access">§1.3</a>.</li>
+      </ul>
+
+      <h3 id="conduct"><span class="num">1.2</span>Code of conduct</h3>
+      <ul>
+        <li><strong>Flag uncertainty.</strong> A note that says "not sure this is right" is more useful than a confident note that's wrong.</li>
+        <li><strong>Don't redistribute.</strong> This repo is whitelisted to protect NUS's IP. Notes, slides, and questions stay inside the group.</li>
+        <li><strong>Attribute, don't copy.</strong> Summarise lectures, papers, and textbooks in your own words. Don't paste in copyrighted material wholesale.</li>
+        <li><strong>Disagree in the open.</strong> If a note looks wrong, say so in a PR comment or a Discussion thread. Don't silently rewrite someone else's work without explanation.</li>
+        <li><strong>No unverified AI output.</strong> Full detail in <a href="what-to-contribute.html#what-gets-rejected">§4.2</a> — short version: if you didn't check it against the actual lecture, it isn't ready to merge.</li>
+      </ul>
+
+      <h3 id="access"><span class="num">1.3</span>Access &amp; expectations</h3>
+      <ol>
+        <li>Reach out to whoever is coordinating this repo to be added — both to the GitHub repository and to wherever the group organises itself (chat, email thread, or otherwise).</li>
+        <li>To <strong>read</strong>: that's it, no GitHub experience required. Everything on <code>main</code> is browsable from an ordinary web browser.</li>
+        <li>To <strong>contribute</strong>: follow the setup in <a href="setup.html">§2</a> and the workflow in <a href="contributing.html">§3</a>. Budget an hour or two the first time — nobody's expected to arrive already knowing Git.</li>
+      </ol>
+      <p>Once you're in: read <a href="#conduct">§1.2</a>, keep contributions in the format described in <a href="what-to-contribute.html#format">§4.1</a>, and don't share access or content outside the group.</p>
+      <div class="callout warn">
+        <span class="callout-label">Before you share this guide</span>
+        <p>Fill in an actual name, email, or channel for "whoever is coordinating this repo" above, so new people don't have to guess who to message.</p>
+      </div>
+
+      <div class="page-flow">
+        <a href="setup.html" class="flow-next">Next: Setup →</a>
+      </div>
+    </section>
+  </main>
+</div>
+
+<footer class="page-foot">
+  <a href="https://github.com/MSCPhM-Collaborative-27/courses_and_notesharing" target="_blank" rel="noopener">MSCPhM-Collaborative-27/courses_and_notesharing</a> — private repository, PHM cohort only.
+</footer>
+
+<script>
+(function () {
+  document.querySelectorAll('.code-block').forEach(function (block) {
+    var pre = block.querySelector('pre');
+    if (!pre) return;
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'copy-btn';
+    btn.textContent = 'Copy';
+    btn.addEventListener('click', function () {
+      var text = pre.textContent;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () {
+          btn.textContent = 'Copied';
+          setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+        }).catch(function () {
+          btn.textContent = 'Select & copy';
+        });
+      }
+    });
+    block.appendChild(btn);
+  });
+
+  var links = Array.prototype.slice.call(document.querySelectorAll('.toc ol.sub a[href^="#"]'));
+  var map = {};
+  links.forEach(function (a) {
+    var id = a.getAttribute('href').slice(1);
+    if (document.getElementById(id)) map[id] = a;
+  });
+  var targets = Object.keys(map).map(function (id) { return document.getElementById(id); });
+  if ('IntersectionObserver' in window && targets.length) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var link = map[entry.target.id];
+        if (!link || !entry.isIntersecting) return;
+        links.forEach(function (l) { l.classList.remove('active'); });
+        link.classList.add('active');
+      });
+    }, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
+    targets.forEach(function (t) { observer.observe(t); });
+  }
+})();
+</script>
