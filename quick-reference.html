@@ -111,12 +111,50 @@
           <li><a href="quick-reference.html" class="current">5. Quick reference</a></li>
         </ol>
       </nav>
+      <p class="nav-label">On this page</p>
+      <nav aria-label="On this page">
+        <ol class="sub">
+          <li><a href="#loop">5.1 The contribution loop</a></li>
+          <li><a href="#where">5.2 Where files go</a></li>
+          <li><a href="#commands">5.3 Terminal commands</a></li>
+        </ol>
+      </nav>
     </details>
   </aside>
 
   <main>
     <section id="quick-reference">
       <h2><span class="num">5</span>Quick reference</h2>
+
+      <h3 id="loop"><span class="num">5.1</span>The contribution loop</h3>
+      <ol>
+        <li>Sync <code>main</code> — sync icon in the status bar (<a href="contributing.html#staying-current">§3.4</a>)</li>
+        <li>Branch: <code>yourname/topic</code> (<a href="contributing.html#branches">§3.3</a>)</li>
+        <li>Create or edit the file in the right place — table below (<a href="index.html#repo-map">§1.3</a>)</li>
+        <li>Commit — Source Control panel, short message (<a href="contributing.html#branches">§3.3</a>)</li>
+        <li>Push — Sync Changes (<a href="contributing.html#branches">§3.3</a>)</li>
+        <li>Open a pull request on GitHub (<a href="contributing.html#opening-a-pr">§3.8</a>)</li>
+        <li>Respond to review, then merge (<a href="contributing.html#opening-a-pr">§3.8</a>)</li>
+      </ol>
+      <p>For a typo or a small addition, the web editor (<a href="index.html#small-edits">§1.2</a>) does the branch and PR steps for you, in the browser.</p>
+
+      <h3 id="where"><span class="num">5.2</span>Where files go</h3>
+      <div class="ref-table-wrap">
+        <table class="ref-table">
+          <thead>
+            <tr><th>Location</th><th>What goes there</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>PHM50xx/notes/lecture-NN-topic.md</td><td>Lecture notes — one Markdown file per lecture or topic, lowercase with hyphens</td></tr>
+            <tr><td>PHM50xx/slides/</td><td>Lecture slides, keeping the lecturer's filename</td></tr>
+            <tr><td>PHM50xx/questions/</td><td>Practice questions and worked solutions</td></tr>
+            <tr><td>PHM50xx/personal/</td><td>Your private drafts and annotations — gitignored, never shared</td></tr>
+            <tr><td>elective_courses/PHM50xx/</td><td>Electives — same layout as the core modules</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 id="commands"><span class="num">5.3</span>Terminal commands</h3>
       <p>Most of this has a VS Code button equivalent — see <a href="contributing.html">§3</a>. This table is for the terminal: useful once you're comfortable with it, or when troubleshooting.</p>
       <div class="ref-table-wrap">
         <table class="ref-table">
@@ -170,5 +208,24 @@
     });
     block.appendChild(btn);
   });
+
+  var links = Array.prototype.slice.call(document.querySelectorAll('.toc ol.sub a[href^="#"]'));
+  var map = {};
+  links.forEach(function (a) {
+    var id = a.getAttribute('href').slice(1);
+    if (document.getElementById(id)) map[id] = a;
+  });
+  var targets = Object.keys(map).map(function (id) { return document.getElementById(id); });
+  if ('IntersectionObserver' in window && targets.length) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var link = map[entry.target.id];
+        if (!link || !entry.isIntersecting) return;
+        links.forEach(function (l) { l.classList.remove('active'); });
+        link.classList.add('active');
+      });
+    }, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
+    targets.forEach(function (t) { observer.observe(t); });
+  }
 })();
 </script>

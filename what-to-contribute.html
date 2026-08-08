@@ -146,9 +146,10 @@
       <p class="nav-label">On this page</p>
       <nav aria-label="On this page">
         <ol class="sub">
-          <li><a href="#format">4.1 Format &amp; quality bar</a></li>
-          <li><a href="#what-gets-rejected">4.2 What gets rejected</a></li>
-          <li><a href="#discussions">4.3 Discussions, Issues &amp; gaps</a></li>
+          <li><a href="#ways">4.1 Ways to contribute</a></li>
+          <li><a href="#format">4.2 Format &amp; quality bar</a></li>
+          <li><a href="#what-gets-rejected">4.3 What gets rejected</a></li>
+          <li><a href="#discussions">4.4 Discussions, Issues &amp; gaps</a></li>
         </ol>
       </nav>
     </details>
@@ -158,7 +159,19 @@
     <section id="what-to-contribute">
       <h2><span class="num">4</span>What to contribute, and how</h2>
 
-      <h3 id="format"><span class="num">4.1</span>Format &amp; quality bar</h3>
+      <h3 id="ways"><span class="num">4.1</span>Ways to contribute</h3>
+      <p>If you're set up and wondering what would actually be useful — any of these, roughly easiest first:</p>
+      <ol>
+        <li><strong>Ask or answer a question</strong> in <a href="https://github.com/MSCPhM-Collaborative-27/courses_and_notesharing/discussions" target="_blank" rel="noopener">Discussions</a> (<a href="#discussions">§4.4</a>). No setup, and questions are contributions too — they show where the notes are unclear.</li>
+        <li><strong>Fix a typo or a small error</strong> in an existing note — the web editor (<a href="index.html#small-edits">§1.2</a>) does this from the browser, nothing installed.</li>
+        <li><strong>Upload the slides</strong> for a lecture that's missing them, into that module's <code>slides/</code> folder.</li>
+        <li><strong>Expand or correct an existing note</strong> — add what the lecturer said that the note missed, or fix something that doesn't match the lecture.</li>
+        <li><strong>Add notes for a recent lecture</strong> — the core contribution. The start-to-finish walkthrough is <a href="contributing.html#first-contribution">§3.1</a>.</li>
+        <li><strong>Write practice questions or worked solutions</strong> into a module's <code>questions/</code> folder.</li>
+        <li><strong>Pick up an open <a href="https://github.com/MSCPhM-Collaborative-27/courses_and_notesharing/issues" target="_blank" rel="noopener">Issue</a></strong> — a known gap someone has already flagged (<a href="#discussions">§4.4</a>).</li>
+      </ol>
+
+      <h3 id="format"><span class="num">4.2</span>Format &amp; quality bar</h3>
       <ul>
         <li>Write in Markdown (<code>.md</code>) wherever the content is text — it's the one format this repo can actually diff and merge. Reserve PDFs/PPTX for material you genuinely can't reproduce as text, like original slide decks.</li>
         <li>Match a file to a lecture or topic, not the whole module. Smaller files merge cleaner and are easier for someone else to extend.</li>
@@ -166,7 +179,7 @@
         <li>Flag what you're unsure about instead of smoothing it into confident prose. "Need to check this against the recording" is a completely acceptable thing to commit.</li>
       </ul>
 
-      <h3 id="what-gets-rejected"><span class="num">4.2</span>What gets rejected — and how to fix it</h3>
+      <h3 id="what-gets-rejected"><span class="num">4.3</span>What gets rejected — and how to fix it</h3>
       <p>The main thing reviewers push back on is content nobody actually checked — most often, a block of text pasted straight from an LLM with no editing and no verification against the lecture. It's usually recognisable: generic textbook phrasing, unnaturally even coverage of every subtopic, confident claims that don't quite match what was taught.</p>
       <p>Using AI as a <em>tool</em> — to tidy your own phrasing, generate a first pass you then check and rewrite, or quiz yourself on material — is fine. What gets sent back is unverified output presented as notes. The bar: you understood it well enough to stand behind it.</p>
       <p>If a reviewer flags something:</p>
@@ -175,7 +188,7 @@
         <li>If it's not something you're ready to stand behind yet, move it to that module's <a href="contributing.html#personal-folder"><code>personal/</code></a> folder instead of deleting it outright, and contribute a version you've actually verified when you can.</li>
       </ul>
 
-      <h3 id="discussions"><span class="num">4.3</span>Discussions, Issues &amp; filling gaps</h3>
+      <h3 id="discussions"><span class="num">4.4</span>Discussions, Issues &amp; filling gaps</h3>
       <p>Two different tools for two different needs:</p>
       <ul>
         <li><strong><a href="https://github.com/MSCPhM-Collaborative-27/courses_and_notesharing/discussions" target="_blank" rel="noopener">Discussions</a></strong> — open-ended. Ask a question, compare understanding of a concept, argue about a professor's slide. Nothing here needs to resolve into an action.</li>

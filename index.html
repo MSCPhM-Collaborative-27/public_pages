@@ -98,6 +98,9 @@
   figure.screenshot img { width: 100%; height: auto; display: block; border-bottom: 1px solid var(--line); }
   figure.screenshot figcaption { padding: 0.85rem 1.1rem; }
 
+  pre.filetree { font-family: var(--font-mono); font-size: 0.84rem; line-height: 1.75; background: var(--paper-raised); border: 1px solid var(--line); border-radius: 6px; padding: 1rem 1.2rem; overflow-x: auto; margin: 1.1rem 0 1.5rem; max-width: 42em; }
+  pre.filetree .dim { color: var(--ink-muted); }
+
   .tree { font-family: var(--font-mono); font-size: 0.92rem; max-width: 30em; margin: 1.3rem 0; border-top: 1px solid var(--line); }
   .tree-row { display: flex; justify-content: space-between; align-items: center; padding: 0.55rem 0.1rem; border-bottom: 1px solid var(--line); gap: 1rem; }
   .badge { font-family: var(--font); font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.22rem 0.55rem; border-radius: 999px; white-space: nowrap; font-weight: 600; }
@@ -147,8 +150,10 @@
       <nav aria-label="On this page">
         <ol class="sub">
           <li><a href="#goal">1.1 The goal</a></li>
-          <li><a href="#conduct">1.2 Code of conduct</a></li>
-          <li><a href="#access">1.3 Access &amp; expectations</a></li>
+          <li><a href="#paths">1.2 Read, fix, or contribute?</a></li>
+          <li><a href="#repo-map">1.3 How the repo is organised</a></li>
+          <li><a href="#conduct">1.4 Code of conduct</a></li>
+          <li><a href="#access">1.5 Access &amp; expectations</a></li>
         </ol>
       </nav>
     </details>
@@ -160,29 +165,84 @@
 
       <h3 id="goal"><span class="num">1.1</span>The goal</h3>
       <p>This repository is a shared space for the cohort to collaborate on lecture notes, slides, and questions across the PHM modules, instead of everyone taking notes alone and losing them at the end of the semester.</p>
+      <p>Precision medicine is a young field, and a lot of what you'll read about it is scattered, or outright conflicting. One set of notes that several people have read, corrected, and signed off on is more reliable than anyone's solo notes — the same reason research goes through peer review. That's why every change here is reviewed before it lands (<a href="contributing.html#workflow-diagram">§3.2</a>): the review isn't bureaucracy, it's what makes the notes trustworthy.</p>
       <p>What that means in practice:</p>
       <ul>
         <li>Notes get annotated collaboratively. If someone's note on a topic is unclear or incomplete, improve it directly — don't start a separate version elsewhere.</li>
         <li>If you miss a class, the notes should cover most of what you missed.</li>
-        <li>Contributing is optional. You can read and use everything on <code>main</code> without ever sharing your own notes back — see <a href="#access">§1.3</a>.</li>
+        <li>Contributing is optional. You can read and use everything on <code>main</code> without ever sharing your own notes back — see <a href="#access">§1.5</a>.</li>
       </ul>
 
-      <h3 id="conduct"><span class="num">1.2</span>Code of conduct</h3>
+      <h3 id="paths"><span class="num">1.2</span>Read, fix, or contribute?</h3>
+      <p>Not everyone needs the whole guide. Find yourself below and read only what applies.</p>
+
+      <div class="scenario" id="just-reading">
+        <p class="situation"><span class="situation-label">Path A</span>I just want to read the notes</p>
+        <p>You don't need to install anything, and you don't need Git. Once you have access (<a href="#access">§1.5</a>), everything on <code>main</code> is browsable at github.com in an ordinary browser:</p>
+        <ul>
+          <li>Open the repository and click into any module folder — <a href="#repo-map">§1.3</a> shows what's where.</li>
+          <li>Click a <code>.md</code> file and it renders formatted — headings, tables, and lists display properly, not as raw text.</li>
+          <li>The branch switcher above the file list lets you peek at anyone's in-progress branch, not just <code>main</code>.</li>
+        </ul>
+        <figure class="screenshot">
+          <img src="https://docs.github.com/assets/images/help/pull_requests/branch-dropdown.png" alt="A GitHub repo file listing with the branch dropdown open, showing other branches" loading="lazy">
+          <figcaption>Branch dropdown, top-left of the file listing — usually reads "main". (Source: GitHub docs.)</figcaption>
+        </figure>
+        <p>That's the entire workflow for reading. Nothing past this page is required.</p>
+      </div>
+
+      <div class="scenario" id="small-edits">
+        <p class="situation"><span class="situation-label">Path B</span>I want to fix a typo or add something small</p>
+        <p>GitHub's web editor handles this without installing anything:</p>
+        <ol>
+          <li>Browse to the file on github.com and click the pencil icon (<strong>Edit this file</strong>), top-right of the file view.</li>
+          <li>Make your change in the browser.</li>
+          <li>Click <strong>Commit changes…</strong> and choose <strong>Create a new branch and start a pull request</strong> — GitHub creates the branch and opens the PR for you.</li>
+        </ol>
+        <p>To add a <em>new</em> small file instead: navigate to the right folder (<a href="#repo-map">§1.3</a>), then <strong>Add file → Create new file</strong>. Either way your change goes through the same review as everything else (<a href="contributing.html#workflow-diagram">§3.2</a>) — this is a lighter path to the same gate, not a way around it.</p>
+      </div>
+
+      <div class="scenario" id="regular-contributor">
+        <p class="situation"><span class="situation-label">Path C</span>I want to contribute regularly</p>
+        <p>Do the one-time setup in <a href="setup.html">§2</a> (VS Code, Git, clone — budget about an hour), then follow the workflow in <a href="contributing.html">§3</a>. The start-to-finish walkthrough in <a href="contributing.html#first-contribution">§3.1</a> shows the whole loop on one screen; <a href="what-to-contribute.html#ways">§4.1</a> has ideas for what to contribute.</p>
+      </div>
+
+      <h3 id="repo-map"><span class="num">1.3</span>How the repo is organised</h3>
+      <p>The root has one folder per core module, plus <code>elective_courses/</code> for the rest. Every module folder has the same four subfolders:</p>
+      <pre class="filetree">courses_and_notesharing/
+├── PHM5001/                <span class="dim">one folder per core module</span>
+│   ├── slides/             <span class="dim">lecture slides, as given</span>
+│   ├── notes/              <span class="dim">collaborative Markdown notes</span>
+│   ├── questions/          <span class="dim">practice questions &amp; worked solutions</span>
+│   ├── personal/           <span class="dim">your private scratch space — gitignored, never shared</span>
+│   └── README.md           <span class="dim">module synopsis &amp; topic list</span>
+├── PHM5002/ … PHM5006/     <span class="dim">same shape</span>
+└── elective_courses/
+    └── PHM5007/ … PHM5016/ <span class="dim">same shape again</span></pre>
+      <p><strong>Naming files.</strong> A typical note file looks like <code>PHM5001/notes/lecture-03-variant-calling.md</code>. The convention:</p>
+      <ul>
+        <li>Lowercase, hyphens instead of spaces — no <code>Final Notes (2).md</code>.</li>
+        <li>Notes tied to one lecture start with <code>lecture-NN-</code> (two digits, so files sort in order), followed by a short topic.</li>
+        <li>One file per lecture or topic, not one running file for the whole module — small files merge cleanly and are easier for the next person to extend.</li>
+        <li>Slides keep whatever filename the lecturer gave them; questions get a short descriptive name like <code>tutorial-02-solutions.md</code>.</li>
+      </ul>
+
+      <h3 id="conduct"><span class="num">1.4</span>Code of conduct</h3>
       <ul>
         <li><strong>Flag uncertainty.</strong> A note that says "not sure this is right" is more useful than a confident note that's wrong.</li>
         <li><strong>Don't redistribute.</strong> This repo is whitelisted to protect NUS's IP. Notes, slides, and questions stay inside the group.</li>
         <li><strong>Attribute, don't copy.</strong> Summarise lectures, papers, and textbooks in your own words. Don't paste in copyrighted material wholesale.</li>
         <li><strong>Disagree in the open.</strong> If a note looks wrong, say so in a PR comment or a Discussion thread. Don't silently rewrite someone else's work without explanation.</li>
-        <li><strong>No unverified AI output.</strong> Full detail in <a href="what-to-contribute.html#what-gets-rejected">§4.2</a> — short version: if you didn't check it against the actual lecture, it isn't ready to merge.</li>
+        <li><strong>No unverified AI output.</strong> Full detail in <a href="what-to-contribute.html#what-gets-rejected">§4.3</a> — short version: if you didn't check it against the actual lecture, it isn't ready to merge.</li>
       </ul>
 
-      <h3 id="access"><span class="num">1.3</span>Access &amp; expectations</h3>
+      <h3 id="access"><span class="num">1.5</span>Access &amp; expectations</h3>
       <ol>
         <li>Reach out to whoever is coordinating this repo to be added — both to the GitHub repository and to wherever the group organises itself (chat, email thread, or otherwise).</li>
-        <li>To <strong>read</strong>: that's it, no GitHub experience required. Everything on <code>main</code> is browsable from an ordinary web browser.</li>
-        <li>To <strong>contribute</strong>: follow the setup in <a href="setup.html">§2</a> and the workflow in <a href="contributing.html">§3</a>. Budget an hour or two the first time — nobody's expected to arrive already knowing Git.</li>
+        <li>To <strong>read</strong>: that's it, no GitHub experience required — see <a href="#just-reading">Path A</a> above.</li>
+        <li>To <strong>contribute</strong>: a small fix needs nothing but a browser (<a href="#small-edits">Path B</a>). For regular contributing, follow the setup in <a href="setup.html">§2</a> and the workflow in <a href="contributing.html">§3</a> — budget an hour or two the first time; nobody's expected to arrive already knowing Git.</li>
       </ol>
-      <p>Once you're in: read <a href="#conduct">§1.2</a>, keep contributions in the format described in <a href="what-to-contribute.html#format">§4.1</a>, and don't share access or content outside the group.</p>
+      <p>Once you're in: read <a href="#conduct">§1.4</a>, keep contributions in the format described in <a href="what-to-contribute.html#format">§4.2</a>, and don't share access or content outside the group.</p>
       <div class="callout warn">
         <span class="callout-label">Before you share this guide</span>
         <p>Fill in an actual name, email, or channel for "whoever is coordinating this repo" above, so new people don't have to guess who to message.</p>
