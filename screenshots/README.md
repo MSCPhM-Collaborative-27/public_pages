@@ -31,6 +31,9 @@ Most of the guide's screenshots are now hotlinked directly from GitHub's and VS 
 | `github-new-pr.png` | GitHub's yellow banner after pushing a branch, with the green **Compare & pull request** button |
 | `github-discussions.png` | The Discussions tab on GitHub: category list and a sample thread |
 | `github-new-issue.png` | The Issues tab's green **New issue** button and the form it opens |
+| `vscode-markdown-preview.gif` | VS Code with a `.md` file on the left and the live preview pane on the right, updating while typing (currently hotlinked from VS Code docs, `md-dynamic-preview.gif`) |
+| `vscode-paste-image.mp4` | Pasting an image from the clipboard into a `.md` file in VS Code — the saved file and inserted link (currently hotlinked from VS Code release notes v1.79, `markdown-copy.mp4`) |
+| `markdown-editor-extension.gif` | The **Markdown Editor** extension (adamerose) editing a note visually, headings/images rendered in place (currently hotlinked from the extension README's imgur demo — most likely of all these links to rot; if it breaks, re-capture from the extension locally) |
 
 ## General tips, if you're capturing your own
 

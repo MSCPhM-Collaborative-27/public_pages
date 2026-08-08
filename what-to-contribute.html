@@ -95,7 +95,7 @@
   figure.diagram figcaption, figure.screenshot figcaption { font-size: 0.85rem; color: var(--ink-muted); line-height: 1.55; max-width: 42em; }
   figure.diagram figcaption { margin-top: 1rem; }
   figure.screenshot { overflow: hidden; }
-  figure.screenshot img { width: 100%; height: auto; display: block; border-bottom: 1px solid var(--line); }
+  figure.screenshot img, figure.screenshot video { width: 100%; height: auto; display: block; border-bottom: 1px solid var(--line); }
   figure.screenshot figcaption { padding: 0.85rem 1.1rem; }
 
   .tree { font-family: var(--font-mono); font-size: 0.92rem; max-width: 30em; margin: 1.3rem 0; border-top: 1px solid var(--line); }
@@ -193,9 +193,19 @@
           </tbody>
         </table>
       </div>
-      <p>Tables and more are in <a href="https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax" target="_blank" rel="noopener">GitHub's own syntax reference</a>, but you can go a long way on the nine rows above.</p>
+      <p>Tables and more are in <a href="https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax" target="_blank" rel="noopener">GitHub's own syntax reference</a>, but you can go a long way on the nine rows above. Prefer learning by doing? GitHub's free <a href="https://github.com/skills/communicate-using-markdown" target="_blank" rel="noopener">Communicate using Markdown</a> course walks you through all of it interactively in about half an hour.</p>
 
-      <p><strong>Seeing it rendered while you type.</strong> In VS Code, open a <code>.md</code> file and press <strong>Ctrl+Shift+V</strong> (Mac: <strong>Cmd+Shift+V</strong>), or click the preview icon at the top-right of the editor — a formatted preview opens beside the text and updates as you type. With the preview open, it behaves like a notes app, not a code editor.</p>
+      <p><strong>Seeing it rendered while you type.</strong> In VS Code, open a <code>.md</code> file and press <strong>Ctrl+Shift+V</strong> (Mac: <strong>Cmd+Shift+V</strong>), or click the preview icon at the top-right of the editor — a formatted preview opens beside the text and updates as you type:</p>
+      <figure class="screenshot">
+        <img src="https://code.visualstudio.com/assets/docs/languages/Markdown/md-dynamic-preview.gif" alt="VS Code with a markdown file on the left and its live rendered preview on the right, updating as text is typed" loading="lazy">
+        <figcaption>Text on the left, rendered note on the right, live. (Source: VS Code docs.)</figcaption>
+      </figure>
+
+      <p><strong>Editing it like a document.</strong> If you'd rather not see the raw text at all, install the <a href="https://marketplace.visualstudio.com/items?itemName=adamerose.markdown-wysiwyg" target="_blank" rel="noopener"><strong>Markdown Editor</strong> extension by adamerose</a>: click the Extensions icon in VS Code's left sidebar (four squares), search <em>markdown editor</em>, pick the one by <strong>adamerose</strong>, and click <strong>Install</strong>. Your <code>.md</code> files then open in a visual editor — headings, tables, and images render in place while you type, like a notes app. <strong>Ctrl+Shift+E</strong> flips the current file between the visual editor and plain text whenever you need to see or edit the raw Markdown.</p>
+      <figure class="screenshot">
+        <img src="https://i.imgur.com/1v8CdQD.gif" alt="The Markdown Editor extension editing a markdown file visually, with formatted headings and content rendered in place while typing" loading="lazy">
+        <figcaption>The extension's own demo — editing the note fully rendered, no raw text in sight. (Source: the extension's README.)</figcaption>
+      </figure>
 
       <div class="scenario" id="pasting-images">
         <p class="situation"><span class="situation-label">Worked example</span>Put a slide diagram into your lecture-3 note</p>
@@ -206,6 +216,11 @@
           <li>Check the preview — the image should appear right there in the note.</li>
           <li>Commit as normal (<a href="contributing.html#branches">§3.3</a>). The image is a file like any other: it gets committed alongside the note, and GitHub renders the two together.</li>
         </ol>
+        <figure class="screenshot">
+          <video src="https://code.visualstudio.com/assets/updates/1_79/markdown-copy.mp4" controls muted loop playsinline preload="metadata"></video>
+          <figcaption>The paste step, shown: an image pasted into a markdown file — VS Code saves the file and inserts the link. (Source: VS Code release notes, v1.79.)</figcaption>
+        </figure>
+        <p>Using the visual editor from the extension above? If a paste doesn't land, press <strong>Ctrl+Shift+E</strong> to flip to plain text, paste there, and flip back.</p>
         <div class="alt-box">
           <p class="alt-label">Optional, but keeps the notes folders tidy — route pasted images into an <code>images/</code> subfolder automatically:</p>
           <p>In VS Code: <strong>File → Preferences → Settings</strong>, search <em>markdown copy files</em>, and under <strong>Markdown › Copy Files: Destination</strong> click <em>Edit in settings.json</em>, then add:</p>
