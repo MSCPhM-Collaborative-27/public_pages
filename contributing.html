@@ -178,6 +178,7 @@
       <div class="callout">
         <span class="callout-label">Before you start</span>
         <p>First time here? Do the one-time setup in <a href="setup.html">§2</a> first. And if all you want is to fix a typo or add a couple of lines, you don't need this page at all — the web-editor path in <a href="index.html#small-edits">§1.2</a> does the branch and PR for you, in the browser.</p>
+        <p>Prefer watching before reading? VS Code's official <a href="https://www.youtube.com/watch?v=i_23KUAEtUM" target="_blank" rel="noopener">Using Git with VS Code</a> video (~10 min) shows the branch → commit → push flow on screen, and GitHub's free <a href="https://github.com/skills/introduction-to-github" target="_blank" rel="noopener">Introduction to GitHub</a> course lets you practise the whole loop on a throwaway repo before touching this one.</p>
       </div>
 
       <h3 id="workflow-diagram"><span class="num">3.2</span>How a change gets into main</h3>
@@ -263,14 +264,14 @@
       <ol>
         <li>Click the branch name in the bottom-left status bar.
           <figure class="screenshot">
-            <img src="https://code.visualstudio.com/assets/docs/sourcecontrol/github/branch-indicator-status-bar.png" alt="VS Code bottom status bar, showing the current branch name next to the sync icon" loading="lazy">
-            <figcaption>Bottom-left status bar: current branch name. (Source: VS Code docs.)</figcaption>
+            <img src="screenshots/vscode-branch-indicator.png" alt="VS Code bottom status bar with the current branch name highlighted next to the sync icon" loading="lazy">
+            <figcaption>Bottom-left status bar: the highlighted item is the current branch name — click it. (Source: VS Code docs; highlight ours.)</figcaption>
           </figure>
         </li>
         <li>Choose <strong>+ Create new branch…</strong>, type a name like <code>yourname/short-topic</code>, and press Enter.
           <figure class="screenshot">
-            <img src="https://code.visualstudio.com/assets/docs/sourcecontrol/overview/gitbranches.png" alt="The branch picker dropdown open at the top of VS Code, showing plus Create new branch" loading="lazy">
-            <figcaption>+ Create new branch… — e.g. <code>priya/phm5003-notes</code>. Say whose branch it is and roughly what it's for. (Source: VS Code docs.)</figcaption>
+            <img src="screenshots/vscode-create-branch.png" alt="The branch picker dropdown open at the top of VS Code, with the Create new branch option highlighted" loading="lazy">
+            <figcaption>The highlighted <strong>+ Create new branch…</strong> option — name it e.g. <code>priya/phm5003-notes</code>: whose branch it is, and roughly what it's for. (Source: VS Code docs; highlight ours.)</figcaption>
           </figure>
         </li>
       </ol>
@@ -286,8 +287,8 @@ git push -u origin yourname/short-topic</code></pre></div>
       <ol>
         <li>Open the Source Control panel (icon in the left sidebar). Your changed files are listed there. Type a short message describing what changed, then click the checkmark <strong>Commit</strong> button.
           <figure class="screenshot">
-            <img src="https://code.visualstudio.com/assets/docs/sourcecontrol/quickstart/commit-button.png" alt="VS Code Source Control panel showing changed files, the commit message box, and the Commit button" loading="lazy">
-            <figcaption>Source Control panel: message box, then Commit. (Source: VS Code docs.)</figcaption>
+            <img src="screenshots/vscode-source-control.png" alt="VS Code Source Control panel with the commit message box and Commit button highlighted above the changed files" loading="lazy">
+            <figcaption>Source Control panel — the highlighted pair: type a message in the box, then click <strong>Commit</strong>. (Source: VS Code docs; highlight ours.)</figcaption>
           </figure>
         </li>
         <li>Click <strong>Sync Changes</strong> to send your commit to GitHub.
@@ -373,8 +374,8 @@ git pull origin main</code></pre></div>
 
       <p>VS Code shows you this visually — you don't need to hand-edit raw text to fix it. Open the conflicted file and you'll see coloured blocks with inline buttons:</p>
       <figure class="screenshot">
-        <img src="https://code.visualstudio.com/assets/docs/sourcecontrol/overview/merge-conflict.png" alt="A conflicted file open in VS Code, showing conflict markers and inline resolution options" loading="lazy">
-        <figcaption>For each conflict block: Accept Current Change, Accept Incoming Change, Accept Both Changes — or edit the text directly. (Source: VS Code docs.)</figcaption>
+        <img src="screenshots/vscode-merge-conflict.png" alt="A conflicted file open in VS Code with the inline Accept Current, Accept Incoming, and Accept Both links highlighted above the conflict block" loading="lazy">
+        <figcaption>The highlighted row above each conflict block: <strong>Accept Current Change</strong>, <strong>Accept Incoming Change</strong>, <strong>Accept Both Changes</strong> — or edit the text directly. (Source: VS Code docs; highlight ours.)</figcaption>
       </figure>
       <ol>
         <li>For each conflict, click <strong>Accept Current Change</strong>, <strong>Accept Incoming Change</strong>, or <strong>Accept Both Changes</strong> — or edit the text by hand if the right answer is a combination of the two. Decide what the line should actually say; it might be your version, theirs, both, or something new.</li>
@@ -448,8 +449,8 @@ git stash pop</code></pre></div>
         <li>Push your branch (Sync Changes in VS Code).</li>
         <li>On GitHub, after a push you'll usually see a banner offering to open one directly:
           <figure class="screenshot">
-            <img src="https://docs.github.com/assets/images/help/pull_requests/pull-request-compare-pull-request.png" alt="GitHub's banner for a recently pushed branch, with the green Compare and pull request button" loading="lazy">
-            <figcaption>Or: repo → Pull requests tab → New pull request. (Source: GitHub docs.)</figcaption>
+            <img src="screenshots/github-new-pr.png" alt="GitHub's yellow banner for a recently pushed branch, with the green Compare and pull request button highlighted" loading="lazy">
+            <figcaption>The highlighted <strong>Compare &amp; pull request</strong> button in the yellow banner. If the banner's gone: repo → Pull requests tab → New pull request. (Source: GitHub docs; highlight ours.)</figcaption>
           </figure>
         </li>
         <li>Base <code>main</code> ← compare <code>yourname/short-topic</code>. Write a short description — what you added or changed, and which lecture or topic it covers.

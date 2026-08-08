@@ -1,39 +1,53 @@
 # Screenshots
 
-Most of the guide's screenshots are now hotlinked directly from GitHub's and VS Code's own official documentation (verified working, see the "Source: ..." note under each image in the guide) — you don't need to do anything for those. They're listed below for reference in case a link ever breaks and you want to swap in a local copy instead (flip the `<img src="...">` in the relevant page back to `screenshots/<file>.png` and drop your own screenshot in this folder under that name).
+Most images are now stored locally in this folder, with a rust-coloured highlight box (`#9C4A3C`, the guide's warn colour) drawn around the exact control the surrounding instructions talk about. Each caption in the guide says where the base image came from. To refresh one, capture or download a replacement and re-draw the highlight — or just drop in an unhighlighted screenshot and delete the "highlight ours" note from the caption.
 
 ## Still needed — no good source found
 
 | File | What to capture |
 |---|---|
-| `github-pr-form.png` | The "Open a pull request" form on a same-repo branch (not a fork): base/compare branch pickers and the title/description fields. GitHub's docs only have a screenshot of the fork variant, which shows different UI (a "head repository" picker) — using it would be misleading, so this one still needs a real screenshot. |
+| `github-pr-form.png` | The "Open a pull request" form on a same-repo branch (not a fork): base/compare branch pickers and the title/description fields. GitHub's docs only have a screenshot of the fork variant, which shows different UI (a "head repository" picker) — and the form needs a signed-in session, so it can't be captured headlessly either. Still needs a real screenshot from a logged-in browser. |
 
-## Already replaced (yours)
+## Your own captures — do not overwrite
 
 | File | What it shows |
 |---|---|
 | `vscode-open-folder.png` | VS Code's File menu, Open Folder |
 | `vscode-open-terminal.png` | VS Code's Terminal menu / terminal panel |
 
-## Hotlinked from official docs — only touch if a link breaks
+## Captured from our own repo (headless browser, logged out, annotated)
 
-| File | What to capture if you need a local replacement |
+| File | What it shows |
 |---|---|
-| `vscode-signin-github.png` | The **Accounts** icon in VS Code's bottom-left corner, clicked open to show **Sign in with GitHub** |
-| `vscode-clone-palette.png` | VS Code's Command Palette open, with **Git: Clone** typed into the search box |
-| `vscode-branch-indicator.png` | VS Code's bottom status bar, showing the current branch name (bottom-left, next to the sync icon) |
-| `vscode-create-branch.png` | The branch picker dropdown open at the top of VS Code, showing **+ Create new branch…** |
-| `vscode-source-control.png` | VS Code's Source Control panel: a few changed files listed, the commit message box, and the checkmark **Commit** button |
-| `vscode-sync-changes.png` | VS Code's status bar showing the **Sync Changes** button (circular arrows) after making a commit |
-| `vscode-merge-conflict.png` | A conflicted file open in VS Code, showing the coloured conflict blocks and the **Accept Current Change / Accept Incoming Change / Accept Both Changes** links above them |
-| `github-clone-url.png` | A GitHub repo page with the green **Code** button clicked open, showing the HTTPS URL and the copy icon |
-| `github-branch-switcher.png` | A GitHub repo's file listing with the branch dropdown (top-left, usually reads "main") clicked open to show other branches |
-| `github-new-pr.png` | GitHub's yellow banner after pushing a branch, with the green **Compare & pull request** button |
-| `github-discussions.png` | The Discussions tab on GitHub: category list and a sample thread |
-| `github-new-issue.png` | The Issues tab's green **New issue** button and the form it opens |
-| `vscode-markdown-preview.gif` | VS Code with a `.md` file on the left and the live preview pane on the right, updating while typing (currently hotlinked from VS Code docs, `md-dynamic-preview.gif`) |
-| `vscode-paste-image.mp4` | Pasting an image from the clipboard into a `.md` file in VS Code — the saved file and inserted link (currently hotlinked from VS Code release notes v1.79, `markdown-copy.mp4`) |
-| `markdown-editor-extension.gif` | The **Markdown Editor** extension (adamerose) editing a note visually, headings/images rendered in place (currently hotlinked from the extension README's imgur demo — most likely of all these links to rot; if it breaks, re-capture from the extension locally) |
+| `github-clone-url.png` | Our repo page, green **Code** button open; button + HTTPS URL highlighted |
+| `github-branch-switcher.png` | Our repo's file listing with the branch dropdown open; the "main" button highlighted |
+
+Both were captured from the public `public_pages` repo (the UI is identical to the private notes repo, and the org name is genuinely ours). Re-capture the same way if GitHub's UI changes.
+
+## Local, annotated copies of official docs images
+
+Base image from VS Code's or GitHub's documentation; highlight added by us. Original sources, in case a refresh is needed:
+
+| File | Highlight marks | Base image source |
+|---|---|---|
+| `vscode-signin-github.png` | The Accounts icon + **Sign in with GitHub** row | code.visualstudio.com/assets/docs/setup/copilot/vscode-accounts-menu.png |
+| `vscode-clone-palette.png` | The Command Palette URL box + Clone from URL row | code.visualstudio.com/assets/docs/sourcecontrol/quickstart/clone-repository-url.png |
+| `vscode-branch-indicator.png` | The branch name in the status bar | code.visualstudio.com/assets/docs/sourcecontrol/github/branch-indicator-status-bar.png |
+| `vscode-create-branch.png` | The **+ Create new branch…** row | code.visualstudio.com/assets/docs/sourcecontrol/overview/gitbranches.png |
+| `vscode-source-control.png` | The commit message box + **Commit** button | code.visualstudio.com/assets/docs/sourcecontrol/quickstart/commit-button.png |
+| `vscode-merge-conflict.png` | The **Accept Current / Incoming / Both** links | code.visualstudio.com/assets/docs/sourcecontrol/overview/merge-conflict.png |
+| `github-new-pr.png` | The **Compare & pull request** button | docs.github.com/assets/images/help/pull_requests/pull-request-compare-pull-request.png |
+| `github-discussions.png` | The **New discussion** button | docs.github.com/assets/images/help/discussions/hero.png |
+| `github-new-issue.png` | The title field + **Create** button | docs.github.com/assets/images/help/issues/issue-title-body.png |
+
+## Still hotlinked from official sources
+
+| Where used | URL |
+|---|---|
+| Setup §2.1 sync icon / Contributing (Sync Changes) | code.visualstudio.com `sync-changes.png` — VS Code's own docs already draw red highlight boxes on it, so no local copy needed |
+| What to contribute §4.2 (live preview) | code.visualstudio.com `md-dynamic-preview.gif` |
+| What to contribute §4.2 (image-paste video) | code.visualstudio.com `assets/updates/1_79/markdown-copy.mp4` |
+| What to contribute §4.2 (Markdown Editor extension demo) | `i.imgur.com/1v8CdQD.gif` from the extension's README — most likely of these to rot; if it breaks, re-capture from the extension locally |
 
 ## General tips, if you're capturing your own
 

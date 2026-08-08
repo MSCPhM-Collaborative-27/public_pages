@@ -194,8 +194,8 @@ git config --global pull.rebase false</code></pre></div>
       <p>Use the same email you were whitelisted with. The third line tells <code>git pull</code> to merge rather than rebase when needed — the simpler default for this workflow.</p>
       <p>Then sign in to GitHub from inside VS Code: click the <strong>Accounts</strong> icon in the bottom-left corner → <strong>Sign in with GitHub</strong> → follow the browser prompt. This lets VS Code push, pull, and open PRs on your behalf without re-entering credentials every time.</p>
       <figure class="screenshot">
-        <img src="https://code.visualstudio.com/assets/docs/setup/copilot/vscode-accounts-menu.png" alt="VS Code bottom-left Accounts icon clicked, showing a GitHub sign-in option" loading="lazy">
-        <figcaption>Bottom-left corner of VS Code → Accounts → sign in with GitHub. (Source: VS Code docs — the menu is the same regardless of what prompted it.)</figcaption>
+        <img src="screenshots/vscode-signin-github.png" alt="VS Code bottom-left Accounts icon clicked, with the Sign in with GitHub menu row highlighted" loading="lazy">
+        <figcaption>Bottom-left corner of VS Code → Accounts icon → the highlighted <strong>Sign in with GitHub</strong> row. The wording may mention Copilot — it's the same GitHub sign-in either way. (Source: VS Code docs; highlight ours.)</figcaption>
       </figure>
 
       <h3 id="clone"><span class="num">2.3</span>Clone the repository</h3>
@@ -242,13 +242,13 @@ git config --global pull.rebase false</code></pre></div>
         <li>
           In VS Code: <strong>View → Command Palette → Git: Clone</strong>, paste the repository URL, and choose a local folder.
           <figure class="screenshot">
-            <img src="https://code.visualstudio.com/assets/docs/sourcecontrol/quickstart/clone-repository-url.png" alt="VS Code prompting to paste a repository URL to clone" loading="lazy">
-            <figcaption>Command Palette (View → Command Palette, or Ctrl/Cmd+Shift+P) → "Git: Clone", then paste the URL when prompted. (Source: VS Code docs.)</figcaption>
+            <img src="screenshots/vscode-clone-palette.png" alt="VS Code's Command Palette prompting for a repository URL to clone, with the URL box highlighted" loading="lazy">
+            <figcaption>Command Palette (View → Command Palette, or Ctrl/Cmd+Shift+P) → "Git: Clone", then paste the URL into the highlighted box. The URL in the picture is just an example — use ours below. (Source: VS Code docs; highlight ours.)</figcaption>
           </figure>
           The repository URL is on GitHub, behind the green <strong>Code</strong> button:
           <figure class="screenshot">
-            <img src="https://docs.github.com/assets/images/help/repository/https-url-clone-cli.png" alt="A GitHub repo page with the green Code button open, showing the HTTPS URL and copy icon" loading="lazy">
-            <figcaption>On the repo page: green "Code" button → copy the HTTPS URL. (Source: GitHub docs.)</figcaption>
+            <img src="screenshots/github-clone-url.png" alt="Our repository page on GitHub with the green Code button clicked open, the HTTPS URL and its copy icon highlighted" loading="lazy">
+            <figcaption>The green <strong>Code</strong> button, then the copy icon next to the highlighted HTTPS URL. This is our own repo page — yours will look exactly like this.</figcaption>
           </figure>
           <div class="code-block"><pre><code>https://github.com/MSCPhM-Collaborative-27/courses_and_notesharing.git</code></pre></div>
           <div class="alt-box">
