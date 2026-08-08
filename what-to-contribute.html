@@ -147,9 +147,10 @@
       <nav aria-label="On this page">
         <ol class="sub">
           <li><a href="#ways">4.1 Ways to contribute</a></li>
-          <li><a href="#format">4.2 Format &amp; quality bar</a></li>
-          <li><a href="#what-gets-rejected">4.3 What gets rejected</a></li>
-          <li><a href="#discussions">4.4 Discussions, Issues &amp; gaps</a></li>
+          <li><a href="#markdown">4.2 Writing notes in Markdown</a></li>
+          <li><a href="#format">4.3 Format &amp; quality bar</a></li>
+          <li><a href="#what-gets-rejected">4.4 What gets rejected</a></li>
+          <li><a href="#discussions">4.5 Discussions, Issues &amp; gaps</a></li>
         </ol>
       </nav>
     </details>
@@ -162,24 +163,72 @@
       <h3 id="ways"><span class="num">4.1</span>Ways to contribute</h3>
       <p>If you're set up and wondering what would actually be useful — any of these, roughly easiest first:</p>
       <ol>
-        <li><strong>Ask or answer a question</strong> in <a href="https://github.com/MSCPhM-Collaborative-27/courses_and_notesharing/discussions" target="_blank" rel="noopener">Discussions</a> (<a href="#discussions">§4.4</a>). No setup, and questions are contributions too — they show where the notes are unclear.</li>
+        <li><strong>Ask or answer a question</strong> in <a href="https://github.com/MSCPhM-Collaborative-27/courses_and_notesharing/discussions" target="_blank" rel="noopener">Discussions</a> (<a href="#discussions">§4.5</a>). No setup, and questions are contributions too — they show where the notes are unclear.</li>
         <li><strong>Fix a typo or a small error</strong> in an existing note — the web editor (<a href="index.html#small-edits">§1.2</a>) does this from the browser, nothing installed.</li>
         <li><strong>Upload the slides</strong> for a lecture that's missing them, into that module's <code>slides/</code> folder.</li>
         <li><strong>Expand or correct an existing note</strong> — add what the lecturer said that the note missed, or fix something that doesn't match the lecture.</li>
-        <li><strong>Add notes for a recent lecture</strong> — the core contribution. The start-to-finish walkthrough is <a href="contributing.html#first-contribution">§3.1</a>.</li>
+        <li><strong>Add notes for a recent lecture</strong> — the core contribution. The start-to-finish walkthrough is <a href="contributing.html#first-contribution">§3.1</a>; how to write the note itself is <a href="#markdown">§4.2</a>.</li>
         <li><strong>Write practice questions or worked solutions</strong> into a module's <code>questions/</code> folder.</li>
-        <li><strong>Pick up an open <a href="https://github.com/MSCPhM-Collaborative-27/courses_and_notesharing/issues" target="_blank" rel="noopener">Issue</a></strong> — a known gap someone has already flagged (<a href="#discussions">§4.4</a>).</li>
+        <li><strong>Pick up an open <a href="https://github.com/MSCPhM-Collaborative-27/courses_and_notesharing/issues" target="_blank" rel="noopener">Issue</a></strong> — a known gap someone has already flagged (<a href="#discussions">§4.5</a>).</li>
       </ol>
 
-      <h3 id="format"><span class="num">4.2</span>Format &amp; quality bar</h3>
+      <h3 id="markdown"><span class="num">4.2</span>Writing notes in Markdown</h3>
+      <p>The notes in this repo are Markdown files — plain text with a <code>.md</code> ending, where formatting is written as ordinary punctuation: <code>#</code> for a heading, <code>**bold**</code> for bold. Any editor can open them, GitHub displays them as formatted pages, and because they're just text, two people's edits to the same note can be compared and merged line by line. That's the whole reason this repo uses them instead of Word documents.</p>
+      <p>This is all the syntax most notes ever need:</p>
+      <div class="ref-table-wrap">
+        <table class="ref-table">
+          <thead>
+            <tr><th>You type</th><th>You get</th></tr>
+          </thead>
+          <tbody>
+            <tr><td># Heading &nbsp;/&nbsp; ## Subheading</td><td>Section titles, biggest to smallest</td></tr>
+            <tr><td>**bold** and *italic*</td><td><strong>bold</strong> and <em>italic</em></td></tr>
+            <tr><td>- one point per line</td><td>A bulleted list</td></tr>
+            <tr><td>1. first step</td><td>A numbered list</td></tr>
+            <tr><td>[GLUT4 review](https://…)</td><td>A clickable link</td></tr>
+            <tr><td>![pathway](images/fig1.png)</td><td>An image, displayed in the page</td></tr>
+            <tr><td>`TP53`</td><td>Code or gene names: <code>TP53</code></td></tr>
+            <tr><td>&gt; quoted line</td><td>An indented quote — good for "the prof said…"</td></tr>
+            <tr><td>$p^2 + 2pq + q^2 = 1$</td><td>A maths formula, rendered by GitHub</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Tables and more are in <a href="https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax" target="_blank" rel="noopener">GitHub's own syntax reference</a>, but you can go a long way on the nine rows above.</p>
+
+      <p><strong>Seeing it rendered while you type.</strong> In VS Code, open a <code>.md</code> file and press <strong>Ctrl+Shift+V</strong> (Mac: <strong>Cmd+Shift+V</strong>), or click the preview icon at the top-right of the editor — a formatted preview opens beside the text and updates as you type. With the preview open, it behaves like a notes app, not a code editor.</p>
+
+      <div class="scenario" id="pasting-images">
+        <p class="situation"><span class="situation-label">Worked example</span>Put a slide diagram into your lecture-3 note</p>
+        <ol>
+          <li>Have your note open in VS Code — say <code>PHM5001/notes/lecture-03-variant-calling.md</code>.</li>
+          <li>Screenshot the diagram: <strong>Win+Shift+S</strong> on Windows, <strong>Cmd+Ctrl+Shift+4</strong> on Mac. Both copy the selected region to the clipboard.</li>
+          <li>Click the spot in your note where the image belongs and paste (<strong>Ctrl/Cmd+V</strong>). VS Code saves the screenshot as an image file next to your note and inserts the <code>![…](…)</code> link for you.</li>
+          <li>Check the preview — the image should appear right there in the note.</li>
+          <li>Commit as normal (<a href="contributing.html#branches">§3.3</a>). The image is a file like any other: it gets committed alongside the note, and GitHub renders the two together.</li>
+        </ol>
+        <div class="alt-box">
+          <p class="alt-label">Optional, but keeps the notes folders tidy — route pasted images into an <code>images/</code> subfolder automatically:</p>
+          <p>In VS Code: <strong>File → Preferences → Settings</strong>, search <em>markdown copy files</em>, and under <strong>Markdown › Copy Files: Destination</strong> click <em>Edit in settings.json</em>, then add:</p>
+          <div class="code-block"><pre><code>"markdown.copyFiles.destination": { "**/*.md": "images/" }</code></pre></div>
+        </div>
+      </div>
       <ul>
-        <li>Write in Markdown (<code>.md</code>) wherever the content is text — it's the one format this repo can actually diff and merge. Reserve PDFs/PPTX for material you genuinely can't reproduce as text, like original slide decks.</li>
+        <li>Screenshots of individual diagrams are fine; don't screenshot a whole deck into a note — the deck itself belongs in <code>slides/</code>. GitHub also rejects any file over 25&nbsp;MB.</li>
+        <li>Working in the web editor (<a href="index.html#small-edits">§1.2</a>)? You can't paste images there — upload them instead via <strong>Add file → Upload files</strong> into the module's <code>notes/images/</code> folder, then link with <code>![name](images/file.png)</code>.</li>
+      </ul>
+
+      <p><strong>If you'd rather use a proper notes app.</strong> <a href="https://obsidian.md" target="_blank" rel="noopener">Obsidian</a> (free) gives the closest Notion-like feel while still editing the repo's actual files: <strong>File → Open folder as vault</strong> → pick your cloned repo folder, and you get live-rendered editing, image pasting, and offline use — every change lands in the same files git tracks, so committing works exactly as in <a href="contributing.html#branches">§3.3</a>. Two settings to keep its output GitHub-compatible, both under <strong>Settings → Files &amp; links</strong>: turn <em>off</em> "Use [[Wikilinks]]", and set "Default location for new attachments" to <em>In subfolder under current folder</em>, named <code>images</code>.</p>
+      <p><strong>Why not Notion, Word, or Google Docs.</strong> They keep your notes in their own cloud or format, not as files in the repo — sharing means manually exporting every time, exports scramble image links, and reviewers can't see line-by-line what changed. They're fine for private drafting (that's what <a href="contributing.html#personal-folder"><code>personal/</code></a> is for, too), but the shared copy is the <code>.md</code> file in the repo.</p>
+
+      <h3 id="format"><span class="num">4.3</span>Format &amp; quality bar</h3>
+      <ul>
+        <li>Write in Markdown (<code>.md</code>) wherever the content is text — it's the one format this repo can actually diff and merge. New to it? <a href="#markdown">§4.2</a> covers everything you need. Reserve PDFs/PPTX for material you genuinely can't reproduce as text, like original slide decks.</li>
         <li>Match a file to a lecture or topic, not the whole module. Smaller files merge cleaner and are easier for someone else to extend.</li>
         <li>Say where something came from — which lecture, which slide, which reading.</li>
         <li>Flag what you're unsure about instead of smoothing it into confident prose. "Need to check this against the recording" is a completely acceptable thing to commit.</li>
       </ul>
 
-      <h3 id="what-gets-rejected"><span class="num">4.3</span>What gets rejected — and how to fix it</h3>
+      <h3 id="what-gets-rejected"><span class="num">4.4</span>What gets rejected — and how to fix it</h3>
       <p>The main thing reviewers push back on is content nobody actually checked — most often, a block of text pasted straight from an LLM with no editing and no verification against the lecture. It's usually recognisable: generic textbook phrasing, unnaturally even coverage of every subtopic, confident claims that don't quite match what was taught.</p>
       <p>Using AI as a <em>tool</em> — to tidy your own phrasing, generate a first pass you then check and rewrite, or quiz yourself on material — is fine. What gets sent back is unverified output presented as notes. The bar: you understood it well enough to stand behind it.</p>
       <p>If a reviewer flags something:</p>
@@ -188,7 +237,7 @@
         <li>If it's not something you're ready to stand behind yet, move it to that module's <a href="contributing.html#personal-folder"><code>personal/</code></a> folder instead of deleting it outright, and contribute a version you've actually verified when you can.</li>
       </ul>
 
-      <h3 id="discussions"><span class="num">4.4</span>Discussions, Issues &amp; filling gaps</h3>
+      <h3 id="discussions"><span class="num">4.5</span>Discussions, Issues &amp; filling gaps</h3>
       <p>Two different tools for two different needs:</p>
       <ul>
         <li><strong><a href="https://github.com/MSCPhM-Collaborative-27/courses_and_notesharing/discussions" target="_blank" rel="noopener">Discussions</a></strong> — open-ended. Ask a question, compare understanding of a concept, argue about a professor's slide. Nothing here needs to resolve into an action.</li>
