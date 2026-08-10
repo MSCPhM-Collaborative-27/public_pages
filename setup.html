@@ -146,9 +146,10 @@
       <p class="nav-label">On this page</p>
       <nav aria-label="On this page">
         <ol class="sub">
-          <li><a href="#vscode">2.1 Install &amp; open VS Code</a></li>
-          <li><a href="#git-setup">2.2 Connect Git &amp; GitHub</a></li>
-          <li><a href="#clone">2.3 Clone the repository</a></li>
+          <li><a href="#install">2.1 Install the tools</a></li>
+          <li><a href="#get-the-repo">2.2 Get the repo onto your computer</a></li>
+          <li><a href="#what-you-see">2.3 What you'll now see</a></li>
+          <li><a href="#what-goes-where">2.4 What goes where</a></li>
         </ol>
       </nav>
     </details>
@@ -163,43 +164,30 @@
         <p>Only if you'll be contributing regularly. Just reading, or making a one-off small fix, needs nothing installed — see the paths in <a href="index.html#paths">§1.2</a>.</p>
       </div>
 
-      <h3 id="vscode"><span class="num">2.1</span>Install &amp; open VS Code</h3>
-      <p>VS Code is a free text editor. The rest of this guide assumes you're using it. You don't need it to <em>read</em> notes on GitHub — only to edit them and run Git.</p>
+      <h3 id="install"><span class="num">2.1</span>Install the tools</h3>
+      <p>Two programs, installed once each. <strong>VS Code</strong> is the editor — the window you'll read and write notes in. <strong>Git</strong> is a separate program with no window of its own: it tracks versions and moves changes between your computer and GitHub. VS Code gives you buttons for Git; Git does the actual work.</p>
       <ol>
-        <li>Download and install it from <code>code.visualstudio.com</code>.</li>
-        <li>Open it. Go to <strong>File → Open Folder…</strong> and pick or create a folder to work in. VS Code calls this your <em>workspace</em>.
+        <li><strong>Install VS Code.</strong> Go to <code>code.visualstudio.com/download</code>, click the button for your system, and run the installer. The default options are fine.
           <figure class="screenshot">
-            <img src="screenshots/vscode-open-folder.png" alt="VS Code with the File menu open, showing Open Folder highlighted" loading="lazy">
-            <figcaption>File → Open Folder…</figcaption>
+            <img src="screenshots/vscode-download-page.png" alt="The VS Code download page with the Windows and Mac download buttons highlighted" loading="lazy">
+            <figcaption>The download buttons for Windows and Mac. Ignore everything below them — the big button is the right one. (Captured from code.visualstudio.com; highlights ours.)</figcaption>
           </figure>
         </li>
-        <li>Open a terminal inside VS Code: <strong>Terminal → New Terminal</strong>. A panel opens at the bottom of the window — this is where every command in this guide gets typed. Click inside that panel before typing anything.
+        <li><strong>Install Git.</strong>
+          <ul>
+            <li>Windows: go to <code>git-scm.com/download/win</code>, click <strong>Click here to download</strong>, and run the installer. It asks a long series of questions over many screens — click <strong>Next</strong> through all of them; the defaults are fine.</li>
+            <li>Mac: nothing to download. Git comes with Apple's developer tools, and macOS offers to install those the first time you type a Git command — which happens in §2.2.</li>
+          </ul>
           <figure class="screenshot">
-            <img src="screenshots/vscode-open-terminal.png" alt="VS Code with the Terminal menu open on New Terminal, and the terminal panel visible at the bottom" loading="lazy">
-            <figcaption>Terminal → New Terminal. The panel that opens at the bottom is where commands in this guide get typed.</figcaption>
+            <img src="screenshots/git-download-page.png" alt="The Git for Windows download page with the Click here to download link highlighted" loading="lazy">
+            <figcaption>Git for Windows: the highlighted download link. Mac users never need this page. (Captured from git-scm.com; highlight ours.)</figcaption>
           </figure>
         </li>
       </ol>
+      <p>Don't look for a Git icon afterwards — there isn't one. You'll see it working in the next section, from inside VS Code.</p>
 
-      <h3 id="git-setup"><span class="num">2.2</span>Connect Git &amp; GitHub</h3>
-      <p>VS Code edits files. <strong>Git</strong> is the separate program that tracks versions and talks to GitHub. Install it first if you don't have it:</p>
-      <ul>
-        <li>Windows: install <a href="https://git-scm.com/download/win" target="_blank" rel="noopener">Git for Windows</a> — the default options are fine.</li>
-        <li>Mac: type <code>git --version</code> into Terminal once; macOS offers to install it automatically if it's missing.</li>
-      </ul>
-      <p>In the terminal panel you opened above, tell Git who you are — it stamps every change with this:</p>
-      <div class="code-block"><pre><code>git config --global user.name "Your Name"
-git config --global user.email "you@example.com"
-git config --global pull.rebase false</code></pre></div>
-      <p>Use the same email you were whitelisted with. The third line tells <code>git pull</code> to merge rather than rebase when needed — the simpler default for this workflow.</p>
-      <p>Then sign in to GitHub from inside VS Code: click the <strong>Accounts</strong> icon in the bottom-left corner → <strong>Sign in with GitHub</strong> → follow the browser prompt. This lets VS Code push, pull, and open PRs on your behalf without re-entering credentials every time.</p>
-      <figure class="screenshot">
-        <img src="screenshots/vscode-signin-github.png" alt="VS Code bottom-left Accounts icon clicked, with the Sign in with GitHub menu row highlighted" loading="lazy">
-        <figcaption>Bottom-left corner of VS Code → Accounts icon → the highlighted <strong>Sign in with GitHub</strong> row. The wording may mention Copilot — it's the same GitHub sign-in either way. (Source: VS Code docs; highlight ours.)</figcaption>
-      </figure>
-
-      <h3 id="clone"><span class="num">2.3</span>Clone the repository</h3>
-      <p><em>Cloning</em> means downloading a full copy of the repository — including its history — onto your computer. After that, you stay in sync with two commands: <code>pull</code> brings down other people's changes, <code>push</code> sends up yours.</p>
+      <h3 id="get-the-repo"><span class="num">2.2</span>Get the repo onto your computer</h3>
+      <p><em>Cloning</em> means downloading a full copy of the repository — every module, every note, and the entire history — into a folder on your computer. It happens once. After that, staying in sync takes two commands: <code>pull</code> brings down other people's changes, <code>push</code> sends up yours.</p>
 
       <figure class="diagram">
         <div class="svg-wrap">
@@ -238,26 +226,72 @@ git config --global pull.rebase false</code></pre></div>
       </figure>
 
       <ol>
-        <li>Confirm you've actually been added to the repo (<a href="index.html#access">§1.5</a>) — until then, the URL below will 404 for you.</li>
-        <li>
-          In VS Code: <strong>View → Command Palette → Git: Clone</strong>, paste the repository URL, and choose a local folder.
+        <li><strong>Open VS Code and give your copy a home.</strong> Go to <strong>File → Open Folder…</strong>, create a folder wherever you keep uni work — say <code>Documents\NUS</code> — and open it. Everything you clone will land inside this folder.
           <figure class="screenshot">
-            <img src="screenshots/vscode-clone-palette.png" alt="VS Code's Command Palette prompting for a repository URL to clone, with the URL box highlighted" loading="lazy">
-            <figcaption>Command Palette (View → Command Palette, or Ctrl/Cmd+Shift+P) → "Git: Clone", then paste the URL into the highlighted box. The URL in the picture is just an example — use ours below. (Source: VS Code docs; highlight ours.)</figcaption>
+            <img src="screenshots/vscode-open-folder.png" alt="VS Code with the File menu open, showing Open Folder highlighted" loading="lazy">
+            <figcaption>File → Open Folder…</figcaption>
           </figure>
-          The repository URL is on GitHub, behind the green <strong>Code</strong> button:
+          If VS Code asks whether you <em>trust the authors of the files in this folder</em>, say yes — the only author of your own empty folder is you.
+        </li>
+        <li><strong>Open the terminal.</strong> <strong>Terminal → New Terminal</strong>. A panel opens along the bottom of the window — this is where every typed command in this guide goes. Click inside it before typing.
+          <figure class="screenshot">
+            <img src="screenshots/vscode-open-terminal.png" alt="VS Code with the Terminal menu open on New Terminal, and the terminal panel visible at the bottom" loading="lazy">
+            <figcaption>Terminal → New Terminal. The panel that opens at the bottom is where commands in this guide get typed.</figcaption>
+          </figure>
+        </li>
+        <li><strong>Check where the terminal is standing.</strong> The text before the cursor is the <em>prompt</em>, and it ends with the folder the terminal is currently in. Because you opened your folder in step 1, it should end with that folder's name — something like <code>PS C:\Users\you\Documents\NUS&gt;</code> on Windows, or <code>you@MacBook NUS %</code> on a Mac.
+          <figure class="screenshot">
+            <img src="screenshots/vscode-terminal-prompt.png" alt="The terminal panel with the prompt showing a path ending in the NUS folder" loading="lazy">
+            <figcaption>The prompt ends with the folder the terminal is standing in — here, the folder from step 1.</figcaption>
+          </figure>
+          If it points somewhere else, the reliable fix: <strong>File → Open Folder…</strong> the right folder (step 1), then <strong>Terminal → New Terminal</strong> — a fresh terminal always starts in the folder that's open. (Typing <code>cd</code> followed by the folder's path does the same thing.)
+        </li>
+        <li><strong>Sign in to GitHub — before trying to clone.</strong> The notes repo is private: each contributor is whitelisted by GitHub username (<a href="index.html#access">§1.5</a>), and until VS Code can prove who you are, the download will simply be refused. Click the <strong>Accounts</strong> icon in the bottom-left corner → <strong>Sign in with GitHub</strong> → your browser opens → authorize → come back to VS Code.
+          <figure class="screenshot">
+            <img src="screenshots/vscode-signin-github.png" alt="VS Code bottom-left Accounts icon clicked, with the Sign in with GitHub menu row highlighted" loading="lazy">
+            <figcaption>Bottom-left corner of VS Code → Accounts icon → the highlighted <strong>Sign in with GitHub</strong> row. The wording may mention Copilot — it's the same GitHub sign-in either way. (Source: VS Code docs; highlight ours.)</figcaption>
+          </figure>
+          While you're here, introduce yourself to Git too — it stamps your name on every change you make:
+          <div class="code-block"><pre><code>git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+git config --global pull.rebase false</code></pre></div>
+          Any email works; using the one on your GitHub account keeps your changes linked to your profile. The third line picks the simpler behaviour for a command you'll meet later (<code>pull</code>) — set it now and forget it.
+          <div class="callout">
+            <span class="callout-label">Mac only</span>
+            <p>The first Git command you type may make macOS offer to install "command line developer tools" — that's Git arriving (§2.1). Click <strong>Install</strong>, let it finish, then run your command again.</p>
+          </div>
+        </li>
+        <li><strong>Clone.</strong> Copy this whole line into the terminal and press Enter:
+          <div class="code-block"><pre><code>git clone https://github.com/MSCPhM-Collaborative-27/courses_and_notesharing.git</code></pre></div>
+          Progress lines appear, and after a few seconds it ends with something like <code>Resolving deltas: 100% (…), done.</code> That's the entire repository — history included — now sitting in a new <code>courses_and_notesharing</code> folder inside yours.
+          <figure class="screenshot">
+            <img src="screenshots/vscode-clone-output.png" alt="The terminal after git clone has finished, showing the command and the output ending in done" loading="lazy">
+            <figcaption>What a successful clone looks like: the command you typed, then Git's progress lines ending in <code>done.</code></figcaption>
+          </figure>
+          <div class="callout warn">
+            <span class="callout-label">If it fails</span>
+            <p><code>Repository not found</code> means GitHub is pretending the repo doesn't exist because your account isn't allowed to see it: you're not on the whitelist yet, or you're signed into a different GitHub account than the one that was invited — see <a href="index.html#access">§1.5</a>. A username/password prompt in the terminal means step 4's sign-in didn't complete — do that first.</p>
+          </div>
+          <p>Where that long URL comes from, for future reference: every repository's address lives behind its green <strong>Code</strong> button on GitHub.</p>
           <figure class="screenshot">
             <img src="screenshots/github-clone-url.png" alt="Our repository page on GitHub with the green Code button clicked open, the HTTPS URL and its copy icon highlighted" loading="lazy">
             <figcaption>The green <strong>Code</strong> button, then the copy icon next to the highlighted HTTPS URL. This is our own repo page — yours will look exactly like this.</figcaption>
           </figure>
-          <div class="code-block"><pre><code>https://github.com/MSCPhM-Collaborative-27/courses_and_notesharing.git</code></pre></div>
-          <div class="alt-box">
-            <p class="alt-label">Prefer the terminal? Same thing, typed into the panel from §2.1:</p>
-            <div class="code-block"><pre><code>git clone https://github.com/MSCPhM-Collaborative-27/courses_and_notesharing.git</code></pre></div>
-          </div>
         </li>
-        <li>Open the cloned folder in VS Code (<strong>File → Open Folder…</strong>). You now have every module and every note on your machine, ready to branch.</li>
+        <li><strong>Step into the repo.</strong> <strong>File → Open Folder…</strong> again, and this time open the new <code>courses_and_notesharing</code> folder — it's inside the folder from step 1. Trust the authors when asked; the authors are your coursemates. VS Code reopens with the repo's files listed down the left side — every module, every note, on your machine. What all of that means is next.</li>
       </ol>
+
+      <h3 id="what-you-see"><span class="num">2.3</span>What you'll now see</h3>
+      <div class="callout">
+        <span class="callout-label">Being written</span>
+        <p>This section will walk the screen you're now looking at, with real screenshots: the Explorer sidebar with the module folders, the Source Control icon, and the terminal you already know. It's the next piece of this rewrite.</p>
+      </div>
+
+      <h3 id="what-goes-where"><span class="num">2.4</span>What goes where</h3>
+      <div class="callout">
+        <span class="callout-label">Being written</span>
+        <p>The map of the repository — what each module folder is for, and how note files are named — is moving here from the introduction page, so you meet it while looking at the real folders on your own screen.</p>
+      </div>
 
       <div class="page-flow">
         <a href="index.html">← Introduction</a>

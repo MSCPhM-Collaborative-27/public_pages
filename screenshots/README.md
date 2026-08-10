@@ -7,6 +7,8 @@ Most images are now stored locally in this folder, with a rust-coloured highligh
 | File | What to capture |
 |---|---|
 | `github-pr-form.png` | The "Open a pull request" form on a same-repo branch (not a fork): base/compare branch pickers and the title/description fields. GitHub's docs only have a screenshot of the fork variant, which shows different UI (a "head repository" picker) — and the form needs a signed-in session, so it can't be captured headlessly either. Still needs a real screenshot from a logged-in browser. |
+| `vscode-terminal-prompt.png` | Setup §2.2 step 3. The VS Code terminal panel, cropped to the panel (not the whole window), with the prompt line clearly showing a path that ends in the working folder — e.g. `PS C:\Users\you\Documents\NUS>`. Fresh terminal, nothing typed yet. |
+| `vscode-clone-output.png` | Setup §2.2 step 5. The same terminal just after `git clone` of the notes repo finishes: the command as typed, the progress lines, and the final `done.` visible in one crop. Prompt path from the previous shot ideally still visible above, so the two screenshots read as one continuous session. |
 
 ## Your own captures — do not overwrite
 
@@ -24,6 +26,15 @@ Most images are now stored locally in this folder, with a rust-coloured highligh
 
 Both were captured from the public `public_pages` repo (the UI is identical to the private notes repo, and the org name is genuinely ours). Re-capture the same way if GitHub's UI changes.
 
+## Captured from public download pages (headless browser, annotated)
+
+Scripts: `tools/capture_downloads.py` + `tools/crop_downloads.py`.
+
+| File | What it shows |
+|---|---|
+| `vscode-download-page.png` | code.visualstudio.com/download; Windows + Mac buttons highlighted |
+| `git-download-page.png` | git-scm.com/download/win; the "Click here to download" link highlighted |
+
 ## Local, annotated copies of official docs images
 
 Base image from VS Code's or GitHub's documentation; highlight added by us. Original sources, in case a refresh is needed:
@@ -31,7 +42,7 @@ Base image from VS Code's or GitHub's documentation; highlight added by us. Orig
 | File | Highlight marks | Base image source |
 |---|---|---|
 | `vscode-signin-github.png` | The Accounts icon + **Sign in with GitHub** row | code.visualstudio.com/assets/docs/setup/copilot/vscode-accounts-menu.png |
-| `vscode-clone-palette.png` | The Command Palette URL box + Clone from URL row | code.visualstudio.com/assets/docs/sourcecontrol/quickstart/clone-repository-url.png |
+| `vscode-clone-palette.png` | *(currently unused — Setup §2.2 now clones in the terminal; kept in case a palette-clone route returns)* | code.visualstudio.com/assets/docs/sourcecontrol/quickstart/clone-repository-url.png |
 | `vscode-branch-indicator.png` | The branch name in the status bar | code.visualstudio.com/assets/docs/sourcecontrol/github/branch-indicator-status-bar.png |
 | `vscode-create-branch.png` | The **+ Create new branch…** row | code.visualstudio.com/assets/docs/sourcecontrol/overview/gitbranches.png |
 | `vscode-source-control.png` | The commit message box + **Commit** button | code.visualstudio.com/assets/docs/sourcecontrol/quickstart/commit-button.png |
