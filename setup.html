@@ -35,10 +35,11 @@
 
   a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
   a:hover { color: var(--accent-2); }
-  a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
   code { font-family: var(--font-mono); font-size: 0.88em; background: var(--paper-raised); padding: 0.1em 0.35em; border-radius: 3px; }
   pre code { background: none; padding: 0; }
+  kbd { font-family: var(--font-mono); font-size: 0.8em; background: var(--paper-raised); border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; padding: 0.08em 0.4em; }
 
   .masthead { padding: 3rem 2rem 2rem; max-width: 1200px; margin: 0 auto; border-bottom: 1px solid var(--line); }
   .eyebrow { font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin: 0 0 0.9rem; }
@@ -61,6 +62,13 @@
   details.toc ol.sub a { font-size: 0.87rem; color: var(--ink-muted); }
   details.toc ol.sub a:hover, details.toc ol.sub a:focus-visible { color: var(--accent); }
   details.toc ol.sub a.active { color: var(--accent); border-left-color: var(--accent); font-weight: 600; }
+  details.toc ol.sub a.done { color: var(--accent-2); }
+  details.toc ol.sub a.done::after { content: " ✓"; font-weight: 700; }
+
+  .progress-wrap { margin: 0.3rem 0 0.4rem; }
+  .progress-bar { height: 8px; border-radius: 999px; background: var(--paper-sunken); overflow: hidden; }
+  #progress-fill { display: block; height: 100%; width: 0; background: var(--accent-2); border-radius: 999px; transition: width 0.25s; }
+  #progress-text { font-size: 0.78rem; color: var(--ink-muted); margin: 0.45rem 0 0; }
 
   main { min-width: 0; }
   main > section { margin-bottom: 3.4rem; padding-top: 0.4rem; }
@@ -98,30 +106,93 @@
   figure.screenshot img { width: 100%; height: auto; display: block; border-bottom: 1px solid var(--line); }
   figure.screenshot figcaption { padding: 0.85rem 1.1rem; }
 
-  .tree { font-family: var(--font-mono); font-size: 0.92rem; max-width: 30em; margin: 1.3rem 0; border-top: 1px solid var(--line); }
-  .tree-row { display: flex; justify-content: space-between; align-items: center; padding: 0.55rem 0.1rem; border-bottom: 1px solid var(--line); gap: 1rem; }
-  .badge { font-family: var(--font); font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.22rem 0.55rem; border-radius: 999px; white-space: nowrap; font-weight: 600; }
-  .badge-tracked { background: var(--accent-tint); color: var(--accent); }
-  .badge-private { background: var(--warn-tint); color: var(--warn); }
-
-  .scenario { margin: 1.6rem 0; padding: 1.15rem 1.35rem; border: 1px solid var(--line); border-radius: 8px; max-width: 42em; }
-  .scenario .situation { font-weight: 700; margin: 0 0 0.7rem; font-size: 0.98rem; }
-  .scenario .situation-label { color: var(--ink-muted); font-weight: 400; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 0.3rem; }
-  .scenario ol, .scenario ul { margin-bottom: 0; }
-  .scenario .code-block { margin: 0.7rem 0; }
-
-  .ref-table-wrap { overflow-x: auto; margin: 1.2rem 0; }
-  .ref-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; min-width: 480px; }
-  .ref-table th, .ref-table td { text-align: left; padding: 0.6rem 0.9rem; border-bottom: 1px solid var(--line); vertical-align: top; }
-  .ref-table th { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); }
-  .ref-table td:first-child { font-family: var(--font-mono); font-size: 0.85rem; white-space: nowrap; }
-
   .page-flow { display: flex; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--line); max-width: 42em; gap: 1rem; font-weight: 600; }
   .page-flow a { text-decoration: none; }
   .page-flow a:hover { text-decoration: underline; }
   .flow-next { margin-left: auto; text-align: right; }
 
   footer.page-foot { max-width: 1200px; margin: 0 auto; padding: 2rem 2rem 3rem; font-size: 0.82rem; color: var(--ink-muted); border-top: 1px solid var(--line); }
+
+  /* ── Walkthrough components ─────────────────────────────────── */
+
+  /* OS picker + filtering */
+  .os-picker { display: flex; gap: 0.9rem; margin: 1.2rem 0 0.4rem; max-width: 42em; }
+  .os-btn { flex: 1; font: inherit; padding: 0.95rem 1.2rem; border: 2px solid var(--line); border-radius: 10px; background: var(--paper); cursor: pointer; text-align: center; font-weight: 700; font-size: 1.02rem; color: var(--ink); }
+  .os-btn .icon { font-size: 1.35rem; display: block; margin-bottom: 0.15rem; font-weight: 400; }
+  .os-btn:hover { border-color: var(--accent); }
+  .os-btn[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-tint); color: var(--accent); }
+  #os-note { font-size: 0.85rem; color: var(--ink-muted); margin: 0.5rem 0 0; }
+  .os-mini { display: flex; gap: 0.5rem; margin: 0.4rem 0 0.2rem; }
+  .os-mini .os-btn { padding: 0.4rem 0.5rem; font-size: 0.8rem; border-radius: 7px; border-width: 1.5px; }
+  .os-tag { display: none; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.18rem 0.55rem; border-radius: 999px; background: var(--paper-sunken); color: var(--ink-muted); vertical-align: middle; margin: 0 0 0.5rem; }
+  body:not(.os-win):not(.os-mac) .os-tag { display: inline-block; }
+  body.os-win .mac-only { display: none !important; }
+  body.os-mac .win-only { display: none !important; }
+
+  /* Step cards */
+  .step { border: 1px solid var(--line); border-radius: 10px; padding: 1.5rem 1.6rem 1.4rem; margin: 0 0 2rem; max-width: 48em; scroll-margin-top: 1.2rem; background: var(--paper); }
+  @media (max-width: 480px) { .step { padding: 1.1rem 1rem 1rem; } }
+  .step-head { display: flex; align-items: center; gap: 0.9rem; border-bottom: 1px solid var(--line); padding-bottom: 0.9rem; margin-bottom: 1.2rem; }
+  .step-num-badge { flex: none; width: 2.3rem; height: 2.3rem; border-radius: 50%; background: var(--accent); color: var(--paper); font-weight: 700; font-size: 1.15rem; display: flex; align-items: center; justify-content: center; }
+  .step-head h3 { margin: 0; flex: 1; font-size: 1.22rem; }
+  .step-done { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: var(--ink-muted); font-weight: 600; white-space: nowrap; cursor: pointer; }
+  .step-done input { width: 1.15rem; height: 1.15rem; accent-color: var(--accent-2); cursor: pointer; margin: 0; }
+  .step.step-checked { border-color: var(--accent-2); }
+  .step.step-checked .step-num-badge { background: var(--accent-2); }
+  .step-goal { color: var(--ink-muted); font-style: italic; }
+
+  /* Sub-steps (step 7) */
+  .substep { margin: 1.9rem 0; padding-left: 1.05rem; border-left: 2px solid var(--line); }
+  .substep h4 { margin: 0 0 0.6rem; font-size: 1.02rem; font-weight: 700; scroll-margin-top: 1.2rem; }
+  .substep h4 .sub-id { color: var(--accent); margin-right: 0.45rem; }
+
+  /* Do / See / Checkpoint blocks */
+  .action, .expect { max-width: 42em; margin: 1.1rem 0; padding: 0.85rem 1.1rem 0.4rem; border-radius: 8px; border: 1px solid var(--line); }
+  .action { border-left: 3px solid var(--accent); }
+  .expect { border-left: 3px solid var(--ink-muted); background: var(--paper-raised); }
+  .block-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 0.4rem; }
+  .action .block-label { color: var(--accent); }
+  .expect .block-label { color: var(--ink-muted); }
+  .action p, .expect p { margin-bottom: 0.75rem; }
+  .action .code-block, .expect .code-block { margin: 0.7rem 0 0.9rem; }
+  .action .term, .expect .term { margin: 0.7rem 0 0.9rem; }
+  .expect .code-block pre { background: var(--paper); }
+
+  .checkpoint { border-left: 3px solid var(--accent-2); background: var(--accent-2-tint); padding: 0.9rem 1.1rem; border-radius: 0 6px 6px 0; margin: 1.4rem 0 0.3rem; max-width: 42em; }
+  .checkpoint-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-2); font-weight: 700; display: block; margin-bottom: 0.35rem; }
+  .checkpoint p { margin-bottom: 0.4rem; }
+  .checkpoint p:last-child { margin-bottom: 0; }
+
+  /* Fake terminal — "what your screen will say" */
+  .term { background: #20252D; border-radius: 8px; border: 1px solid #343B46; margin: 0.9rem 0 1.2rem; max-width: 42em; overflow: hidden; }
+  .term-bar { display: flex; align-items: center; gap: 0.4rem; padding: 0.45rem 0.9rem; background: #2A303A; }
+  .term-bar i { width: 10px; height: 10px; border-radius: 50%; background: #4A5260; display: inline-block; }
+  .term-bar .term-title { margin-left: 0.4rem; font-size: 0.72rem; color: #8B95A4; font-family: var(--font-mono); }
+  .term pre { margin: 0; padding: 0.85rem 1.1rem; font-family: var(--font-mono); font-size: 0.84rem; line-height: 1.65; color: #C7D0DC; overflow-x: auto; }
+  .term .t-p { color: #7D8898; }
+  .term .t-cmd { color: #FFFFFF; font-weight: 600; }
+  .term .t-err { color: #FFAF9F; }
+  .term .t-ok { color: #A9D9B2; }
+  .term .t-dim { color: #8B95A4; }
+
+  /* Decision forks — "what do you see?" */
+  .fork { margin: 1.1rem 0 1.3rem; max-width: 42em; }
+  .fork-q { font-weight: 700; margin: 0 0 0.6rem; }
+  details.fork-opt { margin: 0 0 0.55rem; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--paper); }
+  details.fork-opt summary { display: flex; align-items: baseline; gap: 0.6rem; padding: 0.7rem 0.95rem; cursor: pointer; font-weight: 600; list-style: none; line-height: 1.45; }
+  details.fork-opt summary::-webkit-details-marker { display: none; }
+  details.fork-opt summary::marker { content: ""; }
+  details.fork-opt summary .fork-ico { flex: none; font-weight: 800; }
+  details.fork-opt.ok { border-left: 3px solid var(--accent-2); }
+  details.fork-opt.ok .fork-ico { color: var(--accent-2); }
+  details.fork-opt.bad { border-left: 3px solid var(--warn); }
+  details.fork-opt.bad .fork-ico { color: var(--warn); }
+  details.fork-opt[open] { background: var(--paper-raised); }
+  details.fork-opt[open] summary { border-bottom: 1px dashed var(--line); }
+  details.fork-opt .fork-body { padding: 0.8rem 0.95rem 0.9rem; }
+  details.fork-opt .fork-body p { margin-bottom: 0.6rem; }
+  details.fork-opt .fork-body > :last-child { margin-bottom: 0; }
+  details.fork-opt .fork-body .term, details.fork-opt .fork-body .code-block { margin: 0.6rem 0 0.8rem; }
 </style>
 
 <div class="masthead">
@@ -143,51 +214,400 @@
           <li><a href="quick-reference.html">5. Quick reference</a></li>
         </ol>
       </nav>
+      <p class="nav-label">Your progress</p>
+      <div class="progress-wrap">
+        <div class="progress-bar"><span id="progress-fill"></span></div>
+        <p id="progress-text">0 of 8 steps done</p>
+      </div>
+      <div class="os-mini" aria-label="Switch operating system">
+        <button type="button" class="os-btn" data-os="win">⊞ Windows</button>
+        <button type="button" class="os-btn" data-os="mac">⌘ Mac</button>
+      </div>
       <p class="nav-label">On this page</p>
       <nav aria-label="On this page">
         <ol class="sub">
-          <li><a href="#install">2.1 Install the tools</a></li>
-          <li><a href="#get-the-repo">2.2 Get the repo onto your computer</a></li>
-          <li><a href="#what-you-see">2.3 What you'll now see</a></li>
-          <li><a href="#what-goes-where">2.4 What goes where</a></li>
+          <li><a href="#before">Before you start</a></li>
+          <li><a href="#step-1" data-step-link="1">Step 1 · Open a terminal</a></li>
+          <li><a href="#step-2" data-step-link="2">Step 2 · Do you have Git?</a></li>
+          <li><a href="#step-3" data-step-link="3">Step 3 · Install Git</a></li>
+          <li><a href="#step-4" data-step-link="4">Step 4 · Install VS Code</a></li>
+          <li><a href="#step-5" data-step-link="5">Step 5 · Tell Git who you are</a></li>
+          <li><a href="#step-6" data-step-link="6">Step 6 · Download the repo</a></li>
+          <li><a href="#step-7" data-step-link="7">Step 7 · First contribution</a></li>
+          <li><a href="#step-8" data-step-link="8">Step 8 · The notes browser</a></li>
+          <li><a href="#done">You're set up</a></li>
         </ol>
       </nav>
     </details>
   </aside>
 
   <main>
-    <section id="setup">
-      <h2><span class="num">2</span>Setup</h2>
+    <section id="before">
+      <h2><span class="num">2</span>Setup, click by click</h2>
+
+      <p>This page takes you from a blank laptop to your name on the contributor list — every click and every command spelled out, including what your screen should say at each point and what to do when it says something else. Budget <strong>45–60 minutes</strong>, most of it waiting for installers.</p>
 
       <div class="callout">
         <span class="callout-label">Do you need this page?</span>
         <p>Only if you'll be contributing regularly. Just reading, or making a one-off small fix, needs nothing installed — see the paths in <a href="index.html#paths">§1.2</a>.</p>
       </div>
 
-      <h3 id="install"><span class="num">2.1</span>Install the tools</h3>
-      <p>Two programs, installed once each. <strong>VS Code</strong> is the editor — the window you'll read and write notes in. <strong>Git</strong> is a separate program with no window of its own: it tracks versions and moves changes between your computer and GitHub. VS Code gives you buttons for Git; Git does the actual work.</p>
-      <ol>
-        <li><strong>Install VS Code.</strong> Go to <code>code.visualstudio.com/download</code>, click the button for your system, and run the installer. The default options are fine.
-          <figure class="screenshot">
-            <img src="screenshots/vscode-download-page.png" alt="The VS Code download page with the Windows and Mac download buttons highlighted" loading="lazy">
-            <figcaption>The download buttons for Windows and Mac. Ignore everything below them — the big button is the right one. (Captured from code.visualstudio.com; highlights ours.)</figcaption>
-          </figure>
-        </li>
-        <li><strong>Install Git.</strong>
-          <ul>
-            <li>Windows: go to <code>git-scm.com/download/win</code>, click <strong>Click here to download</strong>, and run the installer. It asks a long series of questions over many screens — click <strong>Next</strong> through all of them; the defaults are fine.</li>
-            <li>Mac: nothing to download. Git comes with Apple's developer tools, and macOS offers to install those the first time you type a Git command — which happens in §2.2.</li>
-          </ul>
-          <figure class="screenshot">
-            <img src="screenshots/git-download-page.png" alt="The Git for Windows download page with the Click here to download link highlighted" loading="lazy">
-            <figcaption>Git for Windows: the highlighted download link. Mac users never need this page. (Captured from git-scm.com; highlight ours.)</figcaption>
-          </figure>
-        </li>
-      </ol>
-      <p>Don't look for a Git icon afterwards — there isn't one. You'll see it working in the next section, from inside VS Code.</p>
+      <h3>What you need before starting</h3>
+      <ul>
+        <li>Your laptop — Windows or Mac, either is fine — and a stable internet connection.</li>
+        <li>A <strong>GitHub account</strong>. No account yet? Create one free at <code>github.com/signup</code> (2 minutes), and note the username you pick.</li>
+        <li>Your GitHub username <strong>whitelisted</strong> on the repo — the repo is private, so until you're added it's invisible to you. Message Charles on WhatsApp with your username (see <a href="index.html#access">§1.5</a>). You can do Steps 1–5 while you wait.</li>
+      </ul>
 
-      <h3 id="get-the-repo"><span class="num">2.2</span>Get the repo onto your computer</h3>
-      <p><em>Cloning</em> means downloading a full copy of the repository — every module, every note, and the entire history — into a folder on your computer. It happens once. After that, staying in sync takes two commands: <code>pull</code> brings down other people's changes, <code>push</code> sends up yours.</p>
+      <h3>How this page works</h3>
+      <p>Eight steps, in order — don't skip ahead unless a step tells you to. Every step has the same shape:</p>
+      <ul>
+        <li>A <strong style="color:var(--accent)">Do this</strong> box tells you exactly what to click or type.</li>
+        <li>A <strong style="color:var(--ink-muted)">You should see</strong> box shows what your screen replies. Dark boxes are what the <em>terminal</em> will say — you never need to type what's in a dark box unless it's marked as the command.</li>
+        <li>Where screens can differ, a <strong>“What did you get?”</strong> list follows. Click the line that matches <em>your</em> screen; it opens and tells you what to do next.</li>
+        <li>A green <strong style="color:var(--accent-2)">Checkpoint</strong> closes each step — if it's true, you're ready for the next one.</li>
+      </ul>
+      <p>Tick the <strong>done</strong> box in a step's corner as you finish it (skipped steps count — tick them too). Progress is remembered on this device, so you can stop and come back anytime.</p>
+
+      <h3 id="pick-os">First: which computer are you on?</h3>
+      <p>The instructions differ between Windows and Mac, so pick one — the page will hide everything that doesn't apply to you. You can switch anytime with the small buttons in the sidebar.</p>
+      <div class="os-picker" aria-label="Choose your operating system">
+        <button type="button" class="os-btn" data-os="win"><span class="icon">⊞</span>I'm on Windows</button>
+        <button type="button" class="os-btn" data-os="mac"><span class="icon">⌘</span>I'm on a Mac</button>
+      </div>
+      <p id="os-note"></p>
+    </section>
+
+    <section class="step" id="step-1">
+      <div class="step-head">
+        <span class="step-num-badge">1</span>
+        <h3>Open a terminal</h3>
+        <label class="step-done"><input type="checkbox" data-step="1"> done</label>
+      </div>
+      <p class="step-goal">Goal: a window where you can type commands — you'll need it to check what's already installed.</p>
+
+      <p>A <em>terminal</em> is a window where you type an instruction, press <kbd>Enter</kbd>, and the computer answers in text. That's the whole trick — everything in this guide that isn't a mouse click happens here.</p>
+
+      <div class="win-only">
+        <span class="os-tag">Windows</span>
+        <div class="action">
+          <span class="block-label">👉 Do this</span>
+          <p>Press the <kbd>⊞ Win</kbd> key, type <code>powershell</code>, and press <kbd>Enter</kbd>.</p>
+        </div>
+        <div class="expect">
+          <span class="block-label">👀 You should see</span>
+          <p>A blue or black window like this, with a blinking cursor at the end:</p>
+          <div class="term" role="img" aria-label="PowerShell window showing the prompt PS C, colon, backslash Users backslash you">
+            <div class="term-bar"><i></i><i></i><i></i><span class="term-title">Windows PowerShell</span></div>
+            <pre>Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+<span class="t-p">PS C:\Users\you&gt;</span> <span class="t-cmd">▏</span></pre>
+          </div>
+          <p>The line ending in <code>&gt;</code> is the <em>prompt</em> — the terminal saying “I'm listening.”</p>
+        </div>
+      </div>
+
+      <div class="mac-only">
+        <span class="os-tag">Mac</span>
+        <div class="action">
+          <span class="block-label">👉 Do this</span>
+          <p>Press <kbd>⌘</kbd>+<kbd>Space</kbd>, type <code>terminal</code>, and press <kbd>Enter</kbd>.</p>
+        </div>
+        <div class="expect">
+          <span class="block-label">👀 You should see</span>
+          <p>A window like this, with a blinking cursor at the end:</p>
+          <div class="term" role="img" aria-label="Mac Terminal window showing the prompt you at MacBook percent sign">
+            <div class="term-bar"><i></i><i></i><i></i><span class="term-title">Terminal</span></div>
+            <pre>Last login: Fri Aug 15 09:12:04 on console
+<span class="t-p">you@MacBook ~ %</span> <span class="t-cmd">▏</span></pre>
+          </div>
+          <p>The line ending in <code>%</code> is the <em>prompt</em> — the terminal saying “I'm listening.”</p>
+        </div>
+      </div>
+
+      <div class="checkpoint">
+        <span class="checkpoint-label">✔ Checkpoint</span>
+        <p>You have a terminal window open with a prompt and a blinking cursor. (You'll only use this bare window for the next two steps — after that, everything happens inside VS Code.)</p>
+      </div>
+    </section>
+
+    <section class="step" id="step-2">
+      <div class="step-head">
+        <span class="step-num-badge">2</span>
+        <h3>Do you have Git already?</h3>
+        <label class="step-done"><input type="checkbox" data-step="2"> done</label>
+      </div>
+      <p class="step-goal">Goal: find out whether Git is installed, so you know if Step 3 applies to you.</p>
+
+      <p><strong>Git</strong> is the program that moves notes between your laptop and GitHub and keeps everyone's changes from overwriting each other. It has no icon and no window of its own — the only way to see it is to ask for it in the terminal.</p>
+
+      <div class="action">
+        <span class="block-label">👉 Do this</span>
+        <p>Click inside the terminal, type this exactly (two dashes, no space between them), and press <kbd>Enter</kbd>:</p>
+        <div class="code-block"><pre><code>git --version</code></pre></div>
+      </div>
+
+      <div class="win-only">
+        <span class="os-tag">Windows</span>
+        <div class="fork">
+          <p class="fork-q">What did the terminal reply? Click the one that matches:</p>
+          <details class="fork-opt ok">
+            <summary><span class="fork-ico">✓</span><span>A version number, like <code>git version 2.51.0.windows.1</code></span></summary>
+            <div class="fork-body">
+              <p>Git is already installed — you don't need Step 3 at all. Tick <strong>done</strong> on this step <em>and</em> on Step 3, then jump to <a href="#step-4">Step 4</a>.</p>
+            </div>
+          </details>
+          <details class="fork-opt bad">
+            <summary><span class="fork-ico">✗</span><span>Red text: <code>git : The term 'git' is not recognized…</code></span></summary>
+            <div class="fork-body">
+              <div class="term" role="img" aria-label="PowerShell error saying the term git is not recognized">
+                <div class="term-bar"><i></i><i></i><i></i><span class="term-title">Windows PowerShell</span></div>
+                <pre><span class="t-p">PS C:\Users\you&gt;</span> <span class="t-cmd">git --version</span>
+<span class="t-err">git : The term 'git' is not recognized as the name of a cmdlet,
+function, script file, or operable program.</span></pre>
+              </div>
+              <p>Completely normal on a fresh Windows machine — it just means Git isn't installed yet. (Older terminals phrase it <code>'git' is not recognized as an internal or external command</code> — same meaning.) Go to <a href="#step-3">Step 3</a>.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <div class="mac-only">
+        <span class="os-tag">Mac</span>
+        <div class="fork">
+          <p class="fork-q">What happened? Click the one that matches:</p>
+          <details class="fork-opt ok">
+            <summary><span class="fork-ico">✓</span><span>A version number, like <code>git version 2.39.5 (Apple Git-154)</code></span></summary>
+            <div class="fork-body">
+              <p>Git is already installed — you don't need Step 3 at all. Tick <strong>done</strong> on this step <em>and</em> on Step 3, then jump to <a href="#step-4">Step 4</a>.</p>
+            </div>
+          </details>
+          <details class="fork-opt bad">
+            <summary><span class="fork-ico">!</span><span>A window popped up: <em>“The «git» command requires the command line developer tools. Would you like to install the tools now?”</em></span></summary>
+            <div class="fork-body">
+              <p>That popup <em>is</em> Git's installer on a Mac — macOS is offering to fetch it for you. Don't dismiss it. Go to <a href="#step-3">Step 3</a>, which tells you exactly what to click.</p>
+            </div>
+          </details>
+          <details class="fork-opt bad">
+            <summary><span class="fork-ico">✗</span><span><code>zsh: command not found: git</code> — and no popup</span></summary>
+            <div class="fork-body">
+              <p>Git isn't installed and macOS didn't offer it this time. No problem — <a href="#step-3">Step 3</a> has a command that makes the offer appear.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <div class="checkpoint">
+        <span class="checkpoint-label">✔ Checkpoint</span>
+        <p>You matched one of the outcomes above and know where you're going next: version number → <a href="#step-4">Step 4</a>; anything else → <a href="#step-3">Step 3</a>. If your screen showed something entirely different, photograph it and ask in the group chat before continuing.</p>
+      </div>
+    </section>
+
+    <section class="step" id="step-3">
+      <div class="step-head">
+        <span class="step-num-badge">3</span>
+        <h3>Install Git</h3>
+        <label class="step-done"><input type="checkbox" data-step="3"> done</label>
+      </div>
+      <p class="step-goal">Goal: <code>git --version</code> prints a version number. Skip this whole step if it already did in Step 2.</p>
+
+      <div class="win-only">
+        <span class="os-tag">Windows</span>
+        <div class="action">
+          <span class="block-label">👉 Do this</span>
+          <p>In your web browser, go to <code>git-scm.com/download/win</code> and click <strong>Click here to download</strong>. When the download finishes, open the <code>.exe</code> file.</p>
+        </div>
+        <figure class="screenshot">
+          <img src="screenshots/git-download-page.png" alt="The Git for Windows download page with the Click here to download link highlighted" loading="lazy">
+          <figcaption>The highlighted <strong>Click here to download</strong> link is the only thing you need on this page. (Captured from git-scm.com; highlight ours.)</figcaption>
+        </figure>
+        <div class="expect">
+          <span class="block-label">👀 You should see</span>
+          <p>An installer that asks a <em>long</em> series of questions over roughly ten screens — text editors, PATH, line endings. You don't need to understand any of them: the defaults are all fine. Click <strong>Next</strong> on every screen, then <strong>Install</strong>, then <strong>Finish</strong>.</p>
+        </div>
+        <div class="callout warn">
+          <span class="callout-label">The classic trap</span>
+          <p>A terminal only knows about programs that existed <em>when it opened</em>. Your PowerShell window from Step 1 was born before Git existed on this machine — so it will keep saying “not recognized” forever, even though the install worked.</p>
+        </div>
+        <div class="action">
+          <span class="block-label">👉 Do this</span>
+          <p>Close the PowerShell window completely (the ✕). Open a fresh one (Step 1: <kbd>⊞ Win</kbd> → <code>powershell</code> → <kbd>Enter</kbd>) and type:</p>
+          <div class="code-block"><pre><code>git --version</code></pre></div>
+        </div>
+        <div class="fork">
+          <p class="fork-q">What did the fresh terminal say?</p>
+          <details class="fork-opt ok">
+            <summary><span class="fork-ico">✓</span><span><code>git version 2.51.0.windows.1</code> (or similar)</span></summary>
+            <div class="fork-body"><p>Done — Git is installed and working. Tick this step and continue to <a href="#step-4">Step 4</a>.</p></div>
+          </details>
+          <details class="fork-opt bad">
+            <summary><span class="fork-ico">✗</span><span>Still <code>…is not recognized…</code></span></summary>
+            <div class="fork-body">
+              <p>Restart the computer (this refreshes what every program knows about), then open a fresh terminal and try <code>git --version</code> once more. Still not recognized after a restart? Photograph the screen and ask in the group chat — don't reinstall repeatedly.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <div class="mac-only">
+        <span class="os-tag">Mac</span>
+        <p>On a Mac you don't download Git from a website — it arrives as part of Apple's free <em>command line developer tools</em>, and macOS itself offers to install those.</p>
+        <div class="action">
+          <span class="block-label">👉 Do this</span>
+          <p>If the popup from Step 2 (<em>“The «git» command requires the command line developer tools…”</em>) is still on screen, click <strong>Install</strong>, then <strong>Agree</strong>. If you dismissed it or never got it, summon it with:</p>
+          <div class="code-block"><pre><code>xcode-select --install</code></pre></div>
+          <p>Then click <strong>Install</strong> → <strong>Agree</strong> in the window that appears.</p>
+        </div>
+        <div class="expect">
+          <span class="block-label">👀 You should see</span>
+          <p>A progress bar labelled “Finding Software…” then “Downloading…”. It takes 5–15 minutes — leave it running; a coffee is the right move here. It ends with “The software was installed.”</p>
+        </div>
+        <div class="action">
+          <span class="block-label">👉 Do this</span>
+          <p>Back in the terminal, type:</p>
+          <div class="code-block"><pre><code>git --version</code></pre></div>
+        </div>
+        <div class="fork">
+          <p class="fork-q">What did it say?</p>
+          <details class="fork-opt ok">
+            <summary><span class="fork-ico">✓</span><span><code>git version 2.39.5 (Apple Git-154)</code> (or similar)</span></summary>
+            <div class="fork-body"><p>Done — Git is installed and working. Tick this step and continue to <a href="#step-4">Step 4</a>.</p></div>
+          </details>
+          <details class="fork-opt bad">
+            <summary><span class="fork-ico">✗</span><span>Still <code>command not found: git</code></span></summary>
+            <div class="fork-body">
+              <p>Your terminal window predates the install and hasn't noticed it. Quit Terminal fully (<kbd>⌘</kbd>+<kbd>Q</kbd>), reopen it (Step 1), and try again. Still nothing? Restart the Mac, try once more, and if it's still broken, photograph the screen and ask in the group chat.</p>
+            </div>
+          </details>
+        </div>
+        <div class="alt-box">
+          <p class="alt-label">Already a Homebrew user?</p>
+          <p><code>brew install git</code> works too. But don't install Homebrew just for this — the developer-tools route above is all you need.</p>
+        </div>
+      </div>
+
+      <div class="checkpoint">
+        <span class="checkpoint-label">✔ Checkpoint</span>
+        <p>In a freshly opened terminal, <code>git --version</code> prints a version number. Nothing else about Git needs to work yet.</p>
+      </div>
+    </section>
+
+    <section class="step" id="step-4">
+      <div class="step-head">
+        <span class="step-num-badge">4</span>
+        <h3>Install VS Code</h3>
+        <label class="step-done"><input type="checkbox" data-step="4"> done</label>
+      </div>
+      <p class="step-goal">Goal: VS Code opens. It's the window you'll read and write notes in — and it has Git buttons and a built-in terminal, so after this step you never need the bare terminal again.</p>
+
+      <div class="action">
+        <span class="block-label">👉 Do this — check first</span>
+        <p class="win-only">Press <kbd>⊞ Win</kbd> and type <code>visual studio code</code>. Does an app called <strong>Visual Studio Code</strong> (blue ribbon icon) appear in the results?</p>
+        <p class="mac-only">Press <kbd>⌘</kbd>+<kbd>Space</kbd> and type <code>visual studio code</code>. Does an app called <strong>Visual Studio Code</strong> (blue ribbon icon) appear?</p>
+      </div>
+
+      <div class="fork">
+        <p class="fork-q">Is it there?</p>
+        <details class="fork-opt ok">
+          <summary><span class="fork-ico">✓</span><span>Yes — Visual Studio Code shows up</span></summary>
+          <div class="fork-body"><p>Open it, tick this step, and go to <a href="#step-5">Step 5</a>.</p></div>
+        </details>
+        <details class="fork-opt bad">
+          <summary><span class="fork-ico">✗</span><span>No — nothing (or only “Visual Studio”, a different product)</span></summary>
+          <div class="fork-body"><p>Install it — instructions right below.</p></div>
+        </details>
+      </div>
+
+      <div class="action">
+        <span class="block-label">👉 Do this — install</span>
+        <p>Go to <code>code.visualstudio.com/download</code> and click the big button for your system.</p>
+      </div>
+      <figure class="screenshot">
+        <img src="screenshots/vscode-download-page.png" alt="The VS Code download page with the Windows and Mac download buttons highlighted" loading="lazy">
+        <figcaption>The download buttons. Ignore everything below them — the big button is the right one. (Captured from code.visualstudio.com; highlights ours.)</figcaption>
+      </figure>
+
+      <div class="win-only">
+        <span class="os-tag">Windows</span>
+        <div class="expect">
+          <span class="block-label">👀 You should see</span>
+          <p>A downloaded installer. Run it, accept the licence, and click <strong>Next</strong> through every screen — the defaults are fine — then <strong>Install</strong> and <strong>Finish</strong>. VS Code launches by itself at the end.</p>
+        </div>
+      </div>
+      <div class="mac-only">
+        <span class="os-tag">Mac</span>
+        <div class="expect">
+          <span class="block-label">👀 You should see</span>
+          <p>A <code>.zip</code> file in your Downloads. Double-click it and a blue <strong>Visual Studio Code</strong> app icon appears next to it. Drag that icon into your <strong>Applications</strong> folder, then open it from Applications. The first launch asks if you're sure you want to open an app downloaded from the internet — click <strong>Open</strong>.</p>
+        </div>
+      </div>
+
+      <div class="checkpoint">
+        <span class="checkpoint-label">✔ Checkpoint</span>
+        <p>VS Code is open in front of you, showing a Welcome tab. Both tools are now installed — the rest of this page is doing things with them.</p>
+      </div>
+    </section>
+
+    <section class="step" id="step-5">
+      <div class="step-head">
+        <span class="step-num-badge">5</span>
+        <h3>Tell Git who you are</h3>
+        <label class="step-done"><input type="checkbox" data-step="5"> done</label>
+      </div>
+      <p class="step-goal">Goal: every change you ever make gets stamped with your name. Three commands, once, and you never do this again.</p>
+
+      <div class="action">
+        <span class="block-label">👉 Do this</span>
+        <p>In VS Code, open the built-in terminal: menu <strong>Terminal → New Terminal</strong>. A panel opens along the bottom — this is the same kind of terminal as Step 1, just living inside VS Code. From now on, every command in this guide is typed here.</p>
+      </div>
+      <figure class="screenshot">
+        <img src="screenshots/vscode-open-terminal.png" alt="VS Code with the Terminal menu open on New Terminal, and the terminal panel visible at the bottom" loading="lazy">
+        <figcaption>Terminal → New Terminal. The panel at the bottom is where everything gets typed from here on.</figcaption>
+      </figure>
+
+      <div class="action">
+        <span class="block-label">👉 Do this</span>
+        <p>Type these three commands, pressing <kbd>Enter</kbd> after each. In the first, replace <code>Your Name</code> with your real name (keep the quotes); in the second, use the <strong>same email as your GitHub account</strong> so your changes link to your profile:</p>
+        <div class="code-block"><pre><code>git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+git config --global pull.rebase false</code></pre></div>
+        <p>(The third line picks the simpler behaviour for a command you'll meet later — set it now and forget it.)</p>
+      </div>
+
+      <div class="expect">
+        <span class="block-label">👀 You should see</span>
+        <p><strong>Nothing.</strong> Git prints no reply when a config command works — silence is success. Typo'd something? Just run the command again; the new value overwrites the old.</p>
+      </div>
+
+      <div class="action">
+        <span class="block-label">👉 Do this — prove it worked</span>
+        <div class="code-block"><pre><code>git config --global user.name</code></pre></div>
+      </div>
+      <div class="expect">
+        <span class="block-label">👀 You should see</span>
+        <div class="term" role="img" aria-label="Terminal showing git config replying with the configured name">
+          <div class="term-bar"><i></i><i></i><i></i><span class="term-title">Terminal — VS Code</span></div>
+          <pre><span class="t-p">&gt;</span> <span class="t-cmd">git config --global user.name</span>
+<span class="t-ok">Your Name</span></pre>
+        </div>
+      </div>
+
+      <div class="checkpoint">
+        <span class="checkpoint-label">✔ Checkpoint</span>
+        <p><code>git config --global user.name</code> prints your name back at you.</p>
+      </div>
+    </section>
+
+    <section class="step" id="step-6">
+      <div class="step-head">
+        <span class="step-num-badge">6</span>
+        <h3>Download the repo (clone)</h3>
+        <label class="step-done"><input type="checkbox" data-step="6"> done</label>
+      </div>
+      <p class="step-goal">Goal: the whole repository — every module, every note — sitting in a folder on your computer, open in VS Code.</p>
+
+      <p><em>Cloning</em> means downloading a full copy of the repository, history included. It happens once; afterwards, staying in sync is one command a day.</p>
 
       <figure class="diagram">
         <div class="svg-wrap">
@@ -222,76 +642,453 @@
           <text x="339" y="282" text-anchor="middle" font-size="12.5" fill="var(--ink-muted)" font-weight="600">push — send your changes</text>
         </svg>
         </div>
-        <figcaption>Cloning downloads a full copy of the repository, history included, onto your computer. <code>pull</code> brings in everyone else's changes afterward; <code>push</code> sends yours back.</figcaption>
+        <figcaption>Cloning downloads a full copy of the repository onto your computer. <code>pull</code> brings in everyone else's changes afterward; <code>push</code> sends yours back.</figcaption>
       </figure>
 
-      <ol>
-        <li><strong>Open VS Code and give your copy a home.</strong> Go to <strong>File → Open Folder…</strong>, create a folder wherever you keep uni work — say <code>Documents\NUS</code> — and open it. Everything you clone will land inside this folder.
-          <figure class="screenshot">
-            <img src="screenshots/vscode-open-folder.png" alt="VS Code with the File menu open, showing Open Folder highlighted" loading="lazy">
-            <figcaption>File → Open Folder…</figcaption>
-          </figure>
-          If VS Code asks whether you <em>trust the authors of the files in this folder</em>, say yes — the only author of your own empty folder is you.
-        </li>
-        <li><strong>Open the terminal.</strong> <strong>Terminal → New Terminal</strong>. A panel opens along the bottom of the window — this is where every typed command in this guide goes. Click inside it before typing.
-          <figure class="screenshot">
-            <img src="screenshots/vscode-open-terminal.png" alt="VS Code with the Terminal menu open on New Terminal, and the terminal panel visible at the bottom" loading="lazy">
-            <figcaption>Terminal → New Terminal. The panel that opens at the bottom is where commands in this guide get typed.</figcaption>
-          </figure>
-        </li>
-        <li><strong>Check where the terminal is standing.</strong> The text before the cursor is the <em>prompt</em>, and it ends with the folder the terminal is currently in. Because you opened your folder in step 1, it should end with that folder's name — something like <code>PS C:\Users\you\Documents\NUS&gt;</code> on Windows, or <code>you@MacBook NUS %</code> on a Mac.
-          <figure class="screenshot">
-            <img src="screenshots/vscode-terminal-prompt.png" alt="The terminal panel with the prompt showing a path ending in the NUS folder" loading="lazy">
-            <figcaption>The prompt ends with the folder the terminal is standing in — here, the folder from step 1.</figcaption>
-          </figure>
-          If it points somewhere else, the reliable fix: <strong>File → Open Folder…</strong> the right folder (step 1), then <strong>Terminal → New Terminal</strong> — a fresh terminal always starts in the folder that's open. (Typing <code>cd</code> followed by the folder's path does the same thing.)
-        </li>
-        <li><strong>Sign in to GitHub — before trying to clone.</strong> The notes repo is private: each contributor is whitelisted by GitHub username (<a href="index.html#access">§1.5</a>), and until VS Code can prove who you are, the download will simply be refused. Click the <strong>Accounts</strong> icon in the bottom-left corner → <strong>Sign in with GitHub</strong> → your browser opens → authorize → come back to VS Code.
-          <figure class="screenshot">
-            <img src="screenshots/vscode-signin-github.png" alt="VS Code bottom-left Accounts icon clicked, with the Sign in with GitHub menu row highlighted" loading="lazy">
-            <figcaption>Bottom-left corner of VS Code → Accounts icon → the highlighted <strong>Sign in with GitHub</strong> row. The wording may mention Copilot — it's the same GitHub sign-in either way. (Source: VS Code docs; highlight ours.)</figcaption>
-          </figure>
-          While you're here, introduce yourself to Git too — it stamps your name on every change you make:
-          <div class="code-block"><pre><code>git config --global user.name "Your Name"
-git config --global user.email "you@example.com"
-git config --global pull.rebase false</code></pre></div>
-          Any email works; using the one on your GitHub account keeps your changes linked to your profile. The third line picks the simpler behaviour for a command you'll meet later (<code>pull</code>) — set it now and forget it.
-          <div class="callout">
-            <span class="callout-label">Mac only</span>
-            <p>The first Git command you type may make macOS offer to install "command line developer tools" — that's Git arriving (§2.1). Click <strong>Install</strong>, let it finish, then run your command again.</p>
+      <div class="substep" id="step-6a">
+        <h4><span class="sub-id">6a</span>Give your copy a home</h4>
+        <div class="action">
+          <span class="block-label">👉 Do this</span>
+          <p>In VS Code: <strong>File → Open Folder…</strong>. Create a folder wherever you keep uni work — say <span class="win-only"><code>Documents\NUS</code></span><span class="mac-only"><code>Documents/NUS</code></span> — and open it. If VS Code asks whether you <em>trust the authors of the files in this folder</em>, say yes — the only author of your own empty folder is you.</p>
+        </div>
+        <figure class="screenshot">
+          <img src="screenshots/vscode-open-folder.png" alt="VS Code with the File menu open, showing Open Folder highlighted" loading="lazy">
+          <figcaption>File → Open Folder…</figcaption>
+        </figure>
+      </div>
+
+      <div class="substep" id="step-6b">
+        <h4><span class="sub-id">6b</span>Point a terminal at it</h4>
+        <div class="action">
+          <span class="block-label">👉 Do this</span>
+          <p><strong>Terminal → New Terminal</strong>. A fresh terminal always starts in the folder that's open, so its prompt should end with your folder's name.</p>
+        </div>
+        <div class="expect">
+          <span class="block-label">👀 You should see</span>
+          <div class="term win-only" role="img" aria-label="VS Code terminal with a prompt ending in the NUS folder on Windows">
+            <div class="term-bar"><i></i><i></i><i></i><span class="term-title">Terminal — VS Code</span></div>
+            <pre><span class="t-p">PS C:\Users\you\Documents\NUS&gt;</span> <span class="t-cmd">▏</span></pre>
           </div>
-        </li>
-        <li><strong>Clone.</strong> Copy this whole line into the terminal and press Enter:
+          <div class="term mac-only" role="img" aria-label="VS Code terminal with a prompt ending in the NUS folder on Mac">
+            <div class="term-bar"><i></i><i></i><i></i><span class="term-title">Terminal — VS Code</span></div>
+            <pre><span class="t-p">you@MacBook NUS %</span> <span class="t-cmd">▏</span></pre>
+          </div>
+        </div>
+        <div class="fork">
+          <p class="fork-q">Does the prompt end with your folder's name?</p>
+          <details class="fork-opt ok">
+            <summary><span class="fork-ico">✓</span><span>Yes — it ends with <code>NUS</code> (or whatever you named it)</span></summary>
+            <div class="fork-body"><p>Carry on to <a href="#step-6c">6c</a>.</p></div>
+          </details>
+          <details class="fork-opt bad">
+            <summary><span class="fork-ico">✗</span><span>No — it shows some other folder</span></summary>
+            <div class="fork-body"><p>The reliable fix: <strong>File → Open Folder…</strong> the right folder (6a), then <strong>Terminal → New Terminal</strong> again. A fresh terminal always starts in the folder that's open.</p></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="substep" id="step-6c">
+        <h4><span class="sub-id">6c</span>Sign in to GitHub — before trying to clone</h4>
+        <p>The repo is private. Until VS Code can prove who you are, GitHub will refuse the download — so sign in first.</p>
+        <div class="action">
+          <span class="block-label">👉 Do this</span>
+          <p>Click the <strong>Accounts</strong> icon (a little person) in the <strong>bottom-left corner</strong> of VS Code → <strong>Sign in with GitHub</strong>. Your web browser opens — sign in, click <strong>Authorize</strong>, and come back to VS Code.</p>
+        </div>
+        <figure class="screenshot">
+          <img src="screenshots/vscode-signin-github.png" alt="VS Code bottom-left Accounts icon clicked, with the Sign in with GitHub menu row highlighted" loading="lazy">
+          <figcaption>Bottom-left corner → Accounts icon → the highlighted <strong>Sign in with GitHub</strong> row. The wording may mention Copilot — it's the same GitHub sign-in either way. (Source: VS Code docs; highlight ours.)</figcaption>
+        </figure>
+      </div>
+
+      <div class="substep" id="step-6d">
+        <h4><span class="sub-id">6d</span>Clone</h4>
+        <div class="action">
+          <span class="block-label">👉 Do this</span>
+          <p>Copy this whole line into the terminal (the <strong>Copy</strong> button grabs all of it) and press <kbd>Enter</kbd>:</p>
           <div class="code-block"><pre><code>git clone https://github.com/MSCPhM-Collaborative-27/courses_and_notesharing.git</code></pre></div>
-          Progress lines appear, and after a few seconds it ends with something like <code>Resolving deltas: 100% (…), done.</code> That's the entire repository — history included — now sitting in a new <code>courses_and_notesharing</code> folder inside yours.
-          <figure class="screenshot">
-            <img src="screenshots/vscode-clone-output.png" alt="The terminal after git clone has finished, showing the command and the output ending in done" loading="lazy">
-            <figcaption>What a successful clone looks like: the command you typed, then Git's progress lines ending in <code>done.</code></figcaption>
-          </figure>
-          <div class="callout warn">
-            <span class="callout-label">If it fails</span>
-            <p><code>Repository not found</code> means GitHub is pretending the repo doesn't exist because your account isn't allowed to see it: you're not on the whitelist yet, or you're signed into a different GitHub account than the one that was invited — see <a href="index.html#access">§1.5</a>. A username/password prompt in the terminal means step 4's sign-in didn't complete — do that first.</p>
+        </div>
+        <div class="expect">
+          <span class="block-label">👀 You should see</span>
+          <p>Progress lines for a few seconds, ending in <code>done.</code>:</p>
+          <div class="term" role="img" aria-label="Terminal output of a successful git clone, ending in Resolving deltas, done">
+            <div class="term-bar"><i></i><i></i><i></i><span class="term-title">Terminal — VS Code</span></div>
+            <pre><span class="t-p">&gt;</span> <span class="t-cmd">git clone https://github.com/MSCPhM-Collaborative-27/courses_and_notesharing.git</span>
+Cloning into 'courses_and_notesharing'...
+remote: Enumerating objects: 214, done.
+remote: Counting objects: 100% (214/214), done.
+Receiving objects: 100% (214/214), 4.21 MiB | 3.05 MiB/s, done.
+<span class="t-ok">Resolving deltas: 100% (98/98), done.</span></pre>
           </div>
-          <p>Where that long URL comes from, for future reference: every repository's address lives behind its green <strong>Code</strong> button on GitHub.</p>
+        </div>
+        <div class="fork">
+          <p class="fork-q">Did it end in <code>done.</code>?</p>
+          <details class="fork-opt ok">
+            <summary><span class="fork-ico">✓</span><span>Yes — <code>Resolving deltas: … done.</code></span></summary>
+            <div class="fork-body"><p>That's the entire repository now sitting in a new <code>courses_and_notesharing</code> folder inside yours. Go to <a href="#step-6e">6e</a>.</p></div>
+          </details>
+          <details class="fork-opt bad">
+            <summary><span class="fork-ico">✗</span><span><code>remote: Repository not found.</code></span></summary>
+            <div class="fork-body"><p>GitHub pretends private repos don't exist to anyone not on the whitelist. Either you haven't been added yet, or you're signed into a different GitHub account than the one that was invited. Message Charles your GitHub username (see <a href="index.html#access">§1.5</a>), wait for the “you're added” reply, then run the clone command again.</p></div>
+          </details>
+          <details class="fork-opt bad">
+            <summary><span class="fork-ico">✗</span><span>The terminal itself asks for a username or password</span></summary>
+            <div class="fork-body"><p>The sign-in from <a href="#step-6c">6c</a> didn't complete. Press <kbd>Ctrl</kbd>+<kbd>C</kbd> to cancel, redo 6c (make sure the browser ends on an “authorized” page), then run the clone command again.</p></div>
+          </details>
+        </div>
+        <div class="alt-box">
+          <p class="alt-label">Where that long URL comes from, for future reference</p>
+          <p>Every repository's address lives behind its green <strong>Code</strong> button on GitHub — you'll never need to remember it.</p>
           <figure class="screenshot">
             <img src="screenshots/github-clone-url.png" alt="Our repository page on GitHub with the green Code button clicked open, the HTTPS URL and its copy icon highlighted" loading="lazy">
-            <figcaption>The green <strong>Code</strong> button, then the copy icon next to the highlighted HTTPS URL. This is our own repo page — yours will look exactly like this.</figcaption>
+            <figcaption>The green <strong>Code</strong> button, then the copy icon next to the HTTPS URL.</figcaption>
           </figure>
-        </li>
-        <li><strong>Step into the repo.</strong> <strong>File → Open Folder…</strong> again, and this time open the new <code>courses_and_notesharing</code> folder — it's inside the folder from step 1. Trust the authors when asked; the authors are your coursemates. VS Code reopens with the repo's files listed down the left side — every module, every note, on your machine. What all of that means is next.</li>
-      </ol>
-
-      <h3 id="what-you-see"><span class="num">2.3</span>What you'll now see</h3>
-      <div class="callout">
-        <span class="callout-label">Being written</span>
-        <p>This section will walk the screen you're now looking at, with real screenshots: the Explorer sidebar with the module folders, the Source Control icon, and the terminal you already know. It's the next piece of this rewrite.</p>
+        </div>
       </div>
 
-      <h3 id="what-goes-where"><span class="num">2.4</span>What goes where</h3>
-      <div class="callout">
-        <span class="callout-label">Being written</span>
-        <p>The map of the repository — what each module folder is for, and how note files are named — is moving here from the introduction page, so you meet it while looking at the real folders on your own screen.</p>
+      <div class="substep" id="step-6e">
+        <h4><span class="sub-id">6e</span>Step into the repo</h4>
+        <div class="action">
+          <span class="block-label">👉 Do this</span>
+          <p><strong>File → Open Folder…</strong> one more time, and this time open the new <code>courses_and_notesharing</code> folder (it's inside the folder from 6a). Trust the authors when asked — the authors are your coursemates.</p>
+        </div>
+        <div class="expect">
+          <span class="block-label">👀 You should see</span>
+          <p>VS Code reopens with the repo's files listed down the left side (the <em>Explorer</em>): folders <code>PHM5001</code> through <code>PHM5006</code>, <code>elective_courses</code>, and files including <code>contributors.txt</code>, <code>browse_notes.bat</code> and <code>browse_notes.command</code>. Every module, every note, now on your machine.</p>
+        </div>
       </div>
+
+      <div class="checkpoint">
+        <span class="checkpoint-label">✔ Checkpoint</span>
+        <p>The left sidebar lists the module folders (PHM5001–PHM5006). If it still shows your empty folder, redo <a href="#step-6e">6e</a> — you opened the outer folder, not the repo.</p>
+      </div>
+    </section>
+
+    <section class="step" id="step-7">
+      <div class="step-head">
+        <span class="step-num-badge">7</span>
+        <h3>Your first contribution: get on the contributor list</h3>
+        <label class="step-done"><input type="checkbox" data-step="7"> done</label>
+      </div>
+      <p class="step-goal">Goal: your name and photo on the contributor list — by doing one full lap of the exact workflow you'll use for real notes, on the safest possible file.</p>
+
+      <p>One rule governs everything in this repo: <strong>nobody edits <code>main</code> directly</strong>. <code>main</code> is the shared copy everyone trusts. You always work on a <em>branch</em> (your own parallel copy), then open a <em>pull request</em> (“please merge my branch in”), and Charles reviews and merges it. You're about to do that whole loop once.</p>
+
+      <div class="callout warn">
+        <span class="callout-label">The one thing to never do</span>
+        <p>Never commit while the bottom-left corner of VS Code says <code>main</code>. Check that corner before every commit — it should say <em>your</em> branch name. (7a fixes this in one click if you catch it early; <a href="contributing.html#troubleshooting">§3.7</a> rescues you if you don't.)</p>
+      </div>
+
+      <div class="substep" id="step-7a">
+        <h4><span class="sub-id">7a</span>Create your branch — and switch to it</h4>
+        <div class="action">
+          <span class="block-label">👉 Do this</span>
+          <p>Click where it says <code>main</code> in the <strong>bottom-left status bar</strong>. A menu opens at the top — choose <strong>+ Create new branch…</strong>, type <code>yourname/join-contributors</code> (all lowercase, no spaces — e.g. <code>priya/join-contributors</code>), and press <kbd>Enter</kbd>.</p>
+        </div>
+        <figure class="screenshot">
+          <img src="screenshots/vscode-branch-indicator.png" alt="VS Code bottom status bar with the current branch name highlighted next to the sync icon" loading="lazy">
+          <figcaption>The highlighted item in the bottom-left status bar is the current branch — click it. (Source: VS Code docs; highlight ours.)</figcaption>
+        </figure>
+        <figure class="screenshot">
+          <img src="screenshots/vscode-create-branch.png" alt="The branch picker dropdown open at the top of VS Code, with the Create new branch option highlighted" loading="lazy">
+          <figcaption>The highlighted <strong>+ Create new branch…</strong> option. (Source: VS Code docs; highlight ours.)</figcaption>
+        </figure>
+        <div class="expect">
+          <span class="block-label">👀 You should see</span>
+          <p>The bottom-left corner now reads <code>yourname/join-contributors</code>. Creating a branch in VS Code also <em>switches</em> you onto it — that corner is always the truth about where your work will land.</p>
+        </div>
+        <div class="fork">
+          <p class="fork-q">Does the corner show your new branch name?</p>
+          <details class="fork-opt ok">
+            <summary><span class="fork-ico">✓</span><span>Yes — it says <code>yourname/join-contributors</code></span></summary>
+            <div class="fork-body"><p>You're standing on your own branch. Continue to <a href="#step-7b">7b</a>.</p></div>
+          </details>
+          <details class="fork-opt bad">
+            <summary><span class="fork-ico">✗</span><span>No — it still says <code>main</code></span></summary>
+            <div class="fork-body"><p>The branch may exist without you standing on it. Click the corner again and pick <code>yourname/join-contributors</code> from the list — the corner updates when you land.</p></div>
+          </details>
+        </div>
+        <div class="alt-box">
+          <p class="alt-label">Prefer the terminal?</p>
+          <div class="code-block"><pre><code>git checkout -b yourname/join-contributors</code></pre></div>
+          <p><code>-b</code> means “create it, then switch me onto it.”</p>
+        </div>
+      </div>
+
+      <div class="substep" id="step-7b">
+        <h4><span class="sub-id">7b</span>Publish the branch</h4>
+        <p>Right now your branch exists only on your laptop. Publishing tells GitHub about it, so your work has somewhere to go.</p>
+        <div class="action">
+          <span class="block-label">👉 Do this</span>
+          <p>In the terminal — with the name after <code>origin</code> matching your branch <em>exactly</em> as the corner shows it:</p>
+          <div class="code-block"><pre><code>git push -u origin yourname/join-contributors</code></pre></div>
+        </div>
+        <div class="expect">
+          <span class="block-label">👀 You should see</span>
+          <div class="term" role="img" aria-label="Terminal output of git push creating a new branch on GitHub">
+            <div class="term-bar"><i></i><i></i><i></i><span class="term-title">Terminal — VS Code</span></div>
+            <pre><span class="t-p">&gt;</span> <span class="t-cmd">git push -u origin yourname/join-contributors</span>
+To https://github.com/MSCPhM-Collaborative-27/courses_and_notesharing.git
+<span class="t-ok"> * [new branch]      yourname/join-contributors -&gt; yourname/join-contributors</span>
+branch 'yourname/join-contributors' set up to track 'origin/yourname/join-contributors'.</pre>
+          </div>
+        </div>
+        <div class="fork">
+          <p class="fork-q">Anything other than <code>[new branch]</code>?</p>
+          <details class="fork-opt bad">
+            <summary><span class="fork-ico">✗</span><span><code>error: src refspec … does not match any</code></span></summary>
+            <div class="fork-body"><p>The branch name you typed after <code>origin</code> doesn't exactly match the one you created. Copy the name from the bottom-left corner and run the command again with that exact spelling.</p></div>
+          </details>
+        </div>
+        <div class="alt-box">
+          <p class="alt-label">Prefer a button?</p>
+          <p>The Source Control panel (third icon down the left edge) shows a <strong>Publish Branch</strong> button when a branch has never been pushed — same effect.</p>
+        </div>
+      </div>
+
+      <div class="substep" id="step-7c">
+        <h4><span class="sub-id">7c</span>Add your line to <code>contributors.txt</code></h4>
+        <div class="callout warn">
+          <span class="callout-label">Right file, similar names</span>
+          <p>Edit <code>contributors.txt</code> — the plain text file. Do <strong>not</strong> edit <code>contributor_list.md</code>: that one is drawn by a robot from the <code>.txt</code>, and your card appears there automatically after your change is merged.</p>
+        </div>
+        <div class="action">
+          <span class="block-label">👉 Do this</span>
+          <p>In the Explorer sidebar, click <code>contributors.txt</code>. Click at the very end of the <strong>last line</strong>, press <kbd>Enter</kbd> to start a new line, and type your details in this pattern — a <code>|</code> between each part:</p>
+          <div class="code-block"><pre><code>Your Name | your_github_username | Your degree or former job | 🎓</code></pre></div>
+          <p>For example: <code>Priya Nair | priyacodes | Pharmacy | 💊</code>. The emoji is optional; leave that part off and you get 🎓. Don't touch anyone else's line. Then save: <span class="win-only"><kbd>Ctrl</kbd>+<kbd>S</kbd></span><span class="mac-only"><kbd>⌘</kbd>+<kbd>S</kbd></span>.</p>
+        </div>
+        <div class="expect">
+          <span class="block-label">👀 You should see</span>
+          <p>The white dot on the file's tab turns into an ✕ when saved, and the Source Control icon on the left edge now shows a blue badge with <strong>1</strong> — Git noticed your change.</p>
+        </div>
+        <div class="alt-box">
+          <p class="alt-label">Not sure of your GitHub username?</p>
+          <p>On github.com, click your round profile picture, top-right. Your username is the bold word at the top of that menu.</p>
+        </div>
+      </div>
+
+      <div class="substep" id="step-7d">
+        <h4><span class="sub-id">7d</span>Commit — save a named checkpoint</h4>
+        <div class="action">
+          <span class="block-label">👉 Do this</span>
+          <p>Click the <strong>Source Control</strong> icon (left edge, the one with the badge). Your file is listed under <em>Changes</em>. In the message box type <code>Add &lt;your name&gt; to contributor list</code>, then click <strong>✓ Commit</strong>.</p>
+        </div>
+        <figure class="screenshot">
+          <img src="screenshots/vscode-source-control.png" alt="VS Code Source Control panel with the commit message box and Commit button highlighted above the changed files" loading="lazy">
+          <figcaption>The highlighted pair: type a message in the box, then click <strong>Commit</strong>. (Source: VS Code docs; highlight ours.)</figcaption>
+        </figure>
+        <div class="fork">
+          <p class="fork-q">Did a popup appear?</p>
+          <details class="fork-opt ok">
+            <summary><span class="fork-ico">!</span><span>“There are no staged changes to commit. Would you like to stage all your changes…?”</span></summary>
+            <div class="fork-body"><p>Normal — it's asking “commit everything you changed?”. Click <strong>Yes</strong> (or <strong>Always</strong>, to stop it asking in future).</p></div>
+          </details>
+          <details class="fork-opt bad">
+            <summary><span class="fork-ico">✗</span><span>An error mentioning <code>user.name</code> or <code>user.email</code></span></summary>
+            <div class="fork-body"><p>Step 5 didn't stick. Redo <a href="#step-5">Step 5</a>'s three commands, then click <strong>Commit</strong> again.</p></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="substep" id="step-7e">
+        <h4><span class="sub-id">7e</span>Push — send it to GitHub</h4>
+        <div class="action">
+          <span class="block-label">👉 Do this</span>
+          <p>In the Source Control panel, click <strong>Sync Changes</strong> (or the circular-arrows icon in the status bar). This pushes your commit up to the branch you published in 7b.</p>
+        </div>
+        <div class="expect">
+          <span class="block-label">👀 You should see</span>
+          <p>The button spins briefly, then the panel shows no pending changes. Your line is now on GitHub — on <em>your branch</em>, not on <code>main</code>. One step left.</p>
+        </div>
+      </div>
+
+      <div class="substep" id="step-7f">
+        <h4><span class="sub-id">7f</span>Open the pull request</h4>
+        <div class="action">
+          <span class="block-label">👉 Do this</span>
+          <p>In your web browser, go to <code>github.com/MSCPhM-Collaborative-27/courses_and_notesharing</code>. A yellow banner offers your just-pushed branch — click <strong>Compare &amp; pull request</strong>, check the title says roughly what you did, and click the green <strong>Create pull request</strong>.</p>
+        </div>
+        <figure class="screenshot">
+          <img src="screenshots/github-new-pr.png" alt="GitHub's yellow banner for a recently pushed branch, with the green Compare and pull request button highlighted" loading="lazy">
+          <figcaption>The highlighted <strong>Compare &amp; pull request</strong> button in the yellow banner. (Source: GitHub docs; highlight ours.)</figcaption>
+        </figure>
+        <div class="fork">
+          <p class="fork-q">No yellow banner?</p>
+          <details class="fork-opt ok">
+            <summary><span class="fork-ico">!</span><span>The banner disappeared (it only lingers a few hours)</span></summary>
+            <div class="fork-body"><p>Click the <strong>Pull requests</strong> tab → <strong>New pull request</strong> → in the <em>compare</em> dropdown pick <code>yourname/join-contributors</code> → <strong>Create pull request</strong>. Same result.</p></div>
+          </details>
+        </div>
+        <div class="expect">
+          <span class="block-label">👀 You should see</span>
+          <p>A page titled with your commit message, marked <strong>Open</strong>, showing “wants to merge 1 commit into <code>main</code>”. That page's address is your PR link.</p>
+        </div>
+      </div>
+
+      <div class="substep" id="step-7g">
+        <h4><span class="sub-id">7g</span>WhatsApp Charles</h4>
+        <div class="action">
+          <span class="block-label">👉 Do this</span>
+          <p>Copy the PR page's URL from your browser's address bar and send it to Charles on WhatsApp — something like <em>“First PR, contributor card: &lt;link&gt;”</em>. Merging is deliberately human: every change gets a second pair of eyes before it lands on <code>main</code>.</p>
+        </div>
+        <div class="expect">
+          <span class="block-label">👀 What happens next</span>
+          <p>Charles reviews and merges. The robot then redraws <code>contributor_list.md</code> — with your card on it, using your GitHub profile photo. If he asks for a tweak first: edit the file again, save, <strong>Commit</strong>, <strong>Sync Changes</strong> — new commits on your branch join the same PR automatically.</p>
+        </div>
+      </div>
+
+      <div class="checkpoint">
+        <span class="checkpoint-label">✔ Checkpoint</span>
+        <p>Your PR is open and Charles has the link. Once it merges, your card is on the contributor list — and you have now done, once, the exact loop every real contribution uses: <em>branch → edit → commit → push → PR → review → merge</em>.</p>
+      </div>
+    </section>
+
+    <section class="step" id="step-8">
+      <div class="step-head">
+        <span class="step-num-badge">8</span>
+        <h3>Read notes the easy way: the notes browser</h3>
+        <label class="step-done"><input type="checkbox" data-step="8"> done</label>
+      </div>
+      <p class="step-goal">Goal: the repo's built-in notes app running in your web browser — every note readable in one click, timetable on top.</p>
+
+      <p>The repo ships with a small app for day-to-day reading: it shows every module's notes in a clickable sidebar, the semester timetable along the top, and lets you read and edit notes without touching VS Code. It runs entirely on your own machine — nothing is uploaded.</p>
+
+      <div class="win-only">
+        <span class="os-tag">Windows</span>
+        <div class="action">
+          <span class="block-label">👉 Do this</span>
+          <p>In <strong>File Explorer</strong>, open your <code>courses_and_notesharing</code> folder and <strong>double-click <code>browse_notes.bat</code></strong>. (Windows may hide the <code>.bat</code> ending — it's the file whose icon shows gear wheels.)</p>
+        </div>
+        <div class="expect">
+          <span class="block-label">👀 You should see</span>
+          <p>Two things: a minimized terminal window appears in your taskbar, and your web browser opens at <code>http://127.0.0.1:8123</code> showing the notes browser. That minimized window <em>is</em> the app — keep it while you read; closing it stops the notes browser (which is also the normal way to quit).</p>
+        </div>
+        <div class="fork">
+          <p class="fork-q">Didn't open? Click what you got:</p>
+          <details class="fork-opt bad">
+            <summary><span class="fork-ico">✗</span><span>A window saying <code>Python isn't installed yet</code></span></summary>
+            <div class="fork-body">
+              <p>The app needs Python (free, from Microsoft). Open a terminal (Step 1), type <code>python</code>, press <kbd>Enter</kbd> — Windows opens the Microsoft Store on the Python page. Click <strong>Get</strong>, wait for it to install, then double-click <code>browse_notes.bat</code> again.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <div class="mac-only">
+        <span class="os-tag">Mac</span>
+        <div class="action">
+          <span class="block-label">👉 Do this</span>
+          <p>In <strong>Finder</strong>, open your <code>courses_and_notesharing</code> folder and <strong>double-click <code>browse_notes.command</code></strong>.</p>
+        </div>
+        <div class="expect">
+          <span class="block-label">👀 You should see</span>
+          <p>A Terminal window opens, and your default browser loads <code>http://127.0.0.1:8123</code> showing the notes browser. Keep that Terminal window open while you read — closing it (or pressing <kbd>Ctrl</kbd>+<kbd>C</kbd> in it) stops the app, which is also the normal way to quit.</p>
+        </div>
+        <div class="fork">
+          <p class="fork-q">Didn't open? Click what you got:</p>
+          <details class="fork-opt bad">
+            <summary><span class="fork-ico">✗</span><span>“…could not be executed because you do not have appropriate permissions” — or it opened as text</span></summary>
+            <div class="fork-body">
+              <p>One-time fix: in VS Code's terminal, run</p>
+              <div class="code-block"><pre><code>chmod +x browse_notes.command</code></pre></div>
+              <p>then double-click the file again. (<code>chmod +x</code> marks the file as allowed to run.)</p>
+            </div>
+          </details>
+          <details class="fork-opt bad">
+            <summary><span class="fork-ico">!</span><span>macOS offers to install the command line developer tools</span></summary>
+            <div class="fork-body">
+              <p>Same free tools as Step 3 — click <strong>Install</strong>, wait for it to finish, then double-click the file again.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <figure class="diagram">
+        <div class="svg-wrap">
+        <svg viewBox="0 0 680 400" role="img" aria-label="Sketch of the notes browser: a browser window with the semester timetable in a strip along the top, a sidebar on the left listing every module's files, and the open note filling the rest of the page.">
+          <defs>
+            <marker id="arrow-nb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/>
+            </marker>
+          </defs>
+
+          <!-- window chrome -->
+          <rect x="30" y="18" width="620" height="330" rx="10" fill="var(--paper)" stroke="var(--ink-muted)" stroke-width="1.6"/>
+          <line x1="30" y1="52" x2="650" y2="52" stroke="var(--line)" stroke-width="1.5"/>
+          <circle cx="52" cy="35" r="5" fill="var(--paper-sunken)" stroke="var(--ink-muted)" stroke-width="1"/>
+          <circle cx="70" cy="35" r="5" fill="var(--paper-sunken)" stroke="var(--ink-muted)" stroke-width="1"/>
+          <circle cx="88" cy="35" r="5" fill="var(--paper-sunken)" stroke="var(--ink-muted)" stroke-width="1"/>
+          <rect x="110" y="26" width="240" height="18" rx="9" fill="var(--paper-raised)" stroke="var(--line)"/>
+          <text x="122" y="39.5" font-size="11.5" font-family="monospace" fill="var(--ink-muted)">127.0.0.1:8123</text>
+
+          <!-- timetable strip -->
+          <rect x="30" y="52" width="620" height="52" fill="var(--accent-tint)"/>
+          <text x="46" y="73" font-size="10" letter-spacing="0.08em" font-weight="700" fill="var(--accent)">TIMETABLE</text>
+          <rect x="46" y="80" width="80" height="16" rx="3" fill="var(--accent)" opacity="0.85"/>
+          <rect x="134" y="80" width="60" height="16" rx="3" fill="var(--accent-2)" opacity="0.8"/>
+          <rect x="202" y="80" width="92" height="16" rx="3" fill="var(--accent)" opacity="0.55"/>
+          <rect x="302" y="80" width="70" height="16" rx="3" fill="var(--accent-2)" opacity="0.55"/>
+          <rect x="380" y="80" width="84" height="16" rx="3" fill="var(--accent)" opacity="0.7"/>
+          <rect x="472" y="80" width="60" height="16" rx="3" fill="var(--accent-2)" opacity="0.7"/>
+          <text x="560" y="93" font-size="11" fill="var(--ink-muted)">this week ›</text>
+
+          <!-- sidebar -->
+          <line x1="210" y1="104" x2="210" y2="348" stroke="var(--line)" stroke-width="1.5"/>
+          <text x="46" y="130" font-size="12" font-family="monospace" fill="var(--ink)">▾ PHM5001</text>
+          <text x="60" y="152" font-size="12" font-family="monospace" fill="var(--ink-muted)">▾ notes</text>
+          <rect x="66" y="160" width="136" height="20" rx="4" fill="var(--accent-tint)"/>
+          <text x="74" y="174.5" font-size="11.5" font-family="monospace" fill="var(--accent)">lecture-01-….md</text>
+          <text x="74" y="198" font-size="11.5" font-family="monospace" fill="var(--ink-muted)">lecture-02-….md</text>
+          <text x="46" y="224" font-size="12" font-family="monospace" fill="var(--ink)">▸ PHM5002</text>
+          <text x="46" y="248" font-size="12" font-family="monospace" fill="var(--ink)">▸ PHM5003</text>
+          <text x="46" y="272" font-size="12" font-family="monospace" fill="var(--ink)">▸ PHM5004</text>
+          <text x="46" y="296" font-size="12" font-family="monospace" fill="var(--ink-muted)">…</text>
+          <rect x="42" y="310" width="98" height="24" rx="12" fill="var(--accent-2)"/>
+          <text x="91" y="326" text-anchor="middle" font-size="11" fill="var(--paper)" font-weight="600">⇣ Pull latest</text>
+
+          <!-- note content -->
+          <rect x="234" y="126" width="270" height="14" rx="3" fill="var(--ink)" opacity="0.75"/>
+          <rect x="234" y="156" width="380" height="8" rx="3" fill="var(--ink-muted)" opacity="0.4"/>
+          <rect x="234" y="174" width="352" height="8" rx="3" fill="var(--ink-muted)" opacity="0.4"/>
+          <rect x="234" y="192" width="372" height="8" rx="3" fill="var(--ink-muted)" opacity="0.4"/>
+          <rect x="234" y="218" width="180" height="10" rx="3" fill="var(--ink)" opacity="0.6"/>
+          <rect x="234" y="240" width="368" height="8" rx="3" fill="var(--ink-muted)" opacity="0.4"/>
+          <rect x="234" y="258" width="330" height="8" rx="3" fill="var(--ink-muted)" opacity="0.4"/>
+          <rect x="234" y="284" width="200" height="60" rx="6" fill="var(--paper-raised)" stroke="var(--line)"/>
+          <text x="334" y="318" text-anchor="middle" font-size="11" fill="var(--ink-muted)">pasted screenshot</text>
+
+          <!-- labels -->
+          <text x="30" y="382" font-size="12.5" fill="var(--accent)" font-weight="600">every module's files — click one to read it</text>
+          <line x1="118" y1="372" x2="118" y2="352" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#arrow-nb)"/>
+          <text x="470" y="382" font-size="12.5" fill="var(--accent)" font-weight="600">the note — read &amp; edit right here</text>
+          <line x1="520" y1="372" x2="520" y2="352" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#arrow-nb)"/>
+          <line x1="660" y1="78" x2="656" y2="78" stroke="var(--paper)" stroke-width="0"/>
+        </svg>
+        </div>
+        <figcaption>What opens at <code>127.0.0.1:8123</code>: the semester <strong>timetable in a strip along the top</strong>, <strong>every module's files in the left sidebar</strong> (click any note to read it), and the open note filling the rest — editable in place, saved straight to your computer.</figcaption>
+      </figure>
+
+      <div class="callout">
+        <span class="callout-label">Keeping your notes fresh</span>
+        <p>Coursemates merge new notes all the time, and your laptop only has what it had at your last download. Make a habit — before every class, or daily — of grabbing the latest: click <strong>⇣ Pull latest</strong> in the notes browser's sidebar, or type <code>git pull</code> in VS Code's terminal. Same thing.</p>
+        <p>If <code>git pull</code> ever complains about conflicts or local changes, that's covered in <a href="contributing.html#staying-current">§3.4</a>–<a href="contributing.html#conflicts">§3.5</a> — or just ask in the group chat.</p>
+      </div>
+
+      <div class="checkpoint">
+        <span class="checkpoint-label">✔ Checkpoint</span>
+        <p>Your browser shows the notes browser: modules down the left, timetable on top. You know how to quit it (close its terminal window) and how to refresh notes (<strong>⇣ Pull latest</strong> or <code>git pull</code>).</p>
+      </div>
+    </section>
+
+    <section id="done">
+      <h3>You're set up — what now?</h3>
+      <p>Look at what you now have: Git and VS Code installed, the whole repo on your machine, a merged pull request with your name on it, and a notes app with the timetable one double-click away. That was the hard part, and it never has to be done again.</p>
+      <ul>
+        <li><strong>To add real notes</strong>, the loop is exactly what you did in Step 7 — branch, edit, commit, push, PR — just with a note file instead of the contributor list. <a href="contributing.html">§3 Contributing</a> is that loop in day-to-day form, including how to stay in sync and fix conflicts.</li>
+        <li><strong>Not sure what to add?</strong> <a href="what-to-contribute.html">§4</a> has ideas and what a good note looks like.</li>
+        <li><strong>Forgot a command?</strong> <a href="quick-reference.html">§5</a> is the one-screen cheat sheet.</li>
+      </ul>
+      <p>And if you get stuck anywhere, ever: message the group chat or Charles on WhatsApp. Ten minutes of being stuck is the limit — after that, ask. Everyone else asked too.</p>
 
       <div class="page-flow">
         <a href="index.html">← Introduction</a>
@@ -307,6 +1104,7 @@ git config --global pull.rebase false</code></pre></div>
 
 <script>
 (function () {
+  /* Copy buttons on command blocks */
   document.querySelectorAll('.code-block').forEach(function (block) {
     var pre = block.querySelector('pre');
     if (!pre) return;
@@ -328,6 +1126,77 @@ git config --global pull.rebase false</code></pre></div>
     block.appendChild(btn);
   });
 
+  /* OS picker — auto-detect, remember, filter the page */
+  var OS_KEY = 'phm-guide-os';
+  var osButtons = Array.prototype.slice.call(document.querySelectorAll('.os-btn[data-os]'));
+  var osNote = document.getElementById('os-note');
+  function readSaved() {
+    try { return localStorage.getItem(OS_KEY); } catch (e) { return null; }
+  }
+  function applyOS(os, note) {
+    document.body.classList.remove('os-win', 'os-mac');
+    if (os) document.body.classList.add('os-' + os);
+    osButtons.forEach(function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-os') === os ? 'true' : 'false');
+    });
+    if (osNote) osNote.textContent = note || '';
+  }
+  osButtons.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var os = b.getAttribute('data-os');
+      try { localStorage.setItem(OS_KEY, os); } catch (e) {}
+      applyOS(os, 'Showing the ' + (os === 'win' ? 'Windows' : 'Mac') + ' instructions everywhere on this page.');
+    });
+  });
+  var saved = readSaved();
+  if (saved === 'win' || saved === 'mac') {
+    applyOS(saved);
+  } else {
+    var guess = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent) ? 'mac' : 'win';
+    applyOS(guess, 'Looks like you\u2019re on ' + (guess === 'mac' ? 'a Mac' : 'Windows') + ', so those instructions are shown \u2014 click the other button if that\u2019s wrong.');
+  }
+
+  /* Step progress — checkboxes, bar, ticks in the sidebar */
+  var STEP_KEY = 'phm-setup-steps';
+  var TOTAL = 8;
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[data-step]'));
+  var fill = document.getElementById('progress-fill');
+  var text = document.getElementById('progress-text');
+  function readSteps() {
+    try {
+      var raw = localStorage.getItem(STEP_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) { return {}; }
+  }
+  function writeSteps(state) {
+    try { localStorage.setItem(STEP_KEY, JSON.stringify(state)); } catch (e) {}
+  }
+  function render(state) {
+    var doneCount = 0;
+    boxes.forEach(function (box) {
+      var n = box.getAttribute('data-step');
+      var done = !!state[n];
+      box.checked = done;
+      if (done) doneCount++;
+      var card = box.closest('.step');
+      if (card) card.classList.toggle('step-checked', done);
+      var link = document.querySelector('[data-step-link="' + n + '"]');
+      if (link) link.classList.toggle('done', done);
+    });
+    if (fill) fill.style.width = (doneCount / TOTAL * 100) + '%';
+    if (text) text.textContent = doneCount + ' of ' + TOTAL + ' steps done' + (doneCount === TOTAL ? ' \u2014 \uD83C\uDF89' : '');
+  }
+  var state = readSteps();
+  render(state);
+  boxes.forEach(function (box) {
+    box.addEventListener('change', function () {
+      state[box.getAttribute('data-step')] = box.checked;
+      writeSteps(state);
+      render(state);
+    });
+  });
+
+  /* Scroll spy for the on-page nav */
   var links = Array.prototype.slice.call(document.querySelectorAll('.toc ol.sub a[href^="#"]'));
   var map = {};
   links.forEach(function (a) {

@@ -6,9 +6,17 @@ Most images are now stored locally in this folder, with a rust-coloured highligh
 
 | File | What to capture |
 |---|---|
-| `github-pr-form.png` | The "Open a pull request" form on a same-repo branch (not a fork): base/compare branch pickers and the title/description fields. GitHub's docs only have a screenshot of the fork variant, which shows different UI (a "head repository" picker) — and the form needs a signed-in session, so it can't be captured headlessly either. Still needs a real screenshot from a logged-in browser. |
-| `vscode-terminal-prompt.png` | Setup §2.2 step 3. The VS Code terminal panel, cropped to the panel (not the whole window), with the prompt line clearly showing a path that ends in the working folder — e.g. `PS C:\Users\you\Documents\NUS>`. Fresh terminal, nothing typed yet. |
-| `vscode-clone-output.png` | Setup §2.2 step 5. The same terminal just after `git clone` of the notes repo finishes: the command as typed, the progress lines, and the final `done.` visible in one crop. Prompt path from the previous shot ideally still visible above, so the two screenshots read as one continuous session. |
+| `github-pr-form.png` | Used by Contributing §3.8. The "Open a pull request" form on a same-repo branch (not a fork): base/compare branch pickers and the title/description fields. GitHub's docs only have a screenshot of the fork variant, which shows different UI (a "head repository" picker) — and the form needs a signed-in session, so it can't be captured headlessly either. Still needs a real screenshot from a logged-in browser. |
+
+## Placeholder files no longer referenced
+
+The setup page was rebuilt as a step-by-step walkthrough that renders expected terminal output as inline styled blocks (`.term` in `setup.html`) instead of screenshots, so these placeholder PNGs are no longer used by any page. They can be deleted, or replaced with real captures if a page ever wants them again:
+
+| File | What it was going to show |
+|---|---|
+| `vscode-terminal-prompt.png` | VS Code terminal prompt ending in the working folder |
+| `vscode-clone-output.png` | Terminal after `git clone` finishes, ending in `done.` |
+| `vscode-sync-changes.png` | Status bar Sync Changes button (Contributing still hotlinks VS Code's own annotated version) |
 
 ## Your own captures — do not overwrite
 

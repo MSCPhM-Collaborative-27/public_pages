@@ -1,0 +1,143 @@
+Speaker 0 • 0:01
+Okay, so I realized that the current onboarding guide that teaches people how to download the repo is not good enough.
+
+Speaker 0 • 0:16
+It's not sufficient.
+
+Speaker 0 • 0:16
+It's very poorly done.
+
+Speaker 0 • 0:18
+It's not obvious at all.
+
+Speaker 0 • 0:19
+So what we're gonna do now is that we're gonna
+
+Speaker 0 • 0:24
+adjust it.
+
+Speaker 0 • 0:28
+We're gonna make it better in terms of clarity as well as giving people like a more algorithmic like do this, if you see this, then do this, if you see that, then do this kind of guide.
+
+Speaker 0 • 0:41
+So what we're gonna do is first we're gonna say for Windows users, here's the guide, and for Apple users, here's the guide.
+
+Speaker 0 • 0:51
+And then it's really gonna be very interactive.
+
+Speaker 0 • 0:56
+It's really gonna be like, click this if you see this, click that if you see this, right?
+
+Speaker 0 • 1:01
+And so the different steps would be for each side, it's gonna be like
+
+Speaker 0 • 1:08
+download Git-- or sorry, or open your terminal and type, you know, the thing to check if you have Git or to check if you have VS Code.
+
+Speaker 0 • 1:17
+Uh, you know, if you don't have VS Code, then download VS Code from here.
+
+Speaker 0 • 1:28
+If you don't have Git, uh, after or after you've downloaded VS Code or before you've downloaded VS Code, you can open command prompt or terminal, and then type like git. info or git version or whatever.
+
+Speaker 0 • 1:40
+And then if you don't have Git, if it says, "Git commandlet not recognized," or something like that, then it goes to the next thing, which is, you know, you have to download Git, right?
+
+Speaker 0 • 1:52
+And to download Git, you either install it from the Git homepage, or you download Brew to install Brew instead, uh, whichever is better.
+
+Speaker 0 • 2:02
+Then after you've installed Git,
+
+Speaker 0 • 2:06
+and after you install VS Code, you know, note that every time you install it, you have to refresh the page, right?
+
+Speaker 0 • 2:14
+Or you can say like, okay, then type Git this and Git version, right, in the terminal, and if it still gives the error, then you have to close and restart the thing.
+
+Speaker 0 • 2:30
+After you close and restart the thing, type Git version again.
+
+Speaker 0 • 2:32
+If it's there, then you have-- you go to VS Code, and you open terminal, and then you type in the specific Git command for
+
+Speaker 0 • 2:43
+getting it in.
+
+Speaker 0 • 2:44
+So you say like Git clone the repo.
+
+Speaker 0 • 2:51
+If it says.
+
+Speaker 0 • 2:54
+And then you also need to make sure that you set your Git user email and Git user ID in the terminal.
+
+Speaker 0 • 3:04
+You also need to make sure that you have
+
+Speaker 0 • 3:08
+done this and done that, right?
+
+Speaker 0 • 3:10
+It has to be step by step, right?
+
+Speaker 0 • 3:11
+And then once it's-- you've Git cloned the main, then what we're gonna do is that we're gonna get them to create a branch in the terminal,
+
+Speaker 0 • 3:22
+and then publish a branch in the terminal under whatever name that they, they were using.
+
+Speaker 0 • 3:28
+After they do so, then they will
+
+Speaker 0 • 3:34
+go and navigate to the contributors list.
+
+Speaker 0 • 3:38
+After they navigate to the contributors list, they will
+
+Speaker 0 • 3:48
+add their name, and then.
+
+Speaker 0 • 3:55
+Oh yeah, so we also need to make sure that if they create a branch, they have to check out to the branch first.
+
+Speaker 0 • 4:00
+They cannot commit to main, right?
+
+Speaker 0 • 4:03
+And then after they've created a contributor, they've added the name to the contributors list, they will
+
+Speaker 0 • 4:11
+then send a-- they will then commit, and then they will push, and then they'll open a pull request, and then they will send a pull request, and then they will text me on WhatsApp to ask
+
+Speaker 0 • 4:25
+to merge that pull request.
+
+Speaker 0 • 4:33
+Yeah, so that's how they do the contributors
+
+Speaker 0 • 4:38
+list appending.
+
+Speaker 0 • 4:42
+After we do that, we want to move on to the next section, which is how to use the notes app within the repository and how to essentially contribute notes and access timetable and stuff like that.
+
+Speaker 0 • 4:57
+And to do so, you need to, if you're an Apple computer, you have to go to the browse_notes. command.
+
+Speaker 0 • 5:07
+If you're a Windows user, you have to use the browse_notes. bat.
+
+Speaker 0 • 5:15
+And you double-click it, which will execute a command that opens up the notebooks browser, the note-note-- the notes viewer browser.
+
+Speaker 0 • 5:25
+And then on the left is a different file navigation system where you can click which one you want to check.
+
+Speaker 0 • 5:32
+And then on the top is a timetable where you can check the timetable being updated for different things.
+
+Speaker 0 • 5:38
+And then periodically, every time you want to update changes, you need to type in Git pull or Git fetch, and so on and so forth.
