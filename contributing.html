@@ -39,6 +39,7 @@
 
   code { font-family: var(--font-mono); font-size: 0.88em; background: var(--paper-raised); padding: 0.1em 0.35em; border-radius: 3px; }
   pre code { background: none; padding: 0; }
+  [id] { scroll-margin-top: 1.2rem; }
 
   .masthead { padding: 3rem 2rem 2rem; max-width: 1200px; margin: 0 auto; border-bottom: 1px solid var(--line); }
   .eyebrow { font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin: 0 0 0.9rem; }
@@ -146,14 +147,12 @@
       <p class="nav-label">On this page</p>
       <nav aria-label="On this page">
         <ol class="sub">
-          <li><a href="#first-contribution">3.1 Your first contribution</a></li>
-          <li><a href="#workflow-diagram">3.2 How a change gets into main</a></li>
-          <li><a href="#branches">3.3 Branches — yours to create</a></li>
-          <li><a href="#staying-current">3.4 Keeping your branch current</a></li>
-          <li><a href="#conflicts">3.5 Merge conflicts, explained</a></li>
-          <li><a href="#personal-folder">3.6 Your personal/ folder</a></li>
-          <li><a href="#troubleshooting">3.7 Common situations</a></li>
-          <li><a href="#opening-a-pr">3.8 Opening a pull request</a></li>
+          <li><a href="#workflow-diagram">3.1 The map — where your work travels</a></li>
+          <li><a href="#first-contribution">3.2 Adding notes, start to finish</a></li>
+          <li><a href="#staying-current">3.3 Staying current</a></li>
+          <li><a href="#conflicts">3.4 Merge conflicts</a></li>
+          <li><a href="#personal-folder">3.5 Your personal/ folder</a></li>
+          <li><a href="#troubleshooting">3.6 Common situations</a></li>
         </ol>
       </nav>
     </details>
@@ -163,258 +162,166 @@
     <section id="contributing">
       <h2><span class="num">3</span>Contributing</h2>
 
-      <h3 id="first-contribution"><span class="num">3.1</span>Your first contribution, start to finish</h3>
-      <p>The whole loop on one screen. Say you want to add notes for PHM5001 lecture 3 — each step links to the section that explains it properly.</p>
-      <ol>
-        <li><strong>Sync</strong> — click the sync icon in VS Code's status bar so you start from the latest <code>main</code> (<a href="#staying-current">§3.4</a>).</li>
-        <li><strong>Branch</strong> — create <code>yourname/phm5001-lecture-3</code> (<a href="#branches">§3.3</a>).</li>
-        <li><strong>Create the file</strong> — <code>PHM5001/notes/lecture-03-&lt;topic&gt;.md</code>. Folder and naming: <a href="index.html#repo-map">§1.3</a>; what a good note looks like: <a href="what-to-contribute.html#format">§4.3</a>.</li>
-        <li><strong>Write, then commit</strong> — Markdown basics and how to paste images: <a href="what-to-contribute.html#markdown">§4.2</a>. Then Source Control panel → short message → Commit (<a href="#branches">§3.3</a>).</li>
-        <li><strong>Push</strong> — click Sync Changes (<a href="#branches">§3.3</a>).</li>
-        <li><strong>Open a pull request</strong> on GitHub (<a href="#opening-a-pr">§3.8</a>).</li>
-        <li><strong>Respond to review</strong> — push more commits to the same branch; they join the PR automatically (<a href="#opening-a-pr">§3.8</a>).</li>
-        <li><strong>Merge</strong> once approved — your notes are on <code>main</code> for everyone.</li>
-      </ol>
-      <div class="callout">
-        <span class="callout-label">Before you start</span>
-        <p>First time here? Do the one-time setup in <a href="setup.html">§2</a> first — it ends with you branching, committing, and opening a real pull request (your contributor card), so everything below will already feel familiar. And if all you want is to fix a typo or add a couple of lines, you don't need this page at all — the web-editor path in <a href="index.html#small-edits">§1.2</a> does the branch and PR for you, in the browser.</p>
-        <p>Prefer watching before reading? VS Code's official <a href="https://www.youtube.com/watch?v=i_23KUAEtUM" target="_blank" rel="noopener">Using Git with VS Code</a> video (~10 min) shows the branch → commit → push flow on screen, and GitHub's free <a href="https://github.com/skills/introduction-to-github" target="_blank" rel="noopener">Introduction to GitHub</a> course lets you practise the whole loop on a throwaway repo before touching this one.</p>
-      </div>
-
-      <h3 id="workflow-diagram"><span class="num">3.2</span>How a change gets into main</h3>
-      <p>Nobody pushes straight to <code>main</code>. Every change — yours or anyone else's — arrives as a branch, then a pull request, then a review, then a merge.</p>
+      <h3 id="workflow-diagram"><span class="num">3.1</span>The map — where your work travels</h3>
+      <p>Everything Git does makes sense once you hold one picture in your head. There are <strong>two copies of the repository</strong> — GitHub's and yours — and each holds a <code>main</code> plus your branch. Your computer adds one extra stop, the <em>staging area</em>. Six commands move work between these places, and that's the whole system.</p>
 
       <figure class="diagram">
         <div class="svg-wrap">
-        <svg viewBox="0 0 760 340" role="img" aria-label="Diagram: over time, you and a coursemate each branch off main, commit on your own branch, and merge back through a separate pull request. Main only changes at those merge points.">
+        <svg viewBox="0 0 760 520" role="img" aria-label="Diagram of the whole Git system. Left box: your computer, containing working files, the staging area, your branch, and a local copy of main. Right box: GitHub, containing your branch and the shared main. git add moves an edit from working files to the staging area; git commit seals the staging area into your local branch; git push copies your branch's commits up to GitHub; a pull request, after review by Charles, merges your branch into the shared main; git pull brings the shared main's changes back down into your files; git fetch only updates what your computer knows, changing none of your files.">
           <defs>
-            <marker id="arrow-main2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-              <path d="M0,0 L10,5 L0,10 z" fill="var(--ink-muted)"/>
-            </marker>
-            <marker id="arrow-time" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-              <path d="M0,0 L10,5 L0,10 z" fill="var(--ink-muted)"/>
-            </marker>
-          </defs>
-
-          <text x="26" y="20" font-size="11" letter-spacing="0.1em" font-weight="700" fill="var(--ink-muted)">TIME</text>
-          <line x1="70" y1="16" x2="150" y2="16" stroke="var(--ink-muted)" stroke-width="1.6" marker-end="url(#arrow-time)"/>
-
-          <g transform="translate(240,52) scale(0.68)">
-            <circle cx="0" cy="-20" r="8" fill="var(--accent-2)"/>
-            <path d="M-12,4 C-12,-10 12,-10 12,4 L12,10 L-12,10 Z" fill="var(--accent-2)"/>
-          </g>
-          <text x="240" y="72" text-anchor="middle" font-size="13" font-weight="700" fill="var(--accent-2)">Coursemate</text>
-          <path d="M190,290 L230,80 L430,80 L520,290" fill="none" stroke="var(--accent-2)" stroke-width="2.2"/>
-          <circle cx="300" cy="80" r="5" fill="var(--paper-raised)" stroke="var(--accent-2)" stroke-width="2.2"/>
-          <circle cx="380" cy="80" r="5" fill="var(--paper-raised)" stroke="var(--accent-2)" stroke-width="2.2"/>
-          <text x="340" y="105" text-anchor="middle" font-size="12" fill="var(--ink-muted)">edits, commits</text>
-          <rect x="460" y="228" width="100" height="28" rx="14" fill="var(--accent-2)"/>
-          <text x="510" y="246" font-size="11.5" fill="var(--paper)" text-anchor="middle" font-weight="600">Pull request</text>
-
-          <g transform="translate(130,142) scale(0.68)">
-            <circle cx="0" cy="-20" r="8" fill="var(--accent)"/>
-            <path d="M-12,4 C-12,-10 12,-10 12,4 L12,10 L-12,10 Z" fill="var(--accent)"/>
-          </g>
-          <text x="130" y="163" text-anchor="middle" font-size="13" font-weight="700" fill="var(--accent)">You</text>
-          <path d="M90,290 L130,170 L280,170 L340,290" fill="none" stroke="var(--accent)" stroke-width="2.2"/>
-          <circle cx="180" cy="170" r="5" fill="var(--paper-raised)" stroke="var(--accent)" stroke-width="2.2"/>
-          <circle cx="230" cy="170" r="5" fill="var(--paper-raised)" stroke="var(--accent)" stroke-width="2.2"/>
-          <text x="205" y="195" text-anchor="middle" font-size="12" fill="var(--ink-muted)">edits, commits</text>
-          <rect x="280" y="228" width="100" height="28" rx="14" fill="var(--accent)"/>
-          <text x="330" y="246" font-size="11.5" fill="var(--paper)" text-anchor="middle" font-weight="600">Pull request</text>
-
-          <line x1="40" y1="290" x2="720" y2="290" stroke="var(--ink-muted)" stroke-width="2" marker-end="url(#arrow-main2)"/>
-          <text x="40" y="312" font-size="13" fill="var(--ink-muted)" font-weight="600">main</text>
-        </svg>
-        </div>
-        <figcaption>Two contributors branch off <code>main</code> independently, commit on their own branch, and each open a pull request to merge back in. <code>main</code> only ever changes at a merge point — never from a direct commit.</figcaption>
-      </figure>
-
-      <h3 id="branches"><span class="num">3.3</span>Branches — yours to create</h3>
-      <p>A branch is your own copy of the repository's history. You can edit and commit on it without touching <code>main</code>. Everyone gets their own.</p>
-
-      <figure class="diagram">
-        <div class="svg-wrap">
-        <svg viewBox="0 0 640 260" role="img" aria-label="Diagram: branching creates a full copy of main that only you edit. main stays exactly as it was until you merge your branch back in.">
-          <defs>
-            <marker id="arrow-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <marker id="arr-acc" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
               <path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/>
             </marker>
-          </defs>
-          <rect x="230" y="20" width="180" height="68" rx="8" fill="var(--paper)" stroke="var(--ink-muted)" stroke-width="1.6"/>
-          <text x="320" y="48" text-anchor="middle" font-size="14.5" font-weight="700" fill="var(--ink)">main</text>
-          <text x="320" y="68" text-anchor="middle" font-size="12.5" fill="var(--ink-muted)">the shared notes</text>
-
-          <line x1="320" y1="90" x2="320" y2="146" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#arrow-b)"/>
-          <text x="335" y="122" font-size="13" fill="var(--accent)" font-weight="600">you branch</text>
-
-          <g transform="translate(205,186) scale(0.6)">
-            <circle cx="0" cy="-20" r="8" fill="var(--accent)"/>
-            <path d="M-12,4 C-12,-10 12,-10 12,4 L12,10 L-12,10 Z" fill="var(--accent)"/>
-          </g>
-          <rect x="230" y="150" width="180" height="68" rx="8" fill="var(--accent-tint)" stroke="var(--accent)" stroke-width="1.8"/>
-          <text x="320" y="178" text-anchor="middle" font-size="14.5" font-weight="700" fill="var(--accent)">your branch</text>
-          <text x="320" y="198" text-anchor="middle" font-size="12.5" fill="var(--ink-muted)">a full copy, just for you</text>
-        </svg>
-        </div>
-        <figcaption>Branching creates a full copy of the notes that only you edit. <code>main</code> stays exactly as it was until you're ready to merge your branch back in.</figcaption>
-      </figure>
-
-      <p>To make sure you're branching off the latest version, sync first: click the sync icon (circular arrows) in VS Code's bottom status bar. Then create your branch:</p>
-      <ol>
-        <li>Click the branch name in the bottom-left status bar.
-          <figure class="screenshot">
-            <img src="screenshots/vscode-branch-indicator.png" alt="VS Code bottom status bar with the current branch name highlighted next to the sync icon" loading="lazy">
-            <figcaption>Bottom-left status bar: the highlighted item is the current branch name — click it. (Source: VS Code docs; highlight ours.)</figcaption>
-          </figure>
-        </li>
-        <li>Choose <strong>+ Create new branch…</strong>, type a name like <code>yourname/short-topic</code>, and press Enter.
-          <figure class="screenshot">
-            <img src="screenshots/vscode-create-branch.png" alt="The branch picker dropdown open at the top of VS Code, with the Create new branch option highlighted" loading="lazy">
-            <figcaption>The highlighted <strong>+ Create new branch…</strong> option — name it e.g. <code>priya/phm5003-notes</code>: whose branch it is, and roughly what it's for. (Source: VS Code docs; highlight ours.)</figcaption>
-          </figure>
-        </li>
-      </ol>
-      <div class="alt-box">
-        <p class="alt-label">Prefer the terminal?</p>
-        <div class="code-block"><pre><code>git checkout main
-git pull
-git checkout -b yourname/short-topic
-git push -u origin yourname/short-topic</code></pre></div>
-      </div>
-
-      <p>From here, edit files and save as normal. To save a checkpoint of your work:</p>
-      <ol>
-        <li>Open the Source Control panel (icon in the left sidebar). Your changed files are listed there. Type a short message describing what changed, then click the checkmark <strong>Commit</strong> button.
-          <figure class="screenshot">
-            <img src="screenshots/vscode-source-control.png" alt="VS Code Source Control panel with the commit message box and Commit button highlighted above the changed files" loading="lazy">
-            <figcaption>Source Control panel — the highlighted pair: type a message in the box, then click <strong>Commit</strong>. (Source: VS Code docs; highlight ours.)</figcaption>
-          </figure>
-        </li>
-        <li>Click <strong>Sync Changes</strong> to send your commit to GitHub.
-          <figure class="screenshot">
-            <img src="https://code.visualstudio.com/assets/docs/sourcecontrol/quickstart/sync-changes.png" alt="VS Code status bar showing the Sync Changes button after making a commit" loading="lazy">
-            <figcaption>Sync Changes — pushes your commit to your branch on GitHub. (Source: VS Code docs.)</figcaption>
-          </figure>
-        </li>
-      </ol>
-      <div class="alt-box">
-        <p class="alt-label">Prefer the terminal?</p>
-        <div class="code-block"><pre><code>git add .
-git commit -m "short description of the change"
-git push</code></pre></div>
-      </div>
-
-      <h3 id="staying-current"><span class="num">3.4</span>Keeping your branch current</h3>
-      <p>While you're working, other people's PRs are merging into <code>main</code>. If you don't pull those changes in, your branch drifts — and the drift shows up as conflicts later, often weeks of them at once, on the day you finally open a PR.</p>
-      <p>Do this often, ideally daily if you're actively working on a branch. Click the sync icon in VS Code's status bar, or:</p>
-      <div class="code-block"><pre><code>git checkout yourname/short-topic
-git pull origin main</code></pre></div>
-      <p>If nobody touched the same lines you did, this finishes silently. If they did, see <a href="#conflicts">§3.5</a>.</p>
-
-      <h3 id="conflicts"><span class="num">3.5</span>Merge conflicts, explained</h3>
-      <p>A conflict happens when two branches edit the <em>same lines</em> of the <em>same file</em>, starting from the same original version. Git merges non-overlapping changes automatically — it can't guess which of two edits to the same sentence you actually want.</p>
-
-      <figure class="diagram">
-        <div class="svg-wrap">
-        <svg viewBox="0 0 720 380" role="img" aria-label="Diagram: you and a coursemate both start from the same shared note and edit the same line differently. When the branches try to merge, git cannot decide between the two versions and stops to ask a human.">
-          <defs>
-            <marker id="arrow-split" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-              <path d="M0,0 L10,5 L0,10 z" fill="var(--ink-muted)"/>
-            </marker>
-            <marker id="arrow-you" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-              <path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/>
-            </marker>
-            <marker id="arrow-mate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <marker id="arr-acc2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
               <path d="M0,0 L10,5 L0,10 z" fill="var(--accent-2)"/>
             </marker>
+            <marker id="arr-mut" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="var(--ink-muted)"/>
+            </marker>
           </defs>
 
-          <rect x="245" y="16" width="230" height="90" rx="8" fill="var(--paper)" stroke="var(--ink-muted)" stroke-width="1.6"/>
-          <text x="360" y="40" text-anchor="middle" font-size="11" letter-spacing="0.06em" fill="var(--ink-muted)" font-weight="700">SHARED NOTE, BOTH BRANCHES</text>
-          <text x="360" y="62" text-anchor="middle" font-size="13.5" fill="var(--ink)">"Insulin lowers</text>
-          <text x="360" y="80" text-anchor="middle" font-size="13.5" fill="var(--ink)">blood glucose."</text>
+          <!-- your computer -->
+          <rect x="24" y="40" width="340" height="430" rx="10" fill="var(--paper)" stroke="var(--accent)" stroke-width="1.8"/>
+          <text x="194" y="66" text-anchor="middle" font-size="11" letter-spacing="0.1em" font-weight="700" fill="var(--accent)">YOUR COMPUTER</text>
 
-          <path d="M360,106 L182,148" fill="none" stroke="var(--ink-muted)" stroke-width="1.6" marker-end="url(#arrow-split)"/>
-          <path d="M360,106 L538,148" fill="none" stroke="var(--ink-muted)" stroke-width="1.6" marker-end="url(#arrow-split)"/>
+          <rect x="52" y="84" width="284" height="60" rx="8" fill="var(--paper)" stroke="var(--ink-muted)" stroke-width="1.5"/>
+          <text x="194" y="108" text-anchor="middle" font-size="13.5" font-weight="700" fill="var(--ink)">Working files</text>
+          <text x="194" y="126" text-anchor="middle" font-size="11.5" fill="var(--ink-muted)">the files you edit and save</text>
 
-          <rect x="30" y="150" width="300" height="100" rx="8" fill="var(--paper)" stroke="var(--accent)" stroke-width="1.8"/>
-          <g transform="translate(56,178) scale(0.55)">
-            <circle cx="0" cy="-20" r="8" fill="var(--accent)"/>
-            <path d="M-12,4 C-12,-10 12,-10 12,4 L12,10 L-12,10 Z" fill="var(--accent)"/>
-          </g>
-          <text x="190" y="172" text-anchor="middle" font-size="11" letter-spacing="0.06em" fill="var(--accent)" font-weight="700">YOUR BRANCH</text>
-          <text x="180" y="194" text-anchor="middle" font-size="13" fill="var(--ink)">"Insulin lowers blood glucose</text>
-          <text x="180" y="212" text-anchor="middle" font-size="13" fill="var(--ink)">by triggering GLUT4 uptake</text>
-          <text x="180" y="230" text-anchor="middle" font-size="13" fill="var(--ink)">in muscle cells."</text>
+          <line x1="194" y1="144" x2="194" y2="184" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#arr-acc)"/>
+          <text x="206" y="160" font-size="12.5" font-weight="700" fill="var(--accent)" font-family="var(--font-mono)">git add</text>
+          <text x="206" y="176" font-size="11" fill="var(--ink-muted)">onto the shortlist</text>
 
-          <rect x="390" y="150" width="300" height="100" rx="8" fill="var(--paper)" stroke="var(--accent-2)" stroke-width="1.8"/>
-          <g transform="translate(416,178) scale(0.55)">
-            <circle cx="0" cy="-20" r="8" fill="var(--accent-2)"/>
-            <path d="M-12,4 C-12,-10 12,-10 12,4 L12,10 L-12,10 Z" fill="var(--accent-2)"/>
-          </g>
-          <text x="550" y="172" text-anchor="middle" font-size="11" letter-spacing="0.06em" fill="var(--accent-2)" font-weight="700">COURSEMATE'S BRANCH</text>
-          <text x="540" y="194" text-anchor="middle" font-size="13" fill="var(--ink)">"Insulin lowers blood glucose</text>
-          <text x="540" y="212" text-anchor="middle" font-size="13" fill="var(--ink)">via glycogen synthesis</text>
-          <text x="540" y="230" text-anchor="middle" font-size="13" fill="var(--ink)">in the liver."</text>
+          <rect x="52" y="186" width="284" height="56" rx="8" fill="var(--paper-sunken)" stroke="var(--ink-muted)" stroke-width="1.5" stroke-dasharray="5 4"/>
+          <text x="194" y="208" text-anchor="middle" font-size="13.5" font-weight="700" fill="var(--ink)">Staging area</text>
+          <text x="194" y="226" text-anchor="middle" font-size="11.5" fill="var(--ink-muted)">the shortlist for your next commit</text>
 
-          <path d="M180,250 L322,300" fill="none" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#arrow-you)"/>
-          <path d="M540,250 L398,300" fill="none" stroke="var(--accent-2)" stroke-width="1.8" marker-end="url(#arrow-mate)"/>
+          <line x1="194" y1="242" x2="194" y2="282" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#arr-acc)"/>
+          <text x="206" y="258" font-size="12.5" font-weight="700" fill="var(--accent)" font-family="var(--font-mono)">git commit</text>
+          <text x="206" y="274" font-size="11" fill="var(--ink-muted)">one sealed snapshot</text>
 
-          <rect x="210" y="300" width="300" height="66" rx="8" fill="var(--paper)" stroke="var(--warn)" stroke-width="1.8"/>
-          <polygon points="252,320 268,348 236,348" fill="none" stroke="var(--warn)" stroke-width="2" stroke-linejoin="round"/>
-          <line x1="252" y1="328" x2="252" y2="339" stroke="var(--warn)" stroke-width="2" stroke-linecap="round"/>
-          <circle cx="252" cy="343.5" r="1.5" fill="var(--warn)"/>
-          <text x="285" y="330" font-size="12.5" fill="var(--ink)" font-weight="600">Same line, two versions —</text>
-          <text x="285" y="348" font-size="12.5" fill="var(--ink)" font-weight="600">git stops and asks you.</text>
+          <rect x="52" y="284" width="284" height="56" rx="8" fill="var(--accent-tint)" stroke="var(--accent)" stroke-width="1.8"/>
+          <text x="194" y="306" text-anchor="middle" font-size="13.5" font-weight="700" fill="var(--accent)">your branch</text>
+          <text x="194" y="324" text-anchor="middle" font-size="11.5" fill="var(--ink-muted)">your commits, on your computer</text>
+
+          <line x1="194" y1="340" x2="194" y2="392" stroke="var(--line)" stroke-width="1.6" stroke-dasharray="3 4"/>
+          <text x="204" y="370" font-size="10.5" font-style="italic" fill="var(--ink-muted)">branched off main</text>
+
+          <rect x="52" y="394" width="284" height="52" rx="8" fill="var(--paper)" stroke="var(--ink-muted)" stroke-width="1.4"/>
+          <text x="194" y="414" text-anchor="middle" font-size="13.5" font-weight="700" fill="var(--ink)">main</text>
+          <text x="194" y="432" text-anchor="middle" font-size="11.5" fill="var(--ink-muted)">your local copy of the shared notes</text>
+
+          <!-- github -->
+          <rect x="420" y="40" width="316" height="430" rx="10" fill="var(--paper)" stroke="var(--ink-muted)" stroke-width="1.6"/>
+          <text x="578" y="66" text-anchor="middle" font-size="11" letter-spacing="0.1em" font-weight="700" fill="var(--ink-muted)">GITHUB.COM · THE SHARED COPY</text>
+
+          <rect x="448" y="84" width="260" height="60" rx="8" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+          <text x="578" y="108" text-anchor="middle" font-size="13.5" font-weight="700" fill="var(--ink)">main</text>
+          <text x="578" y="126" text-anchor="middle" font-size="11.5" fill="var(--ink-muted)">the version everyone trusts</text>
+
+          <rect x="448" y="284" width="260" height="56" rx="8" fill="var(--accent-tint)" stroke="var(--accent)" stroke-width="1.8"/>
+          <text x="578" y="306" text-anchor="middle" font-size="13.5" font-weight="700" fill="var(--accent)">your branch</text>
+          <text x="578" y="324" text-anchor="middle" font-size="11.5" fill="var(--ink-muted)">your published commits</text>
+
+          <line x1="500" y1="282" x2="500" y2="146" stroke="var(--accent-2)" stroke-width="2.2" marker-end="url(#arr-acc2)"/>
+          <text x="514" y="196" font-size="12.5" font-weight="700" fill="var(--accent-2)">pull request</text>
+          <text x="514" y="213" font-size="11.5" fill="var(--ink-muted)">review by Charles,</text>
+          <text x="514" y="230" font-size="11.5" fill="var(--ink-muted)">then merge</text>
+
+          <!-- between the boxes -->
+          <line x1="336" y1="312" x2="446" y2="312" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#arr-acc)"/>
+          <text x="392" y="300" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--accent)" font-family="var(--font-mono)">git push</text>
+
+          <line x1="448" y1="106" x2="338" y2="106" stroke="var(--accent-2)" stroke-width="2.2" marker-end="url(#arr-acc2)"/>
+          <text x="392" y="94" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--accent-2)" font-family="var(--font-mono)">git pull</text>
+
+          <line x1="448" y1="140" x2="366" y2="140" stroke="var(--ink-muted)" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arr-mut)"/>
+          <text x="392" y="160" text-anchor="middle" font-size="11.5" font-weight="600" fill="var(--ink-muted)" font-family="var(--font-mono)">git fetch</text>
         </svg>
         </div>
-        <figcaption>You and a coursemate both branch from the same note and edit the same line differently. When either branch tries to merge the other's change in, git stops and asks a human to decide.</figcaption>
+        <figcaption>Both places hold a <code>main</code> and your branch. Work flows clockwise: <code>git add</code> and <code>git commit</code> happen entirely on your computer; <code>git push</code> publishes your commits to your branch on GitHub; the <strong>pull request</strong> merges them into the shared <code>main</code> after review; <code>git pull</code> brings everyone's merged work back down into your files. <code>git fetch</code> is pull's look-don't-touch half — notice its arrow stops at your computer's edge: it updates what your computer <em>knows</em> about GitHub without changing any file you see.</figcaption>
       </figure>
 
-      <p>VS Code shows you this visually — you don't need to hand-edit raw text to fix it. Open the conflicted file and you'll see coloured blocks with inline buttons:</p>
-      <figure class="screenshot">
-        <img src="screenshots/vscode-merge-conflict.png" alt="A conflicted file open in VS Code with the inline Accept Current, Accept Incoming, and Accept Both links highlighted above the conflict block" loading="lazy">
-        <figcaption>The highlighted row above each conflict block: <strong>Accept Current Change</strong>, <strong>Accept Incoming Change</strong>, <strong>Accept Both Changes</strong> — or edit the text directly. (Source: VS Code docs; highlight ours.)</figcaption>
-      </figure>
-      <ol>
-        <li>For each conflict, click <strong>Accept Current Change</strong>, <strong>Accept Incoming Change</strong>, or <strong>Accept Both Changes</strong> — or edit the text by hand if the right answer is a combination of the two. Decide what the line should actually say; it might be your version, theirs, both, or something new.</li>
-        <li>Save the file.</li>
-        <li>Go to Source Control. The resolved file shows as staged — write a commit message (or accept the pre-filled one) and click <strong>Commit</strong>, then <strong>Sync Changes</strong>.</li>
-      </ol>
-
-      <p>What VS Code's buttons are actually resolving — git doesn't delete either version, it inserts both into the file, wrapped in markers:</p>
-      <div class="code-block"><pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
-Insulin lowers blood glucose by triggering GLUT4 uptake in muscle cells.
-=======
-Insulin lowers blood glucose via glycogen synthesis in the liver.
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; coursemate-branch</code></pre></div>
-      <ul>
-        <li><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code> — everything below this, down to the next marker, is <strong>your</strong> current version.</li>
-        <li><code>=======</code> — the divider between the two versions.</li>
-        <li><code>&gt;&gt;&gt;&gt;&gt;&gt;&gt; coursemate-branch</code> — everything above this, since the divider, is <strong>their</strong> version.</li>
-      </ul>
-      <p>"Accept Current" keeps the first block and deletes the rest. "Accept Incoming" keeps the second block. "Accept Both" keeps both, markers removed. Editing by hand means deleting all three marker lines yourself and typing whatever the merged line should say.</p>
-      <div class="callout">
-        <span class="callout-label">Rule of thumb</span>
-        <p>If a conflict looks bigger than a few lines and you're not sure what the other person meant, ask them — in the PR, in Discussions, wherever's fastest. Guessing wrong and merging it is worse than leaving a conflict open for a day.</p>
+      <div class="ref-table-wrap">
+        <table class="ref-table">
+          <thead>
+            <tr><th>Command</th><th>What moves</th><th>From → to</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>git add</td><td>The edit you just made</td><td>working files → staging area</td></tr>
+            <tr><td>git commit</td><td>The whole shortlist, sealed as one snapshot</td><td>staging area → your branch (your computer)</td></tr>
+            <tr><td>git push</td><td>Your new commits</td><td>your branch (computer) → your branch (GitHub)</td></tr>
+            <tr><td>git fetch</td><td>News only — what changed on GitHub. None of your files change</td><td>GitHub → your computer's knowledge</td></tr>
+            <tr><td>git pull</td><td>The changes themselves (a fetch, then a merge)</td><td>main (GitHub) → your files</td></tr>
+            <tr><td>pull request + merge</td><td>Your branch's commits, after Charles reviews</td><td>your branch → main (both on GitHub)</td></tr>
+          </tbody>
+        </table>
       </div>
 
-      <h3 id="personal-folder"><span class="num">3.6</span>Your personal/ folder</h3>
-      <p>Every module has a <code>personal/</code> folder that git ignores completely. Nothing inside it — other than its own README — can be committed, pushed, or accidentally shared, no matter what you do.</p>
+      <p>Notice there is no arrow from your computer straight into the shared <code>main</code> — that lane doesn't exist. A direct push to <code>main</code> is automatically reverted by a guard bot minutes later (with an issue filed); changes land there only through the pull-request lane on the right.</p>
+
+      <h3 id="first-contribution"><span class="num">3.2</span>Adding notes, start to finish</h3>
+      <p>Say lecture 3 of PHM5001 just happened and you want to share your notes. Six moves — and if you finished <a href="setup.html#step-7">Setup Step 7</a>, you've already done every one of them once.</p>
+      <div class="callout">
+        <span class="callout-label">Before you start</span>
+        <p>First time here? Do the one-time <a href="setup.html">Setup</a> first. Fixing a typo? You need none of this — the web editor (<a href="index.html#small-edits">§1.2</a>) does the branch and PR for you, in the browser.</p>
+      </div>
+      <ol>
+        <li id="branches"><strong>Branch.</strong> Click <code>main</code> in the bottom-left corner of VS Code → <strong>+ Create new branch…</strong> → <code>yourusername/phm5001-lecture-3</code>. It must start with your GitHub username, and you get one open branch at a time — a bot deletes rule-breakers (click-by-click: <a href="setup.html#step-7a">Setup 7a–7b</a>).</li>
+        <li><strong>Write.</strong> Create the file in the right folder — <code>PHM5001/notes/lecture-03-&lt;topic&gt;.md</code> (folder map and naming: <a href="index.html#repo-map">§1.3</a>; what a good note looks like: <a href="what-to-contribute.html">§4</a>). Save.</li>
+        <li><strong>Commit your stuff.</strong> Source Control panel → <strong>+</strong> next to your files (stage) → short message → <strong>✓ Commit</strong>.</li>
+        <li><strong>Pull before you push — always.</strong> In the terminal: <code>git pull origin main</code>. Your commit is safe; this weaves in whatever coursemates merged while you were writing. If it says <code>CONFLICT</code>, that's <a href="#conflicts">§3.4</a> — a two-click fix, not a crisis.</li>
+        <li><strong>Push.</strong> Click <strong>Sync Changes</strong> (or <code>git push</code>).</li>
+        <li id="opening-a-pr"><strong>Pull request.</strong> On GitHub: <strong>Compare &amp; pull request</strong> → <strong>Create pull request</strong> → WhatsApp Charles the link. The red ✗ on the <em>PR approval check</em> just means “awaiting review”. After the merge: click <strong>Delete branch</strong> on the PR page (frees your one-branch slot), switch back to <code>main</code> in VS Code, and pull.</li>
+      </ol>
+      <div class="alt-box">
+        <p class="alt-label">The whole lap in the terminal</p>
+        <div class="code-block"><pre><code>git checkout main
+git pull
+git checkout -b yourusername/phm5001-lecture-3
+# … write the note, save …
+git add .
+git commit -m "PHM5001: lecture 3 notes"
+git pull origin main
+git push -u origin yourusername/phm5001-lecture-3</code></pre></div>
+      </div>
+
+      <h3 id="staying-current"><span class="num">3.3</span>Staying current</h3>
+      <p>While your branch lives, other people's PRs keep merging into the shared <code>main</code>. Pull daily — and always right before you push (move 4 above): click the sync icon in the status bar, or</p>
+      <div class="code-block"><pre><code>git pull origin main</code></pre></div>
+      <p>Skip it for a week and the differences pile up — and arrive all at once, as conflicts, on the day you finally open your PR.</p>
+
+      <h3 id="conflicts"><span class="num">3.4</span>Merge conflicts</h3>
+      <p>A conflict happens when two branches edit the <em>same lines</em> of the <em>same file</em>. Git merges everything else automatically — it just won't guess between two versions of one sentence, so it stops and asks you. VS Code turns the question into buttons:</p>
+      <figure class="screenshot">
+        <img src="screenshots/vscode-merge-conflict.png" alt="A conflicted file open in VS Code with the inline Accept Current, Accept Incoming, and Accept Both links highlighted above the conflict block" loading="lazy">
+        <figcaption>The highlighted row above each conflict block: <strong>Accept Current Change</strong> (keep yours), <strong>Accept Incoming Change</strong> (keep theirs), <strong>Accept Both Changes</strong> — or edit the text directly. (Source: VS Code docs; highlight ours.)</figcaption>
+      </figure>
+      <ol>
+        <li>For each highlighted block, click the right button — or hand-edit the line if the truth is a mix of both versions. (Under the buttons, Git has simply written both versions into the file between <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> markers; the buttons pick which lines survive.)</li>
+        <li>Save the file.</li>
+        <li>Source Control → <strong>Commit</strong> (the message is pre-filled) → <strong>Sync Changes</strong>.</li>
+      </ol>
+      <div class="callout">
+        <span class="callout-label">Rule of thumb</span>
+        <p>If a conflict is bigger than a few lines and you're not sure what the other person meant, ask them — in the PR or the group chat. Guessing wrong and merging it is worse than leaving it open for a day.</p>
+      </div>
+
+      <h3 id="personal-folder"><span class="num">3.5</span>Your personal/ folder</h3>
+      <p>Every module has a <code>personal/</code> folder that Git ignores completely. Nothing inside it — other than its own README — can be committed, pushed, or accidentally shared, no matter what you do.</p>
       <div class="tree" role="img" aria-label="Folder structure inside a module: slides, notes, and questions are tracked and shared; personal is private and gitignored.">
         <div class="tree-row"><span>slides/</span><span class="badge badge-tracked">tracked</span></div>
         <div class="tree-row"><span>notes/</span><span class="badge badge-tracked">tracked</span></div>
         <div class="tree-row"><span>questions/</span><span class="badge badge-tracked">tracked</span></div>
         <div class="tree-row"><span>personal/</span><span class="badge badge-private">private — gitignored</span></div>
       </div>
-      <p>Use it for drafts, half-formed notes, or annotations on someone else's notes that you're not ready — or don't want — to share. When something in there is ready for <code>main</code>, copy the finished version into <code>notes/</code> (or wherever it belongs) and commit <em>that</em> copy.</p>
+      <p>Use it for drafts, half-formed notes, or annotations you're not ready — or don't want — to share. When something in there is ready for <code>main</code>, copy the finished version into <code>notes/</code> and commit <em>that</em> copy.</p>
 
-      <h3 id="troubleshooting"><span class="num">3.7</span>Common situations</h3>
+      <h3 id="troubleshooting"><span class="num">3.6</span>Common situations</h3>
 
       <div class="scenario">
         <p class="situation"><span class="situation-label">Situation</span>I started editing directly on <code>main</code> by mistake</p>
-        <div class="code-block"><pre><code>git switch -c yourname/short-topic</code></pre></div>
+        <div class="code-block"><pre><code>git switch -c yourusername/short-topic</code></pre></div>
         <p>This moves your uncommitted changes onto a brand-new branch and leaves <code>main</code> untouched. Commit from there as normal.</p>
       </div>
 
@@ -428,7 +335,7 @@ git stash pop</code></pre></div>
 
       <div class="scenario">
         <p class="situation"><span class="situation-label">Situation</span>GitHub says my PR has a conflict, but I don't see one locally</p>
-        <p>Your branch is probably behind <code>main</code> on GitHub even though it's current on your machine. Repeat <a href="#staying-current">§3.4</a>, resolve anything that surfaces locally, then push again.</p>
+        <p>Your branch is behind <code>main</code> on GitHub even though it's current on your machine. Run <code>git pull origin main</code> (<a href="#staying-current">§3.3</a>), resolve anything that surfaces (<a href="#conflicts">§3.4</a>), then push again.</p>
       </div>
 
       <div class="scenario">
@@ -439,29 +346,8 @@ git stash pop</code></pre></div>
 
       <div class="scenario">
         <p class="situation"><span class="situation-label">Situation</span>I pushed something I didn't mean to share</p>
-        <p>Move the content into <code>personal/</code>, commit its removal from the tracked location, and push. If it's sensitive rather than just unfinished, say so in the PR or message the maintainer directly — a removed file is still visible in the repo's history.</p>
+        <p>Move the content into <code>personal/</code>, commit its removal from the tracked location, and push. If it's sensitive rather than just unfinished, say so in the PR or message Charles directly — a removed file is still visible in the repo's history.</p>
       </div>
-
-      <h3 id="opening-a-pr"><span class="num">3.8</span>Opening a pull request</h3>
-      <p>Once your branch is where you want it:</p>
-      <ol>
-        <li>Pull <code>main</code> in one more time (<a href="#staying-current">§3.4</a>) and resolve anything that comes up (<a href="#conflicts">§3.5</a>) — do this locally, it's easier than resolving inside GitHub's web editor.</li>
-        <li>Push your branch (Sync Changes in VS Code).</li>
-        <li>On GitHub, after a push you'll usually see a banner offering to open one directly:
-          <figure class="screenshot">
-            <img src="screenshots/github-new-pr.png" alt="GitHub's yellow banner for a recently pushed branch, with the green Compare and pull request button highlighted" loading="lazy">
-            <figcaption>The highlighted <strong>Compare &amp; pull request</strong> button in the yellow banner. If the banner's gone: repo → Pull requests tab → New pull request. (Source: GitHub docs; highlight ours.)</figcaption>
-          </figure>
-        </li>
-        <li>Base <code>main</code> ← compare <code>yourname/short-topic</code>. Write a short description — what you added or changed, and which lecture or topic it covers.
-          <figure class="screenshot">
-            <img src="screenshots/github-pr-form.png" alt="The Open a pull request form showing base and compare branch pickers and the title and description fields" loading="lazy">
-            <figcaption>Base/compare branch pickers, then a title and description. (Still a placeholder — GitHub's docs don't have a standalone shot of this exact non-fork form; see screenshots/README.md.)</figcaption>
-          </figure>
-        </li>
-        <li>Wait for review. If something needs changing, push new commits to the same branch — they'll appear on the same PR automatically.</li>
-        <li>Once approved, merge. <code>main</code> updates, and everyone's next pull picks it up.</li>
-      </ol>
 
       <div class="page-flow">
         <a href="setup.html">← Setup</a>

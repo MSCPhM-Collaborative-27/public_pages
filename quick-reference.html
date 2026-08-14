@@ -128,13 +128,13 @@
 
       <h3 id="loop"><span class="num">5.1</span>The contribution loop</h3>
       <ol>
-        <li>Sync <code>main</code> — sync icon in the status bar (<a href="contributing.html#staying-current">§3.4</a>)</li>
-        <li>Branch: <code>yourname/topic</code> (<a href="contributing.html#branches">§3.3</a>)</li>
+        <li>Sync <code>main</code> — sync icon in the status bar (<a href="contributing.html#staying-current">§3.3</a>)</li>
+        <li>Branch: <code>yourusername/topic</code> — must start with your GitHub username, and only one open branch each (<a href="contributing.html#branches">§3.2</a>)</li>
         <li>Create or edit the file in the right place — table below (<a href="index.html#repo-map">§1.3</a>)</li>
-        <li>Commit — Source Control panel, short message (<a href="contributing.html#branches">§3.3</a>)</li>
-        <li>Push — Sync Changes (<a href="contributing.html#branches">§3.3</a>)</li>
-        <li>Open a pull request on GitHub (<a href="contributing.html#opening-a-pr">§3.8</a>)</li>
-        <li>Respond to review, then merge (<a href="contributing.html#opening-a-pr">§3.8</a>)</li>
+        <li>Commit — Source Control panel, short message (<a href="contributing.html#first-contribution">§3.2</a>)</li>
+        <li>Push — Sync Changes (<a href="contributing.html#first-contribution">§3.2</a>)</li>
+        <li>Open a pull request on GitHub (<a href="contributing.html#opening-a-pr">§3.2</a>)</li>
+        <li>Respond to review, then merge — and delete the branch on the PR page to free your slot (<a href="contributing.html#opening-a-pr">§3.2</a>)</li>
       </ol>
       <p>For a typo or a small addition, the web editor (<a href="index.html#small-edits">§1.2</a>) does the branch and PR steps for you, in the browser. Markdown syntax and how to paste images into a note: <a href="what-to-contribute.html#markdown">§4.2</a>.</p>
 
@@ -162,14 +162,14 @@
             <tr><th>Command</th><th>What it does</th></tr>
           </thead>
           <tbody>
-            <tr><td>git checkout -b yourname/topic</td><td>Start a new branch off <code>main</code></td></tr>
-            <tr><td>git push -u origin yourname/topic</td><td>Push it and link it to GitHub</td></tr>
+            <tr><td>git checkout -b yourusername/topic</td><td>Start a new branch off <code>main</code></td></tr>
+            <tr><td>git push -u origin yourusername/topic</td><td>Push it and link it to GitHub</td></tr>
             <tr><td>git pull origin main</td><td>Pull <code>main</code>'s latest changes into your current branch</td></tr>
             <tr><td>git status</td><td>See what's changed, and which branch you're on</td></tr>
             <tr><td>git add &lt;file&gt;</td><td>Stage a change</td></tr>
             <tr><td>git commit</td><td>Save the staged changes</td></tr>
             <tr><td>git stash / git stash pop</td><td>Set aside uncommitted changes / bring them back</td></tr>
-            <tr><td>git switch -c yourname/topic</td><td>Move uncommitted work off <code>main</code> onto a new branch</td></tr>
+            <tr><td>git switch -c yourusername/topic</td><td>Move uncommitted work off <code>main</code> onto a new branch</td></tr>
             <tr><td>git reset --soft HEAD~1</td><td>Undo the last (unpushed) commit, keep the changes staged</td></tr>
           </tbody>
         </table>

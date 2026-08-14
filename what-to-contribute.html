@@ -167,7 +167,7 @@
         <li><strong>Fix a typo or a small error</strong> in an existing note — the web editor (<a href="index.html#small-edits">§1.2</a>) does this from the browser, nothing installed.</li>
         <li><strong>Upload the slides</strong> for a lecture that's missing them, into that module's <code>slides/</code> folder.</li>
         <li><strong>Expand or correct an existing note</strong> — add what the lecturer said that the note missed, or fix something that doesn't match the lecture.</li>
-        <li><strong>Add notes for a recent lecture</strong> — the core contribution. The start-to-finish walkthrough is <a href="contributing.html#first-contribution">§3.1</a>; how to write the note itself is <a href="#markdown">§4.2</a>.</li>
+        <li><strong>Add notes for a recent lecture</strong> — the core contribution. The start-to-finish walkthrough is <a href="contributing.html#first-contribution">§3.2</a>; how to write the note itself is <a href="#markdown">§4.2</a>.</li>
         <li><strong>Write practice questions or worked solutions</strong> into a module's <code>questions/</code> folder.</li>
         <li><strong>Pick up an open <a href="https://github.com/MSCPhM-Collaborative-27/courses_and_notesharing/issues" target="_blank" rel="noopener">Issue</a></strong> — a known gap someone has already flagged (<a href="#discussions">§4.5</a>).</li>
       </ol>
@@ -214,7 +214,7 @@
           <li>Screenshot the diagram: <strong>Win+Shift+S</strong> on Windows, <strong>Cmd+Ctrl+Shift+4</strong> on Mac. Both copy the selected region to the clipboard.</li>
           <li>Click the spot in your note where the image belongs and paste (<strong>Ctrl/Cmd+V</strong>). VS Code saves the screenshot as an image file next to your note and inserts the <code>![…](…)</code> link for you.</li>
           <li>Check the preview — the image should appear right there in the note.</li>
-          <li>Commit as normal (<a href="contributing.html#branches">§3.3</a>). The image is a file like any other: it gets committed alongside the note, and GitHub renders the two together.</li>
+          <li>Commit as normal (<a href="contributing.html#branches">§3.2</a>). The image is a file like any other: it gets committed alongside the note, and GitHub renders the two together.</li>
         </ol>
         <figure class="screenshot">
           <video src="https://code.visualstudio.com/assets/updates/1_79/markdown-copy.mp4" controls muted loop playsinline preload="metadata"></video>
@@ -232,7 +232,7 @@
         <li>Working in the web editor (<a href="index.html#small-edits">§1.2</a>)? You can't paste images there — upload them instead via <strong>Add file → Upload files</strong> into the module's <code>notes/images/</code> folder, then link with <code>![name](images/file.png)</code>.</li>
       </ul>
 
-      <p><strong>If you'd rather use a proper notes app.</strong> <a href="https://obsidian.md" target="_blank" rel="noopener">Obsidian</a> (free) gives the closest Notion-like feel while still editing the repo's actual files: <strong>File → Open folder as vault</strong> → pick your cloned repo folder, and you get live-rendered editing, image pasting, and offline use — every change lands in the same files git tracks, so committing works exactly as in <a href="contributing.html#branches">§3.3</a>. Two settings to keep its output GitHub-compatible, both under <strong>Settings → Files &amp; links</strong>: turn <em>off</em> "Use [[Wikilinks]]", and set "Default location for new attachments" to <em>In subfolder under current folder</em>, named <code>images</code>.</p>
+      <p><strong>If you'd rather use a proper notes app.</strong> <a href="https://obsidian.md" target="_blank" rel="noopener">Obsidian</a> (free) gives the closest Notion-like feel while still editing the repo's actual files: <strong>File → Open folder as vault</strong> → pick your cloned repo folder, and you get live-rendered editing, image pasting, and offline use — every change lands in the same files git tracks, so committing works exactly as in <a href="contributing.html#branches">§3.2</a>. Two settings to keep its output GitHub-compatible, both under <strong>Settings → Files &amp; links</strong>: turn <em>off</em> "Use [[Wikilinks]]", and set "Default location for new attachments" to <em>In subfolder under current folder</em>, named <code>images</code>.</p>
       <p><strong>Why not Notion, Word, or Google Docs.</strong> They keep your notes in their own cloud or format, not as files in the repo — sharing means manually exporting every time, exports scramble image links, and reviewers can't see line-by-line what changed. They're fine for private drafting (that's what <a href="contributing.html#personal-folder"><code>personal/</code></a> is for, too), but the shared copy is the <code>.md</code> file in the repo.</p>
 
       <h3 id="format"><span class="num">4.3</span>Format &amp; quality bar</h3>

@@ -773,16 +773,26 @@ Receiving objects: 100% (214/214), 4.21 MiB | 3.05 MiB/s, done.
 
       <p>One rule governs everything in this repo: <strong>nobody edits <code>main</code> directly</strong>. <code>main</code> is the shared copy everyone trusts. You always work on a <em>branch</em> (your own parallel copy), then open a <em>pull request</em> (“please merge my branch in”), and Charles reviews and merges it. You're about to do that whole loop once.</p>
 
+      <p>The lap has seven moves, each a sub-step below — this exact sequence is what you'll repeat for every real contribution, so let the order sink in:</p>
+      <p><strong>branch → edit &amp; save → pull → stage → commit → push → pull request</strong></p>
+
       <div class="callout warn">
         <span class="callout-label">The one thing to never do</span>
-        <p>Never commit while the bottom-left corner of VS Code says <code>main</code>. Check that corner before every commit — it should say <em>your</em> branch name. (7a fixes this in one click if you catch it early; <a href="contributing.html#troubleshooting">§3.7</a> rescues you if you don't.)</p>
+        <p>Never commit while the bottom-left corner of VS Code says <code>main</code>. Check that corner before every commit — it should say <em>your</em> branch name. Nothing slips through anyway — a guard bot automatically reverts any direct push to <code>main</code> moments later and files an issue about it — but catching it early saves the untangling. (7a fixes this in one click if you catch it early; <a href="contributing.html#troubleshooting">§3.6</a> rescues you if you don't.)</p>
       </div>
 
       <div class="substep" id="step-7a">
         <h4><span class="sub-id">7a</span>Create your branch — and switch to it</h4>
         <div class="action">
           <span class="block-label">👉 Do this</span>
-          <p>Click where it says <code>main</code> in the <strong>bottom-left status bar</strong>. A menu opens at the top — choose <strong>+ Create new branch…</strong>, type <code>yourname/join-contributors</code> (all lowercase, no spaces — e.g. <code>priya/join-contributors</code>), and press <kbd>Enter</kbd>.</p>
+          <p>Click where it says <code>main</code> in the <strong>bottom-left status bar</strong>. A menu opens at the top — choose <strong>+ Create new branch…</strong>, type <code>yourusername/join-contributors</code>, and press <kbd>Enter</kbd>. The part before the <code>/</code> must be your <strong>GitHub username</strong> — the same one that goes on your contributor line. Priya Nair, username <code>priyacodes</code>, would type <code>priyacodes/join-contributors</code>.</p>
+        </div>
+        <div class="callout warn">
+          <span class="callout-label">A bot checks branch names — two rules</span>
+          <ul>
+            <li>The name must start with <strong>your GitHub username</strong> + <code>/</code> (capitalisation doesn't matter). A branch named any other way is deleted from GitHub seconds after you publish it, and the bot files an issue telling you how to redo it.</li>
+            <li><strong>One open branch per person.</strong> Publish a second one while the first still exists and the bot deletes that too. Finish one piece of work — and delete its branch after the merge (<a href="#step-7i">7i</a> shows where the button is) — before starting the next.</li>
+          </ul>
         </div>
         <figure class="screenshot">
           <img src="screenshots/vscode-branch-indicator.png" alt="VS Code bottom status bar with the current branch name highlighted next to the sync icon" loading="lazy">
@@ -794,22 +804,22 @@ Receiving objects: 100% (214/214), 4.21 MiB | 3.05 MiB/s, done.
         </figure>
         <div class="expect">
           <span class="block-label">👀 You should see</span>
-          <p>The bottom-left corner now reads <code>yourname/join-contributors</code>. Creating a branch in VS Code also <em>switches</em> you onto it — that corner is always the truth about where your work will land.</p>
+          <p>The bottom-left corner now reads <code>yourusername/join-contributors</code>. Creating a branch in VS Code also <em>switches</em> you onto it — that corner is always the truth about where your work will land.</p>
         </div>
         <div class="fork">
           <p class="fork-q">Does the corner show your new branch name?</p>
           <details class="fork-opt ok">
-            <summary><span class="fork-ico">✓</span><span>Yes — it says <code>yourname/join-contributors</code></span></summary>
+            <summary><span class="fork-ico">✓</span><span>Yes — it says <code>yourusername/join-contributors</code></span></summary>
             <div class="fork-body"><p>You're standing on your own branch. Continue to <a href="#step-7b">7b</a>.</p></div>
           </details>
           <details class="fork-opt bad">
             <summary><span class="fork-ico">✗</span><span>No — it still says <code>main</code></span></summary>
-            <div class="fork-body"><p>The branch may exist without you standing on it. Click the corner again and pick <code>yourname/join-contributors</code> from the list — the corner updates when you land.</p></div>
+            <div class="fork-body"><p>The branch may exist without you standing on it. Click the corner again and pick <code>yourusername/join-contributors</code> from the list — the corner updates when you land.</p></div>
           </details>
         </div>
         <div class="alt-box">
           <p class="alt-label">Prefer the terminal?</p>
-          <div class="code-block"><pre><code>git checkout -b yourname/join-contributors</code></pre></div>
+          <div class="code-block"><pre><code>git checkout -b yourusername/join-contributors</code></pre></div>
           <p><code>-b</code> means “create it, then switch me onto it.”</p>
         </div>
       </div>
@@ -820,16 +830,16 @@ Receiving objects: 100% (214/214), 4.21 MiB | 3.05 MiB/s, done.
         <div class="action">
           <span class="block-label">👉 Do this</span>
           <p>In the terminal — with the name after <code>origin</code> matching your branch <em>exactly</em> as the corner shows it:</p>
-          <div class="code-block"><pre><code>git push -u origin yourname/join-contributors</code></pre></div>
+          <div class="code-block"><pre><code>git push -u origin yourusername/join-contributors</code></pre></div>
         </div>
         <div class="expect">
           <span class="block-label">👀 You should see</span>
           <div class="term" role="img" aria-label="Terminal output of git push creating a new branch on GitHub">
             <div class="term-bar"><i></i><i></i><i></i><span class="term-title">Terminal — VS Code</span></div>
-            <pre><span class="t-p">&gt;</span> <span class="t-cmd">git push -u origin yourname/join-contributors</span>
+            <pre><span class="t-p">&gt;</span> <span class="t-cmd">git push -u origin yourusername/join-contributors</span>
 To https://github.com/MSCPhM-Collaborative-27/courses_and_notesharing.git
-<span class="t-ok"> * [new branch]      yourname/join-contributors -&gt; yourname/join-contributors</span>
-branch 'yourname/join-contributors' set up to track 'origin/yourname/join-contributors'.</pre>
+<span class="t-ok"> * [new branch]      yourusername/join-contributors -&gt; yourusername/join-contributors</span>
+branch 'yourusername/join-contributors' set up to track 'origin/yourusername/join-contributors'.</pre>
           </div>
         </div>
         <div class="fork">
@@ -837,6 +847,14 @@ branch 'yourname/join-contributors' set up to track 'origin/yourname/join-contri
           <details class="fork-opt bad">
             <summary><span class="fork-ico">✗</span><span><code>error: src refspec … does not match any</code></span></summary>
             <div class="fork-body"><p>The branch name you typed after <code>origin</code> doesn't exactly match the one you created. Copy the name from the bottom-left corner and run the command again with that exact spelling.</p></div>
+          </details>
+          <details class="fork-opt bad">
+            <summary><span class="fork-ico">✗</span><span>It pushed fine — but the branch vanished from GitHub and a bot filed an issue</span></summary>
+            <div class="fork-body">
+              <p>Your branch name doesn't start with your GitHub username (7a's rule), so the guard bot deleted it from GitHub. Your work is safe on your laptop. Rename the branch you're standing on, then publish it under the corrected name:</p>
+              <div class="code-block"><pre><code>git branch -m yourusername/join-contributors
+git push -u origin yourusername/join-contributors</code></pre></div>
+            </div>
           </details>
         </div>
         <div class="alt-box">
@@ -868,42 +886,106 @@ branch 'yourname/join-contributors' set up to track 'origin/yourname/join-contri
       </div>
 
       <div class="substep" id="step-7d">
-        <h4><span class="sub-id">7d</span>Commit — save a named checkpoint</h4>
+        <h4><span class="sub-id">7d</span>Pull — pick up what merged while you were typing</h4>
+        <p>Your copy of the repo is a snapshot from the moment you cloned. Coursemates may have merged changes since — so before packaging up your own change, always pull the latest in. Do it now, and make it a reflex before every commit.</p>
         <div class="action">
           <span class="block-label">👉 Do this</span>
-          <p>Click the <strong>Source Control</strong> icon (left edge, the one with the badge). Your file is listed under <em>Changes</em>. In the message box type <code>Add &lt;your name&gt; to contributor list</code>, then click <strong>✓ Commit</strong>.</p>
+          <p>In the terminal:</p>
+          <div class="code-block"><pre><code>git pull origin main</code></pre></div>
+        </div>
+        <div class="fork">
+          <p class="fork-q">What did it say?</p>
+          <details class="fork-opt ok">
+            <summary><span class="fork-ico">✓</span><span><code>Already up to date.</code></span></summary>
+            <div class="fork-body">
+              <div class="term" role="img" aria-label="Terminal showing git pull replying Already up to date">
+                <div class="term-bar"><i></i><i></i><i></i><span class="term-title">Terminal — VS Code</span></div>
+                <pre><span class="t-p">&gt;</span> <span class="t-cmd">git pull origin main</span>
+From https://github.com/MSCPhM-Collaborative-27/courses_and_notesharing
+ * branch            main       -&gt; FETCH_HEAD
+<span class="t-ok">Already up to date.</span></pre>
+              </div>
+              <p>Nothing merged since you cloned — the usual case when the clone was minutes ago. Continue to <a href="#step-7e">7e</a>.</p>
+            </div>
+          </details>
+          <details class="fork-opt ok">
+            <summary><span class="fork-ico">✓</span><span>A short list of files and a line like <code>Fast-forward</code></span></summary>
+            <div class="fork-body"><p>Coursemates' changes just landed on your machine — that's the system working. You're current now; continue to <a href="#step-7e">7e</a>.</p></div>
+          </details>
+          <details class="fork-opt bad">
+            <summary><span class="fork-ico">✗</span><span><code>error: Your local changes … would be overwritten by merge: contributors.txt</code></span></summary>
+            <div class="fork-body"><p>Someone else's contributor line was merged while you were editing the same file, and Git refuses to risk overwriting your unsaved-into-history edit. No damage done. Carry on to <a href="#step-7e">7e</a> and <a href="#step-7f">7f</a> — once your change is committed it's safe, so run <code>git pull origin main</code> again right after, before pushing. If that second pull reports a <em>conflict</em>, <a href="contributing.html#conflicts">§3.4</a> shows the three-click fix — or ask in the group chat.</p></div>
+          </details>
+        </div>
+      </div>
+
+      <div class="substep" id="step-7e">
+        <h4><span class="sub-id">7e</span>Stage — choose what goes into the snapshot</h4>
+        <p><em>Staging</em> means picking exactly which changed files go into your next commit. With one file changed it feels like a formality — but it's the habit that later stops you from accidentally committing half-finished notes alongside the thing you meant to share.</p>
+        <div class="action">
+          <span class="block-label">👉 Do this</span>
+          <p>Click the <strong>Source Control</strong> icon (left edge — it's carrying the blue <strong>1</strong> badge from 7c). Under <em>Changes</em>, hover over <code>contributors.txt</code> and click the <strong>+</strong> that appears next to it (<em>Stage Changes</em>).</p>
+        </div>
+        <div class="expect">
+          <span class="block-label">👀 You should see</span>
+          <p>The file moves out of <em>Changes</em> into a new list called <strong>Staged Changes</strong>. That list is a promise: exactly these files, and nothing else, go into the next commit.</p>
+        </div>
+        <div class="alt-box">
+          <p class="alt-label">Prefer the terminal?</p>
+          <div class="code-block"><pre><code>git add contributors.txt</code></pre></div>
+        </div>
+      </div>
+
+      <div class="substep" id="step-7f">
+        <h4><span class="sub-id">7f</span>Commit — save a named checkpoint</h4>
+        <p>A <em>commit</em> wraps your staged changes into one named package in the repo's history, stamped with the name you configured in Step 5.</p>
+        <div class="action">
+          <span class="block-label">👉 Do this</span>
+          <p>Still in the Source Control panel: type <code>Add &lt;your name&gt; to contributor list</code> in the message box, then click <strong>✓ Commit</strong>.</p>
         </div>
         <figure class="screenshot">
           <img src="screenshots/vscode-source-control.png" alt="VS Code Source Control panel with the commit message box and Commit button highlighted above the changed files" loading="lazy">
           <figcaption>The highlighted pair: type a message in the box, then click <strong>Commit</strong>. (Source: VS Code docs; highlight ours.)</figcaption>
         </figure>
+        <div class="expect">
+          <span class="block-label">👀 You should see</span>
+          <p>The message box clears and <em>Staged Changes</em> empties — your checkpoint now exists in the repo's history. Nothing has left your laptop yet; that's the next step.</p>
+        </div>
         <div class="fork">
-          <p class="fork-q">Did a popup appear?</p>
-          <details class="fork-opt ok">
+          <p class="fork-q">Did something pop up instead?</p>
+          <details class="fork-opt bad">
             <summary><span class="fork-ico">!</span><span>“There are no staged changes to commit. Would you like to stage all your changes…?”</span></summary>
-            <div class="fork-body"><p>Normal — it's asking “commit everything you changed?”. Click <strong>Yes</strong> (or <strong>Always</strong>, to stop it asking in future).</p></div>
+            <div class="fork-body"><p>The <strong>+</strong> in <a href="#step-7e">7e</a> didn't register. Click <strong>Cancel</strong>, redo 7e (watch the file actually move to <em>Staged Changes</em>), then click <strong>Commit</strong> again.</p></div>
           </details>
           <details class="fork-opt bad">
             <summary><span class="fork-ico">✗</span><span>An error mentioning <code>user.name</code> or <code>user.email</code></span></summary>
             <div class="fork-body"><p>Step 5 didn't stick. Redo <a href="#step-5">Step 5</a>'s three commands, then click <strong>Commit</strong> again.</p></div>
           </details>
         </div>
+        <div class="alt-box">
+          <p class="alt-label">Prefer the terminal?</p>
+          <div class="code-block"><pre><code>git commit -m "Add your name to contributor list"</code></pre></div>
+        </div>
       </div>
 
-      <div class="substep" id="step-7e">
-        <h4><span class="sub-id">7e</span>Push — send it to GitHub</h4>
+      <div class="substep" id="step-7g">
+        <h4><span class="sub-id">7g</span>Push — send it to GitHub</h4>
         <div class="action">
           <span class="block-label">👉 Do this</span>
-          <p>In the Source Control panel, click <strong>Sync Changes</strong> (or the circular-arrows icon in the status bar). This pushes your commit up to the branch you published in 7b.</p>
+          <p>In the Source Control panel, click <strong>Sync Changes</strong> (or the circular-arrows icon in the status bar). This pushes your commit up to the branch you published in 7b. (If 7d told you to pull again after committing, do that first: <code>git pull origin main</code>, then push.)</p>
         </div>
         <div class="expect">
           <span class="block-label">👀 You should see</span>
           <p>The button spins briefly, then the panel shows no pending changes. Your line is now on GitHub — on <em>your branch</em>, not on <code>main</code>. One step left.</p>
         </div>
+        <div class="alt-box">
+          <p class="alt-label">Prefer the terminal?</p>
+          <div class="code-block"><pre><code>git push</code></pre></div>
+        </div>
       </div>
 
-      <div class="substep" id="step-7f">
-        <h4><span class="sub-id">7f</span>Open the pull request</h4>
+      <div class="substep" id="step-7h">
+        <h4><span class="sub-id">7h</span>Open the pull request</h4>
         <div class="action">
           <span class="block-label">👉 Do this</span>
           <p>In your web browser, go to <code>github.com/MSCPhM-Collaborative-27/courses_and_notesharing</code>. A yellow banner offers your just-pushed branch — click <strong>Compare &amp; pull request</strong>, check the title says roughly what you did, and click the green <strong>Create pull request</strong>.</p>
@@ -916,30 +998,32 @@ branch 'yourname/join-contributors' set up to track 'origin/yourname/join-contri
           <p class="fork-q">No yellow banner?</p>
           <details class="fork-opt ok">
             <summary><span class="fork-ico">!</span><span>The banner disappeared (it only lingers a few hours)</span></summary>
-            <div class="fork-body"><p>Click the <strong>Pull requests</strong> tab → <strong>New pull request</strong> → in the <em>compare</em> dropdown pick <code>yourname/join-contributors</code> → <strong>Create pull request</strong>. Same result.</p></div>
+            <div class="fork-body"><p>Click the <strong>Pull requests</strong> tab → <strong>New pull request</strong> → in the <em>compare</em> dropdown pick <code>yourusername/join-contributors</code> → <strong>Create pull request</strong>. Same result.</p></div>
           </details>
         </div>
         <div class="expect">
           <span class="block-label">👀 You should see</span>
           <p>A page titled with your commit message, marked <strong>Open</strong>, showing “wants to merge 1 commit into <code>main</code>”. That page's address is your PR link.</p>
+          <p>Lower down, a check named <strong>PR approval check</strong> shows a red ✗. That's not an error and nothing is broken — it only turns green once Charles approves, so red simply means “awaiting review”.</p>
         </div>
       </div>
 
-      <div class="substep" id="step-7g">
-        <h4><span class="sub-id">7g</span>WhatsApp Charles</h4>
+      <div class="substep" id="step-7i">
+        <h4><span class="sub-id">7i</span>WhatsApp Charles</h4>
         <div class="action">
           <span class="block-label">👉 Do this</span>
           <p>Copy the PR page's URL from your browser's address bar and send it to Charles on WhatsApp — something like <em>“First PR, contributor card: &lt;link&gt;”</em>. Merging is deliberately human: every change gets a second pair of eyes before it lands on <code>main</code>.</p>
         </div>
         <div class="expect">
           <span class="block-label">👀 What happens next</span>
-          <p>Charles reviews and merges. The robot then redraws <code>contributor_list.md</code> — with your card on it, using your GitHub profile photo. If he asks for a tweak first: edit the file again, save, <strong>Commit</strong>, <strong>Sync Changes</strong> — new commits on your branch join the same PR automatically.</p>
+          <p>Charles reviews and merges. The robot then redraws <code>contributor_list.md</code> — with your card on it, using your GitHub profile photo. If he asks for a tweak first: edit the file again, then repeat the tail of the lap — save, stage, commit, push — and the new commit joins the same PR automatically.</p>
+          <p>Once it merges, the PR page grows a <strong>Delete branch</strong> button — click it. That frees your one-open-branch slot (7a's second rule) for your next contribution. Then back in VS Code: click the branch name in the corner, switch to <code>main</code>, and pull — ready for the next lap.</p>
         </div>
       </div>
 
       <div class="checkpoint">
         <span class="checkpoint-label">✔ Checkpoint</span>
-        <p>Your PR is open and Charles has the link. Once it merges, your card is on the contributor list — and you have now done, once, the exact loop every real contribution uses: <em>branch → edit → commit → push → PR → review → merge</em>.</p>
+        <p>Your PR is open and Charles has the link. Once it merges, your card is on the contributor list — and you have now done, once, the exact loop every real contribution uses: <em>branch → edit &amp; save → pull → stage → commit → push → pull request → review → merge</em>. Plus the cleanup move after the merge: delete the branch and switch back to <code>main</code> (<a href="#step-7i">7i</a>).</p>
       </div>
     </section>
 
@@ -1071,7 +1155,7 @@ branch 'yourname/join-contributors' set up to track 'origin/yourname/join-contri
       <div class="callout">
         <span class="callout-label">Keeping your notes fresh</span>
         <p>Coursemates merge new notes all the time, and your laptop only has what it had at your last download. Make a habit — before every class, or daily — of grabbing the latest: click <strong>⇣ Pull latest</strong> in the notes browser's sidebar, or type <code>git pull</code> in VS Code's terminal. Same thing.</p>
-        <p>If <code>git pull</code> ever complains about conflicts or local changes, that's covered in <a href="contributing.html#staying-current">§3.4</a>–<a href="contributing.html#conflicts">§3.5</a> — or just ask in the group chat.</p>
+        <p>If <code>git pull</code> ever complains about conflicts or local changes, that's covered in <a href="contributing.html#staying-current">§3.3</a>–<a href="contributing.html#conflicts">§3.4</a> — or just ask in the group chat.</p>
       </div>
 
       <div class="checkpoint">
@@ -1084,7 +1168,7 @@ branch 'yourname/join-contributors' set up to track 'origin/yourname/join-contri
       <h3>You're set up — what now?</h3>
       <p>Look at what you now have: Git and VS Code installed, the whole repo on your machine, a merged pull request with your name on it, and a notes app with the timetable one double-click away. That was the hard part, and it never has to be done again.</p>
       <ul>
-        <li><strong>To add real notes</strong>, the loop is exactly what you did in Step 7 — branch, edit, commit, push, PR — just with a note file instead of the contributor list. <a href="contributing.html">§3 Contributing</a> is that loop in day-to-day form, including how to stay in sync and fix conflicts.</li>
+        <li><strong>To add real notes</strong>, the loop is exactly what you did in Step 7 — branch, edit &amp; save, pull, stage, commit, push, pull request — just with a note file instead of the contributor list. <a href="contributing.html">§3 Contributing</a> is that loop in day-to-day form, including how to stay in sync and fix conflicts.</li>
         <li><strong>Not sure what to add?</strong> <a href="what-to-contribute.html">§4</a> has ideas and what a good note looks like.</li>
         <li><strong>Forgot a command?</strong> <a href="quick-reference.html">§5</a> is the one-screen cheat sheet.</li>
       </ul>
